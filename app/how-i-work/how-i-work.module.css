@@ -3,12 +3,22 @@
   margin-bottom: 1.25rem;
 }
 
+/* Also used by Home's compact "How I Work" summary card (app/page.tsx) —
+   keep this class's own rules stable even though this page's intro copy
+   changed; Home applies its own cardIntroReset on top via its higher-
+   specificity ".summaryCard .cardIntroReset" selector. */
 .intro {
   max-width: var(--text-max);
   color: var(--color-fg-muted);
   margin-bottom: 2.5rem;
 }
 
+/* Unused on this page since the Approach/Cases/Operating Model/Closing
+   restructure (no more standalone 01–06 nav strip here) — kept exactly as
+   Home's compact summary card (app/page.tsx) still renders these same
+   flowStrip/flowStep/flowNumber/flowLabel classes for its own "01
+   Principle ... 06 Deliver" mini nav via howStyles.* + its own
+   page.module.css reset overrides. Do not remove or rename. */
 .flowStrip {
   display: flex;
   flex-wrap: wrap;
@@ -39,120 +49,6 @@
 .flowLabel {
   font-weight: 600;
   font-size: var(--font-body);
-}
-
-.axesLabel {
-  font-size: var(--font-meta);
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--color-fg-muted);
-  margin-bottom: 0.5rem;
-}
-
-.axesCopy {
-  max-width: 34ch;
-  color: var(--color-fg-muted);
-}
-
-.axisEdge {
-  stroke: var(--color-fg-muted);
-  stroke-opacity: 0.5;
-  stroke-width: 1;
-}
-
-.axisNodeCenter {
-  fill: var(--color-accent);
-  fill-opacity: 0.16;
-  stroke: var(--color-accent);
-  stroke-width: 1.6;
-}
-
-.axisDot {
-  fill: var(--color-fg);
-}
-
-.axisLabel {
-  font-size: 12px;
-  font-weight: 600;
-  fill: var(--color-fg);
-}
-
-.axisLabelCenter {
-  font-size: 10px;
-  font-weight: 700;
-  fill: var(--color-accent);
-}
-
-.listenGrid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  column-gap: 3rem;
-}
-
-.listenGroupTitle {
-  font-size: var(--font-body);
-  font-weight: 600;
-  margin-bottom: 0.75rem;
-}
-
-.listenList {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  color: var(--color-fg-muted);
-}
-
-/* Extra breathing room before Selected Projects — scoped to this section only,
-   the shared .section rule (and every other Home section) is untouched. */
-.sectionGap {
-  padding-bottom: calc(var(--space-2xl) + 28px);
-}
-
-/* Principle's triangle is a secondary supporting illustration, not the
-   section's main content — kept deliberately compact so 01 Principle
-   reads as "short statement + small diagram," not a full-height diagram
-   section. The next .stepBlock already contributes its own padding-top
-   + border-top as the divider into 02 Listen, so this only needs a
-   little breathing room of its own before that, not a second full gap. */
-.axesFocus {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  gap: 1rem;
-  margin: 0 0 1rem;
-  padding-bottom: 1.25rem;
-  border-bottom: 1px solid var(--color-border);
-}
-
-/* Explicit fixed width, not width:100%+max-width — this diagram's actual
-   drawn content (triangle, center node, all 4 labels) already fills
-   roughly 90%+ of the 260x220 viewBox on every axis, so there's very
-   little unused canvas margin to trim there; the real lever is the
-   rendered CSS size. A flat width removes any dependency on how the
-   parent's available width resolves (the previous width:100% approach
-   was spec-correct but left sizing indirect); max-width:100% is kept only
-   as an overflow safety net on very narrow containers, not as the primary
-   sizing mechanism. 300px is 25% down from the original 405px baseline. */
-.axesSvgFocus {
-  display: block;
-  width: 300px;
-  max-width: 100%;
-  height: auto;
-  margin-inline: auto;
-}
-
-/* width:fit-content (capped by max-width) instead of a fixed ch value —
-   38ch under-measures CJK text (each Korean glyph is much wider than the
-   "0" character ch is based on), which was forcing this one-sentence
-   caption to wrap to 2 lines on desktop even though there was plenty of
-   room. Sizing to the text's own natural width fixes both languages at
-   once without a language-specific override. */
-.axesCopyFocus {
-  width: fit-content;
-  max-width: 90%;
-  font-size: var(--font-meta);
-  color: var(--color-fg-muted);
 }
 
 .stepBlock {
@@ -186,104 +82,178 @@
   letter-spacing: 0.08em;
 }
 
-/* Judge — keyword first, question demoted to smaller secondary text.
-   Slightly roomier row rhythm than before so 03–06 don't read thinner
-   than 01/02's denser content — same items, no new copy. */
-.judgeCompactGrid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem 1.5rem;
-}
-
-.judgeItem {
+/* Problem Solving Cases — the page's lead content. Editorial/case-study
+   styling (border-top dividers, no card chrome/shadow/surface fill) so
+   these read as the same design language as the rest of the site's
+   long-form pages, not decorative product cards. */
+.caseList {
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
-  padding-top: 0.85rem;
+  gap: var(--space-xl);
+}
+
+.caseBlock {
+  padding-top: 1.75rem;
   border-top: 1px solid var(--color-border);
 }
 
-.judgeKeyword {
+.caseBlock:first-child {
+  padding-top: 0;
+  border-top: none;
+}
+
+.caseHead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.65rem;
+  margin-bottom: 1.1rem;
+}
+
+.caseNum {
+  font-size: var(--font-meta);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--color-accent);
+}
+
+.caseCompany {
+  font-size: var(--font-subheading);
+  font-weight: 600;
+}
+
+.caseDomain {
+  font-size: var(--font-meta);
+  color: var(--color-fg-muted);
+}
+
+/* [left] problem definition + situation, [right] key actions + result —
+   matches the requested layout. Both columns share the same row rhythm
+   via their own flex gap, not a shared grid row height. */
+.caseGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem 2.5rem;
+}
+
+.caseLeft {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.caseRight {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.caseProblem {
+  font-size: var(--font-body);
+  line-height: 1.6;
+}
+
+.caseLabel {
+  font-size: var(--font-meta);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-fg-muted);
+  margin-bottom: 0.5rem;
+}
+
+/* Context and Action read as plain supporting bullets — same dash-prefix
+   language as /projects' Other Projects list (.otherBulletList), just
+   scoped to this page's own classes. */
+.caseContextList,
+.caseActionList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  font-size: var(--font-meta);
+  color: var(--color-fg-muted);
+}
+
+.caseContextList li,
+.caseActionList li {
+  padding-left: 0.9rem;
+  position: relative;
+}
+
+.caseContextList li::before,
+.caseActionList li::before {
+  content: "–";
+  position: absolute;
+  left: 0;
+  color: var(--color-fg-muted);
+}
+
+/* Result is the payoff — visually distinct from Context/Action (accent
+   left border + bolder text) so it reads as the outcome, not another
+   bullet in the same list. */
+.caseResultList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.caseResultList li {
+  padding-left: 0.85rem;
+  border-left: 2px solid var(--color-accent);
+  font-weight: 600;
+  font-size: var(--font-meta);
+}
+
+.caseCta {
+  display: inline-block;
+  margin-top: 1.4rem;
+  font-size: 0.9rem;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* Operating Model — the old 6-section Principle/Listen/.../Deliver
+   breakdown, condensed to a compact 5-row process strip beneath the
+   cases (Principle is dropped; Listen–Deliver become one line each). */
+.operatingStrip {
+  display: flex;
+  flex-direction: column;
+  max-width: var(--text-max);
+}
+
+.operatingItem {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.5rem;
+  padding: 0.75rem 0;
+  border-top: 1px solid var(--color-border);
+}
+
+.operatingItem:first-child {
+  border-top: none;
+  padding-top: 0;
+}
+
+.operatingStep {
+  min-width: 5.5rem;
   font-size: var(--font-body);
   font-weight: 600;
   color: var(--color-accent);
 }
 
-.judgeExplain {
+.operatingArrow {
+  color: var(--color-fg-muted);
+}
+
+.operatingDescription {
   font-size: var(--font-meta);
   color: var(--color-fg-muted);
 }
 
-/* Decide — compact 2-column list, divider only, no card fill */
-.decideChipGrid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.85rem 1.5rem;
-}
-
-.decideChip {
-  padding-top: 0.75rem;
-  border-top: 1px solid var(--color-border);
+.closingText {
+  max-width: var(--text-max);
   color: var(--color-fg-muted);
-}
-
-/* Align — level keyword + explanation, replaces the separate stakeholder
-   row (those org names already appear inside the explanation text) */
-.alignCompactList {
-  display: flex;
-  flex-direction: column;
-  gap: 0.85rem;
-}
-
-.alignItem {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 0.35rem 0.6rem;
-  padding-top: 0.8rem;
-  border-top: 1px solid var(--color-border);
-}
-
-.alignItem:first-child {
-  border-top: none;
-  padding-top: 0;
-}
-
-.alignKeyword {
-  font-size: var(--font-meta);
-  font-weight: 600;
-  color: var(--color-accent);
-  white-space: nowrap;
-}
-
-.alignExplain {
-  font-size: var(--font-meta);
-  color: var(--color-fg-muted);
-}
-
-/* Deliver — wrapped chip flow instead of a tall vertical list */
-.deliverChipRow {
-  display: flex;
-  flex-wrap: wrap;
-  max-width: 30rem; /* narrower than the 7 items' natural width, so it wraps to two lines instead of sitting flat on one */
-  row-gap: 0.75rem;
-  font-size: var(--font-meta);
-  color: var(--color-fg-muted);
-}
-
-.deliverChip {
-  padding: 0 0.9rem;
-  border-left: 1px solid var(--color-border);
-}
-
-.deliverChip:first-child {
-  padding-left: 0;
-  border-left: none;
-}
-
-.deliverChipFeedback {
-  color: var(--color-accent);
-  font-weight: 600;
+  line-height: 1.7;
 }
 
 @media (max-width: 640px) {
@@ -296,27 +266,8 @@
     border-left: none;
   }
 
-  .listenGrid {
+  .caseGrid {
     grid-template-columns: 1fr;
-    row-gap: 1.5rem;
-  }
-
-  .axesSvgFocus {
-    /* max-width still clamps the base rule's fixed 300px width here (CSS
-       always lets max-width cap a length, not just a percentage) — a
-       gentler cut than desktop's: mobile was already closer to the SVG's
-       native 260px viewBox width, and axis labels ("Technical
-       Feasibility" etc.) need more room per pixel on small screens. */
-    max-width: 260px;
-  }
-
-  .judgeCompactGrid,
-  .decideChipGrid {
-    grid-template-columns: 1fr;
-  }
-
-  .deliverChip {
-    padding: 0 0.75rem 0 0;
-    border-left: none;
+    gap: 1.5rem;
   }
 }
