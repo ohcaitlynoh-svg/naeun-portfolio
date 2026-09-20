@@ -3,6 +3,16 @@
   margin-bottom: 1.25rem;
 }
 
+/* "Approach" reads as a plain title above the intro paragraph, not a
+   numbered section like Cases/Operating Model/Execution Toolkit/Closing
+   below — no stepNumBig badge, no SectionIndicator entry, just a small
+   label. */
+.approachLabel {
+  font-size: var(--font-subheading);
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
 /* Also used by Home's compact "How I Work" summary card (app/page.tsx) —
    keep this class's own rules stable even though this page's intro copy
    changed; Home applies its own cardIntroReset on top via its higher-

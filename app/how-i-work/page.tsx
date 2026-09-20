@@ -36,8 +36,11 @@ function Lines({ lines }: { lines: string[] }) {
   );
 }
 
+// "Approach" is a plain title above the intro, not a numbered section —
+// left out of this list on purpose so SectionIndicator's own auto-
+// numbering (String(i+1)) starts at 01 for Cases and ends at 04 for
+// Closing, matching the stepNumBig values used in the JSX below.
 const sections = [
-  { id: "approach", label: "Approach" },
   { id: "cases", label: "Cases" },
   { id: "operating-model", label: "Operating Model" },
   { id: "execution-toolkit", label: "Execution Toolkit" },
@@ -60,10 +63,7 @@ export default function HowIWorkPage() {
     <div className="container section">
       <div className="pageIntro" id="approach">
         <h1 className={styles.title}>How I Work</h1>
-        <div className={styles.stepHead}>
-          <span className={styles.stepNumBig}>01</span>
-          <h2 className={styles.stepTitle}>Approach</h2>
-        </div>
+        <p className={styles.approachLabel}>Approach</p>
         <p className={styles.intro}>{intro}</p>
       </div>
 
@@ -71,7 +71,7 @@ export default function HowIWorkPage() {
         <div>
           <section id="cases" className={styles.stepBlock}>
             <div className={styles.stepHead}>
-              <span className={styles.stepNumBig}>02</span>
+              <span className={styles.stepNumBig}>01</span>
               <h2 className={styles.stepTitle}>Problem Solving Cases</h2>
             </div>
 
@@ -125,7 +125,7 @@ export default function HowIWorkPage() {
 
           <section id="operating-model" className={styles.stepBlock}>
             <div className={styles.stepHead}>
-              <span className={styles.stepNumBig}>03</span>
+              <span className={styles.stepNumBig}>02</span>
               <h2 className={styles.stepTitle}>Operating Model</h2>
             </div>
             <ul className={styles.operatingStrip}>
@@ -143,7 +143,7 @@ export default function HowIWorkPage() {
 
           <section id="execution-toolkit" className={styles.stepBlock}>
             <div className={styles.stepHead}>
-              <span className={styles.stepNumBig}>04</span>
+              <span className={styles.stepNumBig}>03</span>
               <h2 className={styles.stepTitle}>{toolkitTitle}</h2>
             </div>
             <p className={styles.toolkitIntro}>
@@ -187,7 +187,7 @@ export default function HowIWorkPage() {
 
           <section id="closing" className={styles.stepBlock}>
             <div className={styles.stepHead}>
-              <span className={styles.stepNumBig}>05</span>
+              <span className={styles.stepNumBig}>04</span>
               <h2 className={styles.stepTitle}>Closing</h2>
             </div>
             <p className={styles.closingText}>{closing}</p>
