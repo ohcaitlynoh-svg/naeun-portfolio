@@ -158,25 +158,21 @@
 }
 
 /* The whole [photo + text] group is centered as one block on the page —
-   not the photo alone, not the text alone. Capped at --visual-max, the
-   same shared width every Home top-level section below it now uses, so
-   this block's left/right edges continue the same axis instead of a
-   narrower one of its own. Internal 2-column grid/gap/alignment are
-   unchanged; the text column's own 34rem cap (below) keeps paragraph line
-   length as it was — the extra room just becomes trailing whitespace
-   inside this wider outer block, not wider paragraphs.
-   width:100% is required alongside max-width here: a grid container with
-   an `auto`-sized track (the photo column) shrink-wraps to its content's
-   max-content size when width is left as the default `auto` — unlike
-   .summaryGrid's all-1fr tracks below, which do fill correctly on
-   `auto`. Forcing width:100% (capped by max-width) is what actually makes
-   this block reach the shared 1080px axis instead of stopping at ~880px. */
+   not the photo alone, not the text alone. No width:100% here: forcing
+   the grid to stretch to the full --visual-max axis (as a past revision
+   did) left the actual photo+text content — narrower than that shared
+   axis — sitting flush at the box's left edge with dead space on the
+   right, reading as left-aligned. Leaving width at its default lets the
+   grid's `auto`-sized photo column plus the text column's own 34rem cap
+   (below) shrink-wrap to the group's real content width, and
+   margin-inline:auto centers that actual-width block within the shared
+   --visual-max axis instead of stretching to fill it. Internal 2-column
+   grid/gap/alignment are unchanged. */
 .heroInner {
   display: grid;
   grid-template-columns: auto 1fr;
   gap: clamp(1.25rem, 2.5vw, 2rem);
   align-items: center;
-  width: 100%;
   max-width: var(--visual-max);
   margin-inline: auto;
 }
