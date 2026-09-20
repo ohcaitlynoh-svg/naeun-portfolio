@@ -73,6 +73,7 @@ export const casesEn: HowIWorkCase[] = [
     result: [
       "Launched a 0→1 subscription delivery platform, selected for a government pre-startup package",
       "Expanded the revenue model from B2C operation into modularized B2B sales",
+      "Eventually reached a business exit (sale)",
     ],
     ctaHref: "/projects/flor-momento",
     ctaLabel: "View Case Study →",

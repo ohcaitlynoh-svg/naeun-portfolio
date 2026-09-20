@@ -69,7 +69,11 @@ export const cases: HowIWorkCase[] = [
       "1인 사업자에게 필요한 핵심 기능만 남기는 경량화",
       "B2C로 끝내지 않고 커스터마이징 가능한 모듈 구조로 확장",
     ],
-    result: ["0→1 정기배송 플랫폼 출시, 중소벤처기업부 예비창업패키지 선정", "B2C 운영에서 기능 모듈화 · B2B 판매로 수익모델 확장"],
+    result: [
+      "0→1 정기배송 플랫폼 출시, 중소벤처기업부 예비창업패키지 선정",
+      "B2C 운영에서 기능 모듈화 · B2B 판매로 수익모델 확장",
+      "이후 business exit(매각)까지 진행",
+    ],
     ctaHref: "/projects/flor-momento",
     ctaLabel: "View Case Study →",
   },
