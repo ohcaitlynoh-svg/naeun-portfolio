@@ -305,14 +305,18 @@
 
 .toolkitCardHead {
   display: flex;
-  align-items: baseline;
+  align-items: flex-start;
   gap: 0.6rem;
   margin-bottom: 0.5rem;
 }
 
 .toolkitCardNum {
-  flex-shrink: 0;
+  display: inline-block;
+  flex: 0 0 auto;
   white-space: nowrap;
+  overflow-wrap: normal;
+  word-break: normal;
+  line-height: 1;
   font-size: var(--font-meta);
   font-weight: 700;
   color: var(--color-accent);
@@ -320,6 +324,7 @@
 }
 
 .toolkitCardTitle {
+  min-width: 0;
   font-size: var(--font-subheading);
   font-weight: 700;
 }
