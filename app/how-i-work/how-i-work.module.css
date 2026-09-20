@@ -3,14 +3,22 @@
   margin-bottom: 1.25rem;
 }
 
-/* "Approach" reads as a plain title above the intro paragraph, not a
-   numbered section like Cases/Operating Model/Execution Toolkit/Closing
-   below — no stepNumBig badge, no SectionIndicator entry, just a small
-   label. */
-.approachLabel {
+/* Approach's key message (bold, leads the section) + a secondary
+   supporting description — both plain paragraphs, no triangle diagram or
+   other illustration, so this section reads as a short lead-in rather
+   than the page's visual centerpiece. */
+.approachKeyMessage {
+  max-width: var(--text-max);
   font-size: var(--font-subheading);
   font-weight: 600;
-  margin-bottom: 0.75rem;
+  line-height: 1.5;
+  margin-bottom: 0.85rem;
+}
+
+.approachDescription {
+  max-width: var(--text-max);
+  color: var(--color-fg-muted);
+  line-height: 1.7;
 }
 
 /* Also used by Home's compact "How I Work" summary card (app/page.tsx) —
@@ -260,90 +268,104 @@
   color: var(--color-fg-muted);
 }
 
-/* Execution Toolkit — 3 stacked items (same border-top divider language
-   as .caseBlock/.toolkitItem below), each a title + short paragraphs +
-   a Tools/Workflow meta row, instead of the Operating Model's one-line
-   summary. This is the concrete "how" behind that process, so it sits
-   directly after it and before Closing. */
-.toolkitIntro {
-  max-width: var(--text-max);
-  color: var(--color-fg-muted);
-  margin-bottom: 1.75rem;
-}
-
-.toolkitList {
+/* Execution Toolkit — 3 large stacked cards (never a cramped 3-column
+   grid), each image-first so the workflow diagram is understood before
+   any text. Plain border + surface fill, no shadow. Image uses
+   object-fit: contain (not cover) since these are labeled diagrams —
+   cropping would cut off step labels at the edges. */
+.toolkitCardList {
   display: flex;
   flex-direction: column;
-  gap: var(--space-lg);
+  gap: var(--space-xl);
 }
 
-.toolkitItem {
-  padding-top: 1.5rem;
-  border-top: 1px solid var(--color-border);
+.toolkitCard {
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--color-bg);
 }
 
-.toolkitItem:first-child {
-  padding-top: 0;
-  border-top: none;
+.toolkitCardImage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
 }
 
-.toolkitHead {
+.toolkitCardImg {
+  object-fit: contain;
+}
+
+.toolkitCardBody {
+  padding: 1.5rem 1.75rem 1.75rem;
+}
+
+.toolkitCardHead {
   display: flex;
   align-items: baseline;
-  gap: 0.65rem;
-  margin-bottom: 0.75rem;
+  gap: 0.6rem;
+  margin-bottom: 0.5rem;
 }
 
-.toolkitNum {
+.toolkitCardNum {
   font-size: var(--font-meta);
   font-weight: 700;
   color: var(--color-accent);
   font-variant-numeric: tabular-nums;
 }
 
-.toolkitItemTitle {
-  font-size: var(--font-body);
-  font-weight: 600;
+.toolkitCardTitle {
+  font-size: var(--font-subheading);
+  font-weight: 700;
 }
 
-.toolkitBody {
-  display: flex;
-  flex-direction: column;
-  gap: 0.6rem;
-  max-width: var(--text-max);
+.toolkitCardSubtitle {
+  font-size: var(--font-body);
   margin-bottom: 1rem;
 }
 
-.toolkitBody p {
-  font-size: var(--font-meta);
-  color: var(--color-fg);
-  line-height: 1.65;
-}
-
-.toolkitMeta {
+.toolkitCardEvidence {
   display: flex;
   flex-direction: column;
-  gap: 0.4rem;
-}
-
-.toolkitMetaRow {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 0.6rem;
-}
-
-.toolkitMetaLabel {
-  min-width: 4.5rem;
+  gap: 0.5rem;
   font-size: var(--font-meta);
+  color: var(--color-fg-muted);
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.toolkitCardEvidence li {
+  padding-left: 0.9rem;
+  position: relative;
+}
+
+.toolkitCardEvidence li::before {
+  content: "–";
+  position: absolute;
+  left: 0;
+  color: var(--color-fg-muted);
+}
+
+.toolkitCardFlow {
+  font-size: var(--font-meta);
+  font-weight: 600;
+  color: var(--color-accent);
+  padding-top: 0.85rem;
+  margin-bottom: 0.85rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.toolkitCardTools {
+  font-size: var(--font-meta);
+  color: var(--color-fg-muted);
+}
+
+.toolkitCardToolsLabel {
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--color-fg-muted);
-}
-
-.toolkitMetaValue {
-  font-size: var(--font-meta);
-  color: var(--color-fg-muted);
+  margin-right: 0.6rem;
 }
 
 .closingText {
@@ -365,5 +387,9 @@
   .caseGrid {
     grid-template-columns: 1fr;
     gap: 1.5rem;
+  }
+
+  .toolkitCardBody {
+    padding: 1.25rem 1.25rem 1.5rem;
   }
 }

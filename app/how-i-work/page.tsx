@@ -1,49 +1,31 @@
 "use client";
 
-import { Fragment } from "react";
+import Image from "next/image";
 import { useLanguage } from "@/components/SiteProviders";
 import SectionIndicator from "@/components/SectionIndicator";
 import styles from "./how-i-work.module.css";
 import {
   approachIntro,
+  approachDescription,
   cases,
-  operatingModel,
-  executionToolkitTitle,
-  executionToolkitDescription,
   executionToolkit,
+  operatingModel,
   closingStatement,
 } from "@/lib/how-i-work-content";
 import {
   approachIntroEn,
+  approachDescriptionEn,
   casesEn,
-  operatingModelEn,
-  executionToolkitTitleEn,
-  executionToolkitDescriptionEn,
   executionToolkitEn,
+  operatingModelEn,
   closingStatementEn,
 } from "@/lib/how-i-work-content.en";
 
-function Lines({ lines }: { lines: string[] }) {
-  return (
-    <>
-      {lines.map((line, i) => (
-        <Fragment key={i}>
-          {i > 0 && <br />}
-          {line}
-        </Fragment>
-      ))}
-    </>
-  );
-}
-
-// "Approach" is a plain title above the intro, not a numbered section —
-// left out of this list on purpose so SectionIndicator's own auto-
-// numbering (String(i+1)) starts at 01 for Cases and ends at 04 for
-// Closing, matching the stepNumBig values used in the JSX below.
 const sections = [
-  { id: "cases", label: "Cases" },
-  { id: "operating-model", label: "Operating Model" },
+  { id: "approach", label: "Approach" },
+  { id: "cases", label: "Problem Solving Cases" },
   { id: "execution-toolkit", label: "Execution Toolkit" },
+  { id: "operating-model", label: "Operating Model" },
   { id: "closing", label: "Closing" },
 ];
 
@@ -51,27 +33,33 @@ export default function HowIWorkPage() {
   const { language } = useLanguage();
   const isEn = language === "en";
 
-  const intro = isEn ? approachIntroEn : approachIntro;
+  const keyMessage = isEn ? approachIntroEn : approachIntro;
+  const description = isEn ? approachDescriptionEn : approachDescription;
   const caseList = isEn ? casesEn : cases;
-  const operating = isEn ? operatingModelEn : operatingModel;
-  const toolkitTitle = isEn ? executionToolkitTitleEn : executionToolkitTitle;
-  const toolkitDescription = isEn ? executionToolkitDescriptionEn : executionToolkitDescription;
   const toolkit = isEn ? executionToolkitEn : executionToolkit;
+  const operating = isEn ? operatingModelEn : operatingModel;
   const closing = isEn ? closingStatementEn : closingStatement;
 
   return (
     <div className="container section">
-      <div className="pageIntro" id="approach">
+      <div className="pageIntro">
         <h1 className={styles.title}>How I Work</h1>
-        <p className={styles.approachLabel}>Approach</p>
-        <p className={styles.intro}>{intro}</p>
       </div>
 
       <div className="longFormGrid">
         <div>
-          <section id="cases" className={styles.stepBlock}>
+          <section id="approach" className={styles.stepBlock}>
             <div className={styles.stepHead}>
               <span className={styles.stepNumBig}>01</span>
+              <h2 className={styles.stepTitle}>Approach</h2>
+            </div>
+            <p className={styles.approachKeyMessage}>{keyMessage}</p>
+            <p className={styles.approachDescription}>{description}</p>
+          </section>
+
+          <section id="cases" className={styles.stepBlock}>
+            <div className={styles.stepHead}>
+              <span className={styles.stepNumBig}>02</span>
               <h2 className={styles.stepTitle}>Problem Solving Cases</h2>
             </div>
 
@@ -87,7 +75,7 @@ export default function HowIWorkPage() {
                   <div className={styles.caseGrid}>
                     <div className={styles.caseLeft}>
                       <p className={styles.caseProblem}>{c.problem}</p>
-                      <p className={styles.caseLabel}>Context / Constraint</p>
+                      <p className={styles.caseLabel}>Constraint / Context</p>
                       <ul className={styles.caseContextList}>
                         {c.context.map((item) => (
                           <li key={item}>{item}</li>
@@ -97,7 +85,7 @@ export default function HowIWorkPage() {
 
                     <div className={styles.caseRight}>
                       <div>
-                        <p className={styles.caseLabel}>Action</p>
+                        <p className={styles.caseLabel}>Decision & Action</p>
                         <ul className={styles.caseActionList}>
                           {c.action.map((item) => (
                             <li key={item}>{item}</li>
@@ -123,9 +111,53 @@ export default function HowIWorkPage() {
             </div>
           </section>
 
+          <section id="execution-toolkit" className={styles.stepBlock}>
+            <div className={styles.stepHead}>
+              <span className={styles.stepNumBig}>03</span>
+              <h2 className={styles.stepTitle}>Execution Toolkit</h2>
+            </div>
+
+            <div className={styles.toolkitCardList}>
+              {toolkit.map((card) => (
+                <article key={card.num} className={styles.toolkitCard}>
+                  <div className={styles.toolkitCardImage}>
+                    <Image
+                      src={card.image}
+                      alt={card.title}
+                      fill
+                      sizes="(max-width: 720px) 100vw, 874px"
+                      className={styles.toolkitCardImg}
+                    />
+                  </div>
+
+                  <div className={styles.toolkitCardBody}>
+                    <div className={styles.toolkitCardHead}>
+                      <span className={styles.toolkitCardNum}>{card.num}</span>
+                      <h3 className={styles.toolkitCardTitle}>{card.title}</h3>
+                    </div>
+                    <p className={styles.toolkitCardSubtitle}>{card.subtitle}</p>
+
+                    <ul className={styles.toolkitCardEvidence}>
+                      {card.evidence.map((item) => (
+                        <li key={item}>{item}</li>
+                      ))}
+                    </ul>
+
+                    <p className={styles.toolkitCardFlow}>{card.coreFlow.join(" → ")}</p>
+
+                    <p className={styles.toolkitCardTools}>
+                      <span className={styles.toolkitCardToolsLabel}>Tools</span>
+                      {card.tools.join(" · ")}
+                    </p>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </section>
+
           <section id="operating-model" className={styles.stepBlock}>
             <div className={styles.stepHead}>
-              <span className={styles.stepNumBig}>02</span>
+              <span className={styles.stepNumBig}>04</span>
               <h2 className={styles.stepTitle}>Operating Model</h2>
             </div>
             <ul className={styles.operatingStrip}>
@@ -141,53 +173,9 @@ export default function HowIWorkPage() {
             </ul>
           </section>
 
-          <section id="execution-toolkit" className={styles.stepBlock}>
-            <div className={styles.stepHead}>
-              <span className={styles.stepNumBig}>03</span>
-              <h2 className={styles.stepTitle}>{toolkitTitle}</h2>
-            </div>
-            <p className={styles.toolkitIntro}>
-              <Lines lines={toolkitDescription} />
-            </p>
-
-            <div className={styles.toolkitList}>
-              {toolkit.map((item) => (
-                <div key={item.num} className={styles.toolkitItem}>
-                  <div className={styles.toolkitHead}>
-                    <span className={styles.toolkitNum}>{item.num}</span>
-                    <h3 className={styles.toolkitItemTitle}>{item.title}</h3>
-                  </div>
-
-                  <div className={styles.toolkitBody}>
-                    {item.body.map((p, i) => (
-                      <p key={i}>{p}</p>
-                    ))}
-                  </div>
-
-                  <div className={styles.toolkitMeta}>
-                    <div className={styles.toolkitMetaRow}>
-                      <span className={styles.toolkitMetaLabel}>Tools</span>
-                      <span className={styles.toolkitMetaValue}>
-                        {item.tools.join(" · ")}
-                      </span>
-                    </div>
-                    {item.workflow && (
-                      <div className={styles.toolkitMetaRow}>
-                        <span className={styles.toolkitMetaLabel}>Workflow</span>
-                        <span className={styles.toolkitMetaValue}>
-                          {item.workflow.join(" → ")}
-                        </span>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </section>
-
           <section id="closing" className={styles.stepBlock}>
             <div className={styles.stepHead}>
-              <span className={styles.stepNumBig}>04</span>
+              <span className={styles.stepNumBig}>05</span>
               <h2 className={styles.stepTitle}>Closing</h2>
             </div>
             <p className={styles.closingText}>{closing}</p>

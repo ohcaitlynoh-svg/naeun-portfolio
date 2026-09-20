@@ -12,6 +12,9 @@ export const flowStepsEn = [
 export const approachIntroEn =
   "I structure complex problems and turn them into decisions that are actually executable within user, business, and technical constraints — then carry them through to real product and operational results.";
 
+export const approachDescriptionEn =
+  "Starting by listening to customer VOC alongside internal development, sales, and engineering input, I structure the problem and its constraints and judge the feasible scope and priority. I align that result with the team and carry it through to a real product and operational outcome.";
+
 export type HowIWorkCase = {
   id: string;
   num: string;
@@ -32,21 +35,21 @@ export const casesEn: HowIWorkCase[] = [
     company: "EXEM",
     domain: "Enterprise Observability",
     problem:
-      "Monitoring was scattered across separate products and screens — APM, DPM, Cloud — and had to be restructured into one Observability product while still meeting requirements that varied by customer.",
+      "Had to restructure a fragmented APM / DPM / Cloud monitoring landscape into one Observability product while still meeting varied customer requirements.",
     context: [
       "Requirements that differed by customer",
       "Bidding-based delivery, so the schedule was effectively fixed",
       "Existing product structure and technical constraints",
-      "Collaborated with an org of 8 planners and ~60 engineers",
+      "Collaborated across multiple development orgs",
     ],
     action: [
-      "Re-sorted requests not by feature but by fit-to-purpose, schedule, repeatability, existing usability, and substitutability",
-      "Designed APM, DPM, and Cloud into one unified information structure",
+      "Re-sorted VOC and requirements by problem type, not as a feature list",
+      "Defined a common user flow and the core monitoring scenarios",
       "Decided the feasible MVP scope and its priorities",
-      "Designed a Custom API integration structure not tied to any single vendor",
+      "Designed APM / DPM / Cloud into one unified experience",
     ],
     result: [
-      "Shipped the unified MVP within 6 months, later reaching v3.0 and GS certification",
+      "6-month MVP, later reaching v3.0 / GS certification",
       "Used through Enterprise PoC and contract processes, contributing to roughly ₩4B in business impact",
     ],
     ctaHref: "/projects/exem",
@@ -58,22 +61,18 @@ export const casesEn: HowIWorkCase[] = [
     company: "Flor Momento",
     domain: "Subscription Platform / 0→1",
     problem:
-      "Funeral flower and handcraft products had complex production, scheduling, and delivery after each order, making manual reservation and recurring delivery hard to operate.",
-    context: [
-      "A one-person / small-scale operation",
-      "Standard e-commerce features were either excessive or a poor fit",
-      "Ran solo from planning through launch and operations",
-    ],
+      "Reservation, scheduling, and delivery were run manually, making repeat operations and scale hard.",
+    context: ["A one-person / small-scale operation", "Ran solo from planning through launch and operations"],
     action: [
-      "Analyzed the actual operating flow and redefined it as reservation, schedule, delivery, and notification",
-      "Turned repeated manual work into product features",
-      "Kept only the core features a one-person operator actually needed",
-      "Extended beyond B2C into a customizable module structure",
+      "Analyzed the actual operating flow",
+      "Structured reservation / schedule / delivery status",
+      "Systematized repeat operations",
+      "Connected the subscription product and operations into one platform",
+      "Later extended into a customizable module structure for B2B",
     ],
     result: [
-      "Launched a 0→1 subscription delivery platform, selected for a government pre-startup package",
-      "Expanded the revenue model from B2C operation into modularized B2B sales",
-      "Eventually reached a business exit (sale)",
+      "Launched a 0→1 subscription platform, ran it in production for B2C",
+      "Expanded into B2B customization / sales, experienced monetization / a business exit",
     ],
     ctaHref: "/projects/flor-momento",
     ctaLabel: "View Case Study →",
@@ -84,109 +83,96 @@ export const casesEn: HowIWorkCase[] = [
     company: "Biginsight",
     domain: "CRM · CDP · Ads · Marketing SaaS",
     problem:
-      "Event-based customer behavior data (CRM) and ad media data (Ads) lived in separate products, making it hard to see marketing performance as one flow.",
-    context: [
-      "CRM and Ads were run as two separate products",
-      "Different data sources, different team structures",
-      "Managed 3 products' planning as part lead",
-    ],
+      "CRM customer behavior data and ad performance data were separated, making it hard to see marketing performance as one flow.",
+    context: ["Ran CRM and Ads as two separate products", "Managed 3 products' planning together as part lead"],
     action: [
       "Analyzed the structure of CRM event data and Ads media data",
-      "Defined the flow from impression → acquisition → click → behavior → performance",
-      "Planned Bigin ONE to connect the CRM and Ads product structures",
-      "Designed a full-funnel marketing dashboard",
+      "Defined the flow from customer behavior → campaign → ad performance",
+      "Connected the CRM and Ads product structures",
+      "Planned an integrated dashboard / analytics structure",
     ],
     result: [
-      "Expanded the product into an integrated CRM + Ads analytics structure (Bigin ONE)",
-      "Connected multiple marketing touchpoints into one product flow",
+      "Expanded into an integrated CRM + Ads analytics structure",
+      "Connected separated marketing touchpoints into one product flow",
     ],
     ctaHref: "/projects#other-projects",
     ctaLabel: "See more in Other Projects →",
   },
+];
+
+export type ToolkitCard = {
+  num: string;
+  title: string;
+  subtitle: string;
+  evidence: string[];
+  coreFlow: string[];
+  tools: string[];
+  image: string;
+};
+
+export const executionToolkitEn: ToolkitCard[] = [
   {
-    id: "cafe24",
-    num: "CASE 04",
-    company: "Cafe24",
-    domain: "Server Infrastructure · Monitoring · Internal Platform",
-    problem:
-      "Operations were spread across Slack, JIRA, Wiki, Grafana, FireEye, and more, making it hard to check server status and operational information against one standard.",
-    context: [
-      "A large-scale server operating environment",
-      "A CTO-direct organization",
-      "A collaboration structure between Korea and Philippines development teams",
+    num: "01",
+    title: "Planning Docs & Prototyping",
+    subtitle: "Build the target screen first, so development intent reads clearly.",
+    evidence: [
+      "I don't hand off requirements as documents alone — I build prototypes close to the target screen myself.",
+      "Even before design is applied, this lets developers understand the feature flow and intent from an actually working screen, and lets me confirm feasibility and the API/data structure it needs before development starts.",
     ],
-    action: [
-      "Analyzed actual operating workflows and repeated tasks",
-      "Surveyed existing tools including FireEye, Grafana, Datadog, and Slack",
-      "Designed server monitoring dashboard UI/UX and load/autoscaling policy",
-      "Ran the project as a roadmap-based collaboration between Korea and Philippines development teams",
+    coreFlow: [
+      "Organize requirements",
+      "Build a PM prototype",
+      "Align with developers on the screen",
+      "Feasibility check",
+      "Development starts",
     ],
-    result: [
-      "Planned an integrated monitoring and operations system for a large-scale server environment",
-      "Established a direction for improving internal operational efficiency",
+    tools: ["Figma", "Claude", "ChatGPT"],
+    image: "/how-i-work/how-i-work-prototyping.png",
+  },
+  {
+    num: "02",
+    title: "Data-Driven Prioritization & Decisions",
+    subtitle: "Turn VOC into data to decide what to build first.",
+    evidence: [
+      "I don't manage VOC and field requirements as a plain request list — I turn them into classifiable data.",
+      "I collect and categorize VOC and requirements in ClickUp, then analyze the accumulated data with ChatGPT by type, frequency, and key issue.",
+      "Based on that analysis, I select which tasks to prioritize and allocate limited development resources accordingly, managing PoC and release scope.",
     ],
-    ctaHref: "/projects#other-projects",
-    ctaLabel: "See more in Other Projects →",
+    coreFlow: [
+      "Collect VOC",
+      "Categorize / turn into data",
+      "AI analysis",
+      "Set priority",
+      "Allocate resources",
+      "PoC / Release",
+    ],
+    tools: ["ClickUp", "ChatGPT"],
+    image: "/how-i-work/how-i-work-priority-analysis.png",
+  },
+  {
+    num: "03",
+    title: "Project Management & Dev Collaboration",
+    subtitle: "Align the work order so design and development move in parallel.",
+    evidence: [
+      "I don't just manage the schedule with the dev team — I make the implementation criteria and preconditions concrete at the planning stage.",
+      "I write planning docs down to prototype level to clarify the target screens and feature flow, and align the work order across development, design, and planning so API and backend work can start even before design is finalized.",
+      "Requirements, schedule, issues, and decisions are continuously documented.",
+    ],
+    coreFlow: ["Planning / Prototype", "Design / Screen design", "Development / API & Backend"],
+    tools: ["ClickUp", "Notion", "Jira", "Confluence"],
+    image: "/how-i-work/how-i-work-development-collaboration.png",
   },
 ];
 
 export type OperatingModelStep = { step: string; description: string };
 
 export const operatingModelEn: OperatingModelStep[] = [
-  { step: "Listen", description: "Collect customer VOC, engineering, and sales input" },
-  { step: "Judge", description: "Structure the problem, constraints, and impact" },
-  { step: "Decide", description: "Decide scope, priority, and trade-offs" },
-  { step: "Align", description: "Align with stakeholders" },
-  { step: "Deliver", description: "Launch, operate, and improve the product" },
+  { step: "Listen", description: "Collect customer / engineering / sales input" },
+  { step: "Judge", description: "Structure the problem / constraints / impact" },
+  { step: "Decide", description: "Decide scope / priority / trade-offs" },
+  { step: "Align", description: "Align on criteria and work order with stakeholders" },
+  { step: "Deliver", description: "Launch / operate / improve" },
 ];
 
 export const closingStatementEn =
-  "These cases are a record of judgment proven by results. I'll keep working to the same standard — finding answers that are actually executable within constraints, and proving them the same way.";
-
-export const executionToolkitTitleEn = "Execution Toolkit";
-export const executionToolkitDescriptionEn = [
-  "I don't let ideas stay in documents —",
-  "I turn them into verifiable screens, data, and executable units of work.",
-];
-
-export type ExecutionToolkitItem = {
-  num: string;
-  title: string;
-  body: string[];
-  tools: string[];
-  workflow?: string[];
-};
-
-export const executionToolkitEn: ExecutionToolkitItem[] = [
-  {
-    num: "01",
-    title: "Planning Docs & Prototyping",
-    body: [
-      "I don't hand off requirements as documents alone — I build prototypes close to the target screen myself.",
-      "Even before design is applied, this lets developers understand the feature flow and intent from an actually working screen, and lets me check feasibility and the API/data structure it needs in more concrete terms.",
-      "This narrows the gap in interpretation between planning, design, and development, and builds a shared understanding of the target outcome before development starts.",
-    ],
-    tools: ["Figma", "Claude", "ChatGPT"],
-  },
-  {
-    num: "02",
-    title: "Data-Driven Prioritization & Decisions",
-    body: [
-      "I don't manage VOC and field requirements as a plain request list — I turn them into classifiable data and analyze recurring problems and their impact.",
-      "I collect and categorize VOC and requirements in ClickUp, then use ChatGPT to analyze the accumulated data by type, frequency, and key issue, structuring it into a report usable for decision-making.",
-      "Based on that analysis, I select which tasks to prioritize and allocate limited development resources accordingly, managing PoC and release scope within the target schedule.",
-    ],
-    tools: ["ClickUp", "ChatGPT"],
-    workflow: ["Collect VOC", "Categorization", "AI-assisted Analysis", "Priority Decision", "Report"],
-  },
-  {
-    num: "03",
-    title: "Project Management & Dev Collaboration",
-    body: [
-      "I don't just manage the schedule with the dev team — I make the implementation criteria concrete at the planning stage so development can start quickly.",
-      "I write planning docs down to prototype level to clarify the target screens and feature flow, and coordinate the preconditions and work order across development, design, and planning so API and backend work can start even before design is finalized.",
-      "I continuously document requirements, schedule, issues, and decisions so multiple teams stay aligned on the same goals and standards.",
-    ],
-    tools: ["ClickUp", "Notion", "Jira", "Confluence"],
-  },
-];
+  "I believe good planning isn't about producing a lot of documents — it's about getting a team to understand the same problem and goal, and actually move it into a real product.";
