@@ -56,7 +56,7 @@ export const aiLabsProjectsEn: AiLabProject[] = [
     title: "An AI Career Translator for Job Seekers",
     subtitle:
       "An AI tool that semantically connects JD and resume language, rewriting career sentences to match a target position.",
-    status: "Planning / Development Ahead",
+    status: "In Progress",
     coverImage: "/ai-labs/career-translator-cover.png",
     sections: [
       {

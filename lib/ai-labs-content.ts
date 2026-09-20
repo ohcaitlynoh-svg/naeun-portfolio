@@ -76,7 +76,7 @@ export const aiLabsProjects: AiLabProject[] = [
     title: "직장인을 위한 AI 경력 번역기",
     subtitle:
       "JD와 이력서의 표현을 의미 단위로 연결해 지원 포지션에 맞는 경력 문장으로 재구성하는 AI 도구",
-    status: "기획 / 제작 예정",
+    status: "진행 중",
     coverImage: "/ai-labs/career-translator-cover.png",
     sections: [
       {
