@@ -23,7 +23,7 @@ import {
 
 const sections = [
   { id: "approach", label: "Approach" },
-  { id: "cases", label: "Problem Solving Cases" },
+  { id: "cases", label: "Cases" },
   { id: "execution-toolkit", label: "Execution Toolkit" },
   { id: "operating-model", label: "Operating Model" },
   { id: "closing", label: "Closing" },
@@ -46,8 +46,8 @@ export default function HowIWorkPage() {
         <h1 className={styles.title}>How I Work</h1>
       </div>
 
-      <div className="longFormGrid">
-        <div>
+      <div className={styles.pageLayout}>
+        <div className={styles.pageContent}>
           <section id="approach" className={styles.stepBlock}>
             <div className={styles.stepHead}>
               <span className={styles.stepNumBig}>01</span>
@@ -74,7 +74,10 @@ export default function HowIWorkPage() {
 
                   <div className={styles.caseGrid}>
                     <div className={styles.caseLeft}>
-                      <p className={styles.caseProblem}>{c.problem}</p>
+                      <div>
+                        <p className={styles.caseLabel}>Problem</p>
+                        <p className={styles.caseProblem}>{c.problem}</p>
+                      </div>
                       <p className={styles.caseLabel}>Constraint / Context</p>
                       <ul className={styles.caseContextList}>
                         {c.context.map((item) => (
@@ -125,7 +128,7 @@ export default function HowIWorkPage() {
                       src={card.image}
                       alt={card.title}
                       fill
-                      sizes="(max-width: 720px) 100vw, 874px"
+                      sizes="(max-width: 640px) calc(100vw - 36px), (max-width: 1024px) 45vw, 344px"
                       className={styles.toolkitCardImg}
                     />
                   </div>
@@ -142,8 +145,6 @@ export default function HowIWorkPage() {
                         <li key={item}>{item}</li>
                       ))}
                     </ul>
-
-                    <p className={styles.toolkitCardFlow}>{card.coreFlow.join(" → ")}</p>
 
                     <p className={styles.toolkitCardTools}>
                       <span className={styles.toolkitCardToolsLabel}>Tools</span>
@@ -182,7 +183,9 @@ export default function HowIWorkPage() {
           </section>
         </div>
 
-        <SectionIndicator sections={sections} />
+        <div className={styles.indicatorRail}>
+          <SectionIndicator sections={sections} />
+        </div>
       </div>
     </div>
   );

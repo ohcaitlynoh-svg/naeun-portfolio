@@ -33,9 +33,7 @@ export type HowIWorkCase = {
 // /projects/exem, /projects/flor-momento, and /projects' Other Projects
 // snapshots (lib/other-projects-content.ts) — condensed into a
 // Problem/Constraint/Decision & Action/Result shape, not new facts. No
-// metric appears here that isn't already stated on one of those pages —
-// EXEM's VOC count is deliberately left out (unverified anywhere in the
-// codebase; excluded on the user's own earlier instruction).
+// metric is invented: the VOC count follows the user's latest brief.
 export const cases: HowIWorkCase[] = [
   {
     id: "exem",
@@ -45,8 +43,8 @@ export const cases: HowIWorkCase[] = [
     problem:
       "분산된 APM / DPM / Cloud 모니터링 환경과 다양한 고객 요구를 하나의 Observability 제품으로 구조화해야 했습니다.",
     context: [
-      "고객사별로 서로 다른 요구사항",
-      "비딩 기반 납품으로 사실상 고정된 일정",
+      "143개 VOC + 영업/기술지원 요구사항",
+      "Enterprise 환경",
       "기존 제품 구조와 기술적 제약",
       "여러 개발 조직과 협업",
     ],
@@ -57,8 +55,10 @@ export const cases: HowIWorkCase[] = [
       "APM / DPM / Cloud를 하나의 통합 경험으로 설계",
     ],
     result: [
-      "6개월 MVP, 이후 v3.0 / GS 인증",
-      "Enterprise PoC·계약 과정에 활용, 약 40억 원 규모 사업성과에 기여",
+      "6개월 MVP",
+      "v3.0 / GS 인증",
+      "Enterprise PoC·계약 과정에 활용",
+      "약 40억 원 규모 사업성과에 기여",
     ],
     ctaHref: "/projects/exem",
     ctaLabel: "View Case Study →",
@@ -78,8 +78,10 @@ export const cases: HowIWorkCase[] = [
       "이후 B2B customization 가능한 module 구조로 확장",
     ],
     result: [
-      "0→1 Subscription Platform 출시, B2C 실제 운영",
-      "B2B customization / 판매 구조 확장, monetization / business exit 경험",
+      "0→1 Subscription Platform 출시",
+      "B2C 실제 운영",
+      "B2B customization / 판매 구조 확장",
+      "monetization / business exit 경험",
     ],
     ctaHref: "/projects/flor-momento",
     ctaLabel: "View Case Study →",

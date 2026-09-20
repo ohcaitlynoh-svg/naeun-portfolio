@@ -37,8 +37,8 @@ export const casesEn: HowIWorkCase[] = [
     problem:
       "Had to restructure a fragmented APM / DPM / Cloud monitoring landscape into one Observability product while still meeting varied customer requirements.",
     context: [
-      "Requirements that differed by customer",
-      "Bidding-based delivery, so the schedule was effectively fixed",
+      "143 VOC items + sales / technical support requirements",
+      "Enterprise environment",
       "Existing product structure and technical constraints",
       "Collaborated across multiple development orgs",
     ],
@@ -49,8 +49,10 @@ export const casesEn: HowIWorkCase[] = [
       "Designed APM / DPM / Cloud into one unified experience",
     ],
     result: [
-      "6-month MVP, later reaching v3.0 / GS certification",
-      "Used through Enterprise PoC and contract processes, contributing to roughly ₩4B in business impact",
+      "6-month MVP",
+      "v3.0 / GS certification",
+      "Used in Enterprise PoC and contract processes",
+      "Contributed to roughly ₩4B in business impact",
     ],
     ctaHref: "/projects/exem",
     ctaLabel: "View Case Study →",
@@ -71,8 +73,10 @@ export const casesEn: HowIWorkCase[] = [
       "Later extended into a customizable module structure for B2B",
     ],
     result: [
-      "Launched a 0→1 subscription platform, ran it in production for B2C",
-      "Expanded into B2B customization / sales, experienced monetization / a business exit",
+      "Launched a 0→1 subscription platform",
+      "Ran it in production for B2C",
+      "Expanded into B2B customization / sales",
+      "Experienced monetization / a business exit",
     ],
     ctaHref: "/projects/flor-momento",
     ctaLabel: "View Case Study →",

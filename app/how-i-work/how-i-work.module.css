@@ -107,7 +107,7 @@
 .caseList {
   display: flex;
   flex-direction: column;
-  gap: var(--space-xl);
+  gap: var(--space-lg);
 }
 
 .caseBlock {
@@ -276,7 +276,7 @@
    labels at the edges. */
 .toolkitCardList {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: var(--space-md);
 }
 
@@ -311,6 +311,8 @@
 }
 
 .toolkitCardNum {
+  flex-shrink: 0;
+  white-space: nowrap;
   font-size: var(--font-meta);
   font-weight: 700;
   color: var(--color-accent);
@@ -349,15 +351,6 @@
   color: var(--color-fg-muted);
 }
 
-.toolkitCardFlow {
-  font-size: var(--font-meta);
-  font-weight: 600;
-  color: var(--color-accent);
-  padding-top: 0.85rem;
-  margin-bottom: 0.85rem;
-  border-top: 1px solid var(--color-border);
-}
-
 .toolkitCardTools {
   font-size: var(--font-meta);
   color: var(--color-fg-muted);
@@ -379,7 +372,7 @@
    and Core Projects' .cardGrid — 3 columns desktop, 2 tablet, 1 mobile. */
 @media (max-width: 1024px) {
   .toolkitCardList {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
@@ -405,4 +398,66 @@
   .toolkitCardImage {
     height: 170px;
   }
+}
+/* Match Home's visual boundary; navigation sits outside the content. */
+.pageLayout {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  max-width: var(--visual-max);
+  margin-inline: auto;
+}
+.pageContent { min-width: 0; }
+.pageContent section { scroll-margin-top: 7rem; }
+.indicatorRail { order: -1; min-width: 0; }
+.indicatorRail nav:first-of-type { display: block; overflow-x: auto; }
+.indicatorRail nav:last-of-type { display: none; }
+.indicatorRail ul {
+  display: flex;
+  gap: 1rem;
+  padding-bottom: 0.75rem;
+  margin-bottom: var(--space-md);
+  white-space: nowrap;
+  font-size: var(--font-meta);
+}
+.indicatorRail a { color: var(--color-fg-muted); text-decoration: none; }
+/* SectionIndicator assigns a class only to its active link. */
+.indicatorRail a[class] { color: var(--color-accent); font-weight: 600; }
+.toolkitCard { min-width: 0; }
+.toolkitCardBody { overflow-wrap: anywhere; }
+
+@media (min-width: 1025px) {
+  .operatingStrip {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    max-width: none;
+  }
+  .operatingItem,
+  .operatingItem:first-child {
+    display: block;
+    padding: 0 1rem;
+    border-top: none;
+    border-left: 1px solid var(--color-border);
+  }
+  .operatingItem:first-child { padding-left: 0; border-left: none; }
+  .operatingDescription { display: block; margin-top: 0.4rem; }
+  .operatingArrow { margin-left: 0.5rem; }
+}
+
+@media (min-width: 1520px) {
+  .indicatorRail {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: calc(100% + 40px);
+    width: 170px;
+  }
+  .indicatorRail nav:first-of-type { display: none; }
+  .indicatorRail nav:last-of-type { display: block; }
+  .indicatorRail ul { white-space: normal; }
+}
+
+@media (max-width: 640px) {
+  .pageContent section { scroll-margin-top: 9rem; }
+  .stepTitle { letter-spacing: 0.04em; }
 }
