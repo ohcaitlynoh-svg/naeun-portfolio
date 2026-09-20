@@ -174,90 +174,98 @@ export default function HomePage() {
         id="projects"
         className={`container section ${styles.homeSection} ${styles.anchorSection}`}
       >
-        <h2 className={styles.cardHeading}>
-          <ProjectIcon className={styles.cardIcon} /> Core Projects
-        </h2>
+        <div className={styles.sectionInner}>
+          <h2 className={styles.cardHeading}>
+            <ProjectIcon className={styles.cardIcon} /> Core Projects
+          </h2>
 
-        <div className={styles.projectCardGrid}>
-          {projectList.map((project) => (
-            <ProjectCard key={project.slug} project={project} size="compact" />
-          ))}
+          <div className={styles.projectCardGrid}>
+            {projectList.map((project) => (
+              <ProjectCard key={project.slug} project={project} size="compact" />
+            ))}
+          </div>
+
+          <p className={styles.sectionCta}>
+            <Link href="/projects">
+              {isEn ? "View All Projects →" : "View All Projects →"}
+            </Link>
+          </p>
         </div>
-
-        <p className={styles.sectionCta}>
-          <Link href="/projects">
-            {isEn ? "View All Projects →" : "View All Projects →"}
-          </Link>
-        </p>
       </section>
 
       <section
         id="experience"
         className={`container section ${styles.homeSection} ${styles.anchorSection}`}
       >
-        <h2 className={styles.cardHeading}>
-          <CareerIcon className={styles.cardIcon} /> Career Snapshot
-        </h2>
+        <div className={styles.sectionInner}>
+          <h2 className={styles.cardHeading}>
+            <CareerIcon className={styles.cardIcon} /> Career Snapshot
+          </h2>
 
-        <div className={styles.visualSummary}>
-          <CareerGraphView
-            projects={projectList}
-            career={careerList}
-            freelance={freelanceList}
-            size="large"
-            showDetail={false}
-          />
+          <div className={styles.visualSummary}>
+            <CareerGraphView
+              projects={projectList}
+              career={careerList}
+              freelance={freelanceList}
+              size="large"
+              showDetail={false}
+            />
+          </div>
+
+          <p className={styles.sectionCta}>
+            <Link href="/about#career">
+              {isEn ? "View Full Career →" : "View Full Career →"}
+            </Link>
+          </p>
         </div>
-
-        <p className={styles.sectionCta}>
-          <Link href="/about#career">
-            {isEn ? "View Full Career →" : "View Full Career →"}
-          </Link>
-        </p>
       </section>
 
       <section
         id="labs"
         className={`container section ${styles.homeSection} ${styles.anchorSection}`}
       >
-        <h2 className={styles.cardHeading}>
-          <AiLabsIcon className={styles.cardIcon} /> AI Labs
-        </h2>
-        <p className={styles.labsPlaceholder}>
-          <Lines lines={labsIntroLines} />
-        </p>
-        <p className={styles.sectionCta}>
-          <Link href="/ai-labs">{isEn ? "View AI Labs →" : "View AI Labs →"}</Link>
-        </p>
+        <div className={styles.sectionInner}>
+          <h2 className={styles.cardHeading}>
+            <AiLabsIcon className={styles.cardIcon} /> AI Labs
+          </h2>
+          <p className={styles.labsPlaceholder}>
+            <Lines lines={labsIntroLines} />
+          </p>
+          <p className={styles.sectionCta}>
+            <Link href="/ai-labs">{isEn ? "View AI Labs →" : "View AI Labs →"}</Link>
+          </p>
+        </div>
       </section>
 
       <section
         id="contact"
         className={`container section ${styles.homeSection} ${styles.anchorSection}`}
       >
-        <h2 className={styles.cardHeading}>
-          <ContactIcon className={styles.cardIcon} /> Contact
-        </h2>
-        <ul className={styles.contactList}>
-          <li>
-            <span className={styles.contactLabel}>Email</span>
-            <a href="mailto:ohcaitlyn@hotmail.com">ohcaitlyn@hotmail.com</a>
-          </li>
-          <li>
-            <span className={styles.contactLabel}>LinkedIn</span>
-            <a
-              href="https://www.linkedin.com/in/%EB%82%98%EC%9D%80-%EC%98%A4/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              LinkedIn Profile
-            </a>
-          </li>
-          <li>
-            <span className={styles.contactLabel}>Resume</span>
-            <span className={styles.placeholder}>{t.resumePlaceholder}</span>
-          </li>
-        </ul>
+        <div className={styles.sectionInner}>
+          <h2 className={styles.cardHeading}>
+            <ContactIcon className={styles.cardIcon} /> Contact
+          </h2>
+          <ul className={styles.contactList}>
+            <li>
+              <span className={styles.contactLabel}>Email</span>
+              <a href="mailto:ohcaitlyn@hotmail.com">ohcaitlyn@hotmail.com</a>
+            </li>
+            <li>
+              <span className={styles.contactLabel}>LinkedIn</span>
+              <a
+                href="https://www.linkedin.com/in/%EB%82%98%EC%9D%80-%EC%98%A4/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                LinkedIn Profile
+              </a>
+            </li>
+            <li>
+              <span className={styles.contactLabel}>Resume</span>
+              <span className={styles.placeholder}>{t.resumePlaceholder}</span>
+            </li>
+          </ul>
+        </div>
       </section>
     </>
   );

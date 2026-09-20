@@ -18,17 +18,29 @@
   margin-inline: auto;
 }
 
+/* Shared outer-alignment wrapper for every Home top-level section that
+   doesn't already have its own --visual-max-width child (Core Projects'
+   heading/CTA around .projectCardGrid, Career Snapshot's heading/CTA
+   around .visualSummary, AI Labs, Contact) — so their headings and CTAs
+   land on the exact same left/right edge as .heroInner/.summaryGrid/
+   .projectCardGrid/.visualSummary below, instead of the bare .container's
+   wider (--page-max) edge. */
+.sectionInner {
+  max-width: var(--visual-max);
+  margin-inline: auto;
+}
+
 /* Row 1 — About + How I Work, side by side on desktop. Each card is plain
    (no border/surface chrome — only the project cards below get that
    treatment), just an icon+heading block like the rest of Home. Capped at
-   --content-max (960px, same token Hero uses) and centered so this row
-   reads as one compact block under Hero, not a section spanning the full
-   page width. */
+   --visual-max — the same width every other Home top-level section now
+   shares — and centered so this row's edges line up with Hero/Core
+   Projects/Career/AI Labs/Contact instead of its own narrower one. */
 .summaryGrid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: var(--space-lg);
-  max-width: var(--content-max);
+  max-width: var(--visual-max);
   margin-inline: auto;
 }
 
@@ -82,9 +94,9 @@
 }
 
 /* Home-only compact sizing for the 01 Principle → 06 Deliver nav strip —
-   the card column is a fixed ~460px (half of --content-max minus the grid
-   gap) at every desktop width, well under how-i-work.module.css's own
-   roomier per-step padding/gap/font-size, which was tuned for the full
+   the card column is a fixed ~520px (half of --visual-max minus the grid
+   gap) at every desktop width, still narrower than how-i-work.module.css's
+   own roomier per-step padding/gap/font-size, which was tuned for the full
    How I Work page's much wider column and wraps "06 Deliver" onto its own
    line here. Tightened just enough that all 6 steps hold one line at
    1024–1440px; .flowStrip's own flex-wrap: wrap (untouched) still lets
@@ -146,16 +158,26 @@
 }
 
 /* The whole [photo + text] group is centered as one block on the page —
-   not the photo alone, not the text alone. Reuses --content-max (960px,
-   already the site's token for this kind of mid-width content block)
-   rather than inventing a new width value. Internal 2-column grid/gap/
-   alignment are unchanged. */
+   not the photo alone, not the text alone. Capped at --visual-max, the
+   same shared width every Home top-level section below it now uses, so
+   this block's left/right edges continue the same axis instead of a
+   narrower one of its own. Internal 2-column grid/gap/alignment are
+   unchanged; the text column's own 34rem cap (below) keeps paragraph line
+   length as it was — the extra room just becomes trailing whitespace
+   inside this wider outer block, not wider paragraphs.
+   width:100% is required alongside max-width here: a grid container with
+   an `auto`-sized track (the photo column) shrink-wraps to its content's
+   max-content size when width is left as the default `auto` — unlike
+   .summaryGrid's all-1fr tracks below, which do fill correctly on
+   `auto`. Forcing width:100% (capped by max-width) is what actually makes
+   this block reach the shared 1080px axis instead of stopping at ~880px. */
 .heroInner {
   display: grid;
   grid-template-columns: auto 1fr;
   gap: clamp(1.25rem, 2.5vw, 2rem);
   align-items: center;
-  max-width: var(--content-max);
+  width: 100%;
+  max-width: var(--visual-max);
   margin-inline: auto;
 }
 

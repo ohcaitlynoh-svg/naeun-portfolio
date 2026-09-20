@@ -141,9 +141,14 @@
   fill: var(--color-fg-muted);
 }
 
+/* Centered (margin-inline: auto) under the topology .stage, which is
+   itself centered (72% width, margin: 0 auto) — this panel used to be
+   flush left instead, so its axis didn't match the visualization above
+   it. Text inside stays left-aligned; only the box's own position is
+   centered. */
 .detailPanel {
   max-width: 32rem;
-  margin: 1.25rem 0 0;
+  margin: 1.25rem auto 0;
   padding: 1.1rem;
   border: 1px solid var(--color-border);
 }

@@ -122,9 +122,15 @@
   display: none;
 }
 
+/* Centered (margin-inline: auto) within the full-width .desktopGraph
+   column above it — was flush against the left edge while the graph
+   itself reads as centered, making the "Node Detail" box look stuck to
+   the left of the section instead of sitting under the graph it
+   describes. Text inside stays left-aligned; only the box's own position
+   is centered. */
 .detailPanel {
   max-width: 40rem;
-  margin: var(--space-md) 0 0;
+  margin: var(--space-md) auto 0;
   padding: var(--space-md);
   border: 1px solid var(--color-border);
   border-radius: 10px;

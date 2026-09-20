@@ -40,7 +40,14 @@
        --text-max    Home narrative text — intros, descriptions, bullets.
        --visual-max  images, graphs, diagrams, hero shots — always
                       <= page-max, centered within it, never a negative-
-                      margin breakout past the page container. */
+                      margin breakout past the page container. Also the
+                      shared outer-alignment axis every Home top-level
+                      section (Hero, About/How I Work, Core Projects,
+                      Career Snapshot, AI Labs, Contact), the Header's
+                      .inner, and --content-max's own long-form column +
+                      rail total all resolve to, so their left/right
+                      edges line up instead of each picking its own
+                      width. */
   --page-max: 1180px;
   --content-max: 960px;
   --text-max: 760px;
@@ -179,14 +186,15 @@ dl {
 }
 
 /* Long-form page layout — About / How I Work / Project Detail. Main copy
-   is hard-capped at 880px (never grows to fill --page-max) with a 170px
-   sticky-rail column beside it; the whole ~1086px block centers within
-   the wider .container via justify-content, so it never fills the full
-   1180px page width even on very wide viewports. Home is exempt — it's a
-   summary page and keeps its own --visual-max-based width. */
+   is hard-capped at 874px (never grows to fill --page-max) with a 170px
+   sticky-rail column beside it; the whole block totals exactly
+   --visual-max (874 + 36 gap + 170 = 1080px) and centers within the wider
+   .container via justify-content — the same 1080px axis Home's top-level
+   sections and the Header now share, so this column's left/right edges
+   line up with theirs instead of landing at an unrelated ~1086px guess. */
 .longFormGrid {
   display: grid;
-  grid-template-columns: minmax(0, 880px) 170px;
+  grid-template-columns: minmax(0, 874px) 170px;
   gap: 36px;
   justify-content: center;
   align-items: start;

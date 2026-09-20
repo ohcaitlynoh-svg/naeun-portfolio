@@ -34,8 +34,15 @@
   }
 }
 
+/* Centered on the same axis as .cardGrid above (margin-inline: auto was
+   missing here, leaving this section flush against .projectsWrap's own
+   left edge while the 3-card grid above it sat centered — the "Other
+   Projects stuck to the left" mismatch). Kept narrower than .cardGrid on
+   purpose (--text-max reads better for this list of text rows), just no
+   longer off-axis from it. */
 .otherSection {
   max-width: var(--text-max);
+  margin-inline: auto;
   margin-top: 2rem;
   padding-top: 2.5rem;
   border-top: 1px solid var(--color-border);

@@ -119,6 +119,13 @@ export default function CareerGraphView({
   const mainLabelDy = size === "large" ? 20 : 18;
   const mainLabelOffset = size === "large" ? { selected: 34, base: 32 } : { selected: 31, base: 29 };
   const periodLabelOffset = size === "large" ? { selected: 24, base: 22 } : { selected: 22, base: 20 };
+  // Adjacent main nodes sit close enough (7 nodes evenly spaced) that full
+  // date-range strings ("2018.08.08 – 2021.03") can be wider than the gap
+  // between them and collide. Stagger odd-index period labels further from
+  // the line than even-index ones — same near/far two-row trick as the
+  // domain labels below — so neighboring labels' vertical bands never
+  // overlap, without moving nodes/line/company-name positions at all.
+  const periodLabelStagger = 18;
   const [activeId, setActiveId] = useState<string | null>(null);
   const [hoveredId, setHoveredId] = useState<string | null>(null);
 
@@ -300,7 +307,11 @@ export default function CareerGraphView({
                 </text>
                 <text
                   x={x}
-                  y={mainLineY - (n.isSelected ? periodLabelOffset.selected : periodLabelOffset.base)}
+                  y={
+                    mainLineY -
+                    (n.isSelected ? periodLabelOffset.selected : periodLabelOffset.base) -
+                    (i % 2 === 1 ? periodLabelStagger : 0)
+                  }
                   textAnchor="middle"
                   className={styles.periodLabel}
                 >
