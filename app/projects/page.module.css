@@ -1,0 +1,372 @@
+.title {
+  font-size: 2rem;
+  margin-bottom: 1.25rem;
+}
+
+.intro {
+  max-width: var(--text-max);
+  color: var(--color-fg-muted);
+  margin-bottom: 3rem;
+}
+
+/* 3 comparable cards in one row, capped well under --page-max so a lone
+   card never stretches to near-full page width. */
+.cardGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+  max-width: 1000px;
+  margin-inline: auto;
+  margin-bottom: 2rem;
+}
+
+@media (max-width: 1024px) {
+  .cardGrid {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 700px;
+  }
+}
+
+@media (max-width: 640px) {
+  .cardGrid {
+    grid-template-columns: 1fr;
+    max-width: 420px;
+  }
+}
+
+.otherSection {
+  max-width: var(--text-max);
+  margin-top: 2rem;
+  padding-top: 2.5rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.otherTitle {
+  font-size: var(--font-meta);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-fg-muted);
+  margin-bottom: 1rem;
+}
+
+.otherList {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Each row is a native <details> accordion — same pattern as the
+   Freelance list on /about, just scoped to this page's own classes. */
+.otherEntry {
+  border-top: 1px solid var(--color-border);
+}
+
+.otherEntry:first-child {
+  border-top: none;
+}
+
+.otherSummary {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.5rem;
+  padding-block: 0.65rem;
+  cursor: pointer;
+  list-style: none;
+}
+
+.otherSummary::-webkit-details-marker {
+  display: none;
+}
+
+.otherName {
+  font-weight: 600;
+}
+
+.otherDomain {
+  color: var(--color-fg-muted);
+  font-size: var(--font-meta);
+}
+
+/* Secondary label in the collapsed row when the displayed portfolio
+   project name differs from the career/client name shown as .otherName
+   (e.g. "Aladin Market" under the "Aladin Communication" row). */
+.otherProjectLabel {
+  color: var(--color-fg-muted);
+  font-size: var(--font-meta);
+  font-style: italic;
+}
+
+/* Repeats the project name as a real title once the row is expanded,
+   since the collapsed row leads with the career/client name instead. */
+.otherProjectTitle {
+  font-weight: 700;
+  font-size: var(--font-body);
+}
+
+.otherPeriod {
+  color: var(--color-fg-muted);
+  font-size: var(--font-meta);
+  margin-left: auto;
+  white-space: nowrap;
+}
+
+.otherChevron {
+  color: var(--color-fg-muted);
+  font-size: 0.9rem;
+  line-height: 1;
+  transition: transform 0.15s ease;
+}
+
+.otherEntry[open] .otherChevron {
+  transform: rotate(90deg);
+}
+
+/* Snapshot panel — deliberately plain text/dividers, no card chrome, and
+   noticeably smaller type than the Core Project cards above. */
+.otherExpanded {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding-bottom: 1.1rem;
+}
+
+.otherSummaryText {
+  font-size: var(--font-meta);
+  color: var(--color-fg);
+  line-height: 1.55;
+}
+
+.otherWorkedOnLabel {
+  color: var(--color-fg-muted);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  margin-right: 0.5rem;
+  margin-bottom: 0.3rem;
+}
+
+/* Extended per-company snapshot (currently Biginsight only) — same
+   divider/text language as the generic rows above, just more of it. */
+.otherMeta {
+  color: var(--color-fg-muted);
+  font-size: var(--font-meta);
+  line-height: 1.5;
+}
+
+.otherProductList {
+  display: flex;
+  flex-direction: column;
+}
+
+.otherProduct {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  padding-block: 0.5rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.otherProduct:first-child {
+  border-top: none;
+  padding-top: 0;
+}
+
+.otherProductName {
+  font-weight: 600;
+  font-size: var(--font-meta);
+}
+
+.otherBulletList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  font-size: var(--font-meta);
+  color: var(--color-fg-muted);
+}
+
+.otherBulletList li {
+  padding-left: 0.9rem;
+  position: relative;
+}
+
+.otherBulletList li::before {
+  content: "–";
+  position: absolute;
+  left: 0;
+  color: var(--color-fg-muted);
+}
+
+/* Grouped "What I Worked On" (e.g. Transaction / Post-Transaction) —
+   sub-labels above their own bullet list, still no card chrome. */
+.otherGroupList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.otherGroup:not(:first-child) {
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.otherGroupLabel {
+  font-weight: 600;
+  font-size: var(--font-meta);
+  margin-bottom: 0.3rem;
+}
+
+.otherKeyDecision {
+  font-size: var(--font-meta);
+  color: var(--color-fg);
+  line-height: 1.55;
+  padding-top: 0.6rem;
+  border-top: 1px solid var(--color-border);
+}
+
+/* A named secondary initiative — a touch of separation, still no card
+   background/shadow. */
+.otherSecondary {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.otherNote {
+  font-size: 0.8rem;
+  font-style: italic;
+  color: var(--color-fg-muted);
+  line-height: 1.5;
+}
+
+/* Evidence gallery — real product screenshots, not decoration. Deliberately
+   plainer/smaller than Core Projects' own cards: thin border only (no
+   radius, no shadow), compact frame, small muted caption. Only ever
+   rendered when a snapshot actually has assets (see lib/other-projects-
+   content.ts) — there is no empty/placeholder state by design. */
+.otherGallery {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+}
+
+.otherGallerySingle {
+  grid-template-columns: 1fr;
+  max-width: 320px;
+}
+
+.otherGalleryItem {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.otherGalleryFrame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border: 1px solid var(--color-border);
+  background: var(--color-bg);
+}
+
+.otherGalleryImg {
+  object-fit: contain;
+}
+
+.otherGalleryCaption {
+  font-size: 0.75rem;
+  color: var(--color-fg-muted);
+}
+
+@media (max-width: 640px) {
+  .otherGallery,
+  .otherGallerySingle {
+    grid-template-columns: 1fr;
+    max-width: none;
+  }
+}
+
+.otherCareerLink {
+  font-size: 0.85rem;
+  align-self: flex-start;
+}
+
+/* Freelance / Project Experience — one outer row expands into 4 compact
+   nested rows, indented and dividered to read as clearly secondary to the
+   top-level Other Projects rows above it. */
+.otherSubList {
+  display: flex;
+  flex-direction: column;
+  padding-left: 1rem;
+  border-left: 1px solid var(--color-border);
+}
+
+.otherSubEntry {
+  border-top: 1px solid var(--color-border);
+}
+
+.otherSubEntry:first-child {
+  border-top: none;
+}
+
+.otherSubEntry .otherName {
+  font-weight: 600;
+  font-size: 0.92rem;
+}
+
+.otherSubEntry .otherSummary {
+  padding-block: 0.5rem;
+}
+
+.otherSubEntry .otherExpanded {
+  padding-bottom: 0.85rem;
+}
+
+/* Positioning anchor for the indicator below — lets it be placed relative
+   to this page's own centered content instead of the viewport edge. */
+.projectsWrap {
+  position: relative;
+}
+
+/* Reuses the shared SectionIndicator component as-is (no changes to
+   SectionIndicator.tsx/.module.css). Rather than placing it in the shared
+   .longFormGrid (which would cap main content at 880px and shrink
+   .cardGrid's 1000px width), this page keeps its own container width
+   untouched and positions just the desktop rail relative to the content
+   column itself, the same "content edge + gap + rail" relationship
+   About/How I Work get from .longFormGrid — just computed here instead of
+   coming from a shared grid track.
+   - .cardGrid is 1000px, centered in .projectsWrap: its right edge sits at
+     the wrap's horizontal center + 500px. Anchoring the rail's left edge
+     at center + 500px + 40px reproduces that same "content right edge +
+     ~40px gap" relationship, instead of docking to the viewport's right
+     edge.
+   - The wrapper spans the full content height (top:0;bottom:0) purely so
+     SectionIndicator's own `.desktopRail { position: sticky; top: 6rem }`
+     (untouched) has room to stick and travel within it, exactly like it
+     does as a grid column on the other long-form pages.
+   - Below 1440px there usually isn't enough clearance beside the centered
+     1000px-wide .cardGrid for a 170px rail without overlapping it, so it
+     stays hidden (matching SectionIndicator's own "hide below 720px"
+     mobile-nav threshold — between 720–1440px neither variant shows,
+     same trade-off Home's own right rail already makes).
+   - SectionIndicator's mobileNav (<=720px) is untouched and still works
+     normally, since only the second <nav> (desktopRail) is targeted here. */
+.indicatorRail nav:last-of-type {
+  display: none;
+}
+
+@media (min-width: 1440px) {
+  .indicatorRail {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: calc(50% + 500px + 40px);
+    width: 170px;
+  }
+
+  .indicatorRail nav:last-of-type {
+    display: block;
+  }
+}

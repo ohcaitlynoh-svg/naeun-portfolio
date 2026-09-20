@@ -1,0 +1,549 @@
+.domain {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-fg-muted);
+  margin-bottom: 0.75rem;
+}
+
+.title {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.oneLiner {
+  max-width: var(--content-max);
+  color: var(--color-fg-muted);
+  font-size: 1.05rem;
+  margin-bottom: 2rem;
+}
+
+.meta {
+  display: flex;
+  gap: 3rem;
+  flex-wrap: wrap;
+  padding-bottom: 2.5rem;
+  margin-bottom: 2.5rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.meta dt {
+  font-size: 0.8rem;
+  color: var(--color-fg-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.25rem;
+}
+
+.meta dd {
+  margin: 0;
+}
+
+.meta .accentText {
+  color: var(--color-accent);
+}
+
+.caseStudy {
+  display: flex;
+  flex-direction: column;
+}
+
+.preLine {
+  white-space: pre-line;
+}
+
+.bulletList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-width: var(--content-max);
+  color: var(--color-fg-muted);
+}
+
+.bulletList li {
+  padding-left: 1rem;
+  position: relative;
+}
+
+.bulletList li::before {
+  content: "–";
+  position: absolute;
+  left: 0;
+  color: var(--color-fg-muted);
+}
+
+.keyResultList {
+  color: var(--color-accent);
+  font-weight: 500;
+}
+
+.caseSection {
+  padding-block: 2rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.caseSection:first-child {
+  border-top: none;
+  padding-top: 0;
+}
+
+.caseSection h2 {
+  font-size: 1.1rem;
+  margin-bottom: 0.75rem;
+}
+
+.caseSection p {
+  color: var(--color-fg-muted);
+  max-width: var(--content-max);
+}
+
+.caseSection p + p {
+  margin-top: 0.75rem;
+}
+
+.inputGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 3rem;
+  margin: 1.25rem 0;
+  max-width: 42rem;
+}
+
+.inputGroupTitle {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-bottom: 0.6rem;
+}
+
+.sectionIntro {
+  margin-bottom: 1.5rem;
+}
+
+.caseSection .keyMessage {
+  color: var(--color-fg);
+  font-weight: 600;
+  margin-top: 1rem;
+}
+
+.constraintsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 3rem;
+}
+
+.constraintItem {
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.constraintsGrid .constraintItem:nth-child(-n + 2) {
+  border-top: none;
+  padding-top: 0;
+}
+
+.caseSection .constraintTitle {
+  color: var(--color-fg);
+  font-weight: 600;
+  margin: 0;
+}
+
+.constraintNumber {
+  color: var(--color-fg-muted);
+  font-weight: 400;
+  margin-right: 0.5rem;
+}
+
+.subHeading {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 2rem 0 0.75rem;
+}
+
+.subHeading:first-of-type {
+  margin-top: 0;
+}
+
+.subCaseList {
+  display: flex;
+  flex-direction: column;
+}
+
+.subCase {
+  padding-block: 1.25rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.subCase:first-child {
+  border-top: none;
+  padding-top: 0;
+}
+
+.caseSection .subCaseTitle {
+  color: var(--color-fg);
+  font-weight: 600;
+  margin: 0 0 0.5rem;
+}
+
+.caseSection .caseTitle {
+  color: var(--color-accent);
+  font-weight: 600;
+  margin: 0 0 0.5rem;
+}
+
+.learningLabel {
+  color: var(--color-fg);
+  font-weight: 600;
+  margin-right: 0.5rem;
+}
+
+.processFlow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--color-fg-muted);
+  margin: 0.25rem 0 1.5rem;
+}
+
+.processFlow li:not(:last-child)::after {
+  content: "→";
+  margin-left: 0.5rem;
+  color: var(--color-fg-muted);
+}
+
+/* Line/node flow diagram — same items as .processFlow, drawn instead of
+   listed. A fixed min-width inside an overflow-x:auto wrapper keeps node
+   labels legible at any viewport (per the wide-diagram exception), rather
+   than shrinking illegibly when the SVG is scaled to a narrow column. */
+.flowDiagramScroll {
+  overflow-x: auto;
+  margin: 0.5rem 0 1.5rem;
+}
+
+.flowDiagram {
+  min-width: 640px;
+  max-width: var(--content-max);
+}
+
+.flowDiagram svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.flowDiagramLine {
+  stroke: var(--color-border);
+  stroke-width: 1.5;
+}
+
+.flowDiagramNode {
+  fill: var(--color-bg);
+  stroke: var(--color-fg-muted);
+  stroke-width: 1.5;
+}
+
+.flowDiagramLabel {
+  font-size: 10.5px;
+  fill: var(--color-fg-muted);
+}
+
+.flowDiagramArrow {
+  fill: var(--color-border);
+}
+
+.imageGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-top: 1.5rem;
+}
+
+/* Wider variant — real evidence shots whose on-screen text needs to stay
+   legible read poorly at a 3-up width, so this halves the column count and
+   sizes from --visual-max instead of the narrower text/content column; a
+   3rd item simply falls to row 2, column 1 via normal grid flow. No
+   breakout: the page container (--page-max) already holds --visual-max
+   comfortably, so this just centers within it. */
+.imageGridWideBreakout {
+  margin-top: 1.5rem;
+}
+
+.imageGridWideInner {
+  max-width: var(--visual-max);
+  margin-inline: auto;
+}
+
+.imageGridWide {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+}
+
+/* This 2-column variant's evidence (currently only EXEM's "Product
+   Expansion · AI Anomaly Detection") reads too small at the shared 4:3
+   evidence-frame ratio — taller frame here only, other evidence blocks
+   (Final Product, Evidence & Process, etc.) keep the standard .evidenceFrame
+   size untouched. Same object-fit: contain, no crop, lightbox unaffected. */
+.imageGridWide .evidenceFrame {
+  aspect-ratio: 9 / 8;
+}
+
+/* A lone evidence image — no grid, sized generously (up to --visual-max)
+   and centered like any other visual, instead of an arbitrary percentage
+   of whatever column it happens to sit in. */
+.evidenceSingle {
+  width: 100%;
+  max-width: var(--visual-max);
+  margin: 1.5rem auto 0;
+}
+
+/* Compact secondary evidence — deliberately small, supporting a claim
+   rather than being featured as a result. */
+.evidenceSecondary {
+  width: min(45%, 320px);
+  margin-top: 1.5rem;
+}
+
+/* Uniform evidence frame — every real evidence shot sits in the same
+   aspect-ratio box regardless of its own native ratio, so a row of them
+   lines up edge to edge. The image is never cropped or distorted: it's
+   laid out with object-fit: contain and centered, with any leftover
+   space filled by the section background (not a hardcoded white). */
+.evidenceFrame {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  padding: 0.75rem;
+  border: 1px solid var(--color-border);
+  background: var(--color-bg);
+  cursor: zoom-in;
+  font: inherit;
+  color: inherit;
+}
+
+.evidenceFrame:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.evidenceImageContain {
+  object-fit: contain;
+}
+
+.imagePlaceholder {
+  aspect-ratio: 4 / 3;
+  border: 1px dashed var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: var(--color-fg-muted);
+  font-size: 0.8rem;
+  line-height: 1.5;
+  padding: 1rem;
+}
+
+.imageCaptionTitle {
+  color: var(--color-fg);
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin: 0.75rem 0 0.2rem;
+}
+
+.imageCaptionText {
+  color: var(--color-fg-muted);
+  font-size: 0.85rem;
+  margin: 0;
+}
+
+/* Hero image — the one flagship result shot, deliberately wider than the
+   text column so it reads as the visual center of the page. Sized from
+   --visual-max and centered within the page container (--page-max already
+   has room for it) — no negative-margin breakout past the container. */
+.heroImageBreakout {
+  margin-top: 1.5rem;
+}
+
+.heroImageInner {
+  max-width: var(--visual-max);
+  margin-inline: auto;
+}
+
+.heroImagePlaceholder {
+  aspect-ratio: 16 / 9;
+  border: 1px dashed var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: var(--color-fg-muted);
+  font-size: 0.9rem;
+}
+
+/* Real assets — always sized from their own natural aspect ratio (never a
+   fixed aspect-ratio box), so nothing gets cropped or stretched. */
+.heroImageAsset {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.heroImageCaption {
+  color: var(--color-fg-muted);
+  font-size: 0.85rem;
+  margin: 0.75rem 0 0;
+  max-width: var(--content-max);
+}
+
+
+.impactGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: 2.5rem;
+}
+
+.impactGrid + p {
+  margin-top: 1.5rem;
+}
+
+.impactItem {
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.impactGrid .impactItem:nth-child(-n + 3) {
+  border-top: none;
+  padding-top: 0;
+}
+
+.caseSection .impactLabel {
+  color: var(--color-accent);
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin: 0 0 0.3rem;
+}
+
+.impactDescription {
+  color: var(--color-fg-muted);
+  font-size: 0.9rem;
+  margin: 0;
+  white-space: pre-line;
+}
+
+.detailSection h2 {
+  font-size: 0.95rem;
+  color: var(--color-fg-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.mutedBullets {
+  font-size: 0.85rem;
+}
+
+.collapsible summary {
+  cursor: pointer;
+  color: var(--color-fg-muted);
+  font-size: 0.9rem;
+  list-style: none;
+}
+
+.collapsible summary::-webkit-details-marker {
+  display: none;
+}
+
+.collapsible summary::after {
+  content: " →";
+}
+
+.collapsible summary:hover {
+  color: var(--color-fg);
+}
+
+.collapsible[open] summary {
+  margin-bottom: 1rem;
+}
+
+/* Lightbox — click-to-enlarge for real evidence/hero shots. */
+.lightboxOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1.5rem;
+  cursor: zoom-out;
+}
+
+.lightboxImage {
+  width: auto;
+  height: auto;
+  max-width: 92vw;
+  max-height: 85vh;
+  cursor: default;
+}
+
+.lightboxClose {
+  position: fixed;
+  top: 1.25rem;
+  right: 1.5rem;
+  border: none;
+  background: none;
+  color: #fff;
+  font-size: 0.85rem;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+.lightboxClose:hover {
+  opacity: 0.7;
+}
+
+@media (max-width: 640px) {
+  .inputGrid {
+    grid-template-columns: 1fr;
+    row-gap: 1.25rem;
+  }
+
+  .constraintsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .constraintsGrid .constraintItem:nth-child(-n + 2) {
+    border-top: 1px solid var(--color-border);
+    padding-top: 1.25rem;
+  }
+
+  .constraintsGrid .constraintItem:first-child {
+    border-top: none;
+    padding-top: 0;
+  }
+
+  .imageGrid,
+  .imageGridWide {
+    grid-template-columns: 1fr;
+  }
+
+  .lightboxOverlay {
+    padding: 4.5rem 1rem 1.5rem;
+  }
+
+  .impactGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .impactGrid .impactItem:nth-child(-n + 3) {
+    border-top: 1px solid var(--color-border);
+    padding-top: 1.25rem;
+  }
+
+  .impactGrid .impactItem:first-child {
+    border-top: none;
+    padding-top: 0;
+  }
+}

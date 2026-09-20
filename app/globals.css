@@ -1,0 +1,208 @@
+:root {
+  /* White + charcoal base. "Ink Blue" (Midnight) is an ACCENT, not the
+     page's text/background color — page/section background is always
+     white, body text is neutral charcoal. Secondary/support/highlight/tint
+     are reserved for graph/data accents and small, deliberate UI points
+     (badges, chart series, hover/quote surfaces) — never general UI
+     chrome, and never used in equal proportion to each other. See the
+     usage rules in each token's comment below. */
+  --color-bg: #ffffff;
+  --color-fg: #1a1a1a;
+  --color-fg-muted: #5c5c5c;
+  --color-border: #e2e2e2;
+  --color-surface: #fafafa;
+  /* MIDNIGHT — primary button, active nav, primary link, selected state,
+     main chart series, heading accent. The one accent used generously. */
+  --color-accent: #013d5a;
+  /* CELESTE — secondary chart series, subtle selected background, badge/
+     chip background, information highlight. */
+  --color-secondary: #bdd9de;
+  /* HERB — success/stable state, supporting chart series, positive/
+     complete indicator. */
+  --color-support: #708c69;
+  /* MARIGOLD — attention/highlight, one important data point, insight
+     callout. Used very sparingly — never a base UI color. */
+  --color-highlight: #f1a25b;
+  /* LIONSMANE — never the page/section background. Restricted to small
+     card/surface tints, hover backgrounds, and quote/highlight blocks. */
+  --color-tint: #fcf5e3;
+
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif;
+
+  /* Shared content-width system — every major section, text block, and
+     visual element on every page (Home + Project Detail) resolves to one
+     of these four, never a bespoke max-width/width value:
+       --page-max    the outer page container; the shared left/right edge
+                      every section heading and visual aligns to.
+       --content-max Project Detail case-study body copy (paragraphs,
+                      bullet lists, constraint/decision grids).
+       --text-max    Home narrative text — intros, descriptions, bullets.
+       --visual-max  images, graphs, diagrams, hero shots — always
+                      <= page-max, centered within it, never a negative-
+                      margin breakout past the page container. */
+  --page-max: 1180px;
+  --content-max: 960px;
+  --text-max: 760px;
+  --visual-max: 1080px;
+
+  /* Page-container horizontal padding — a single reactive token so every
+     consumer (just --page-pad) updates together at each breakpoint,
+     instead of each component redeclaring its own padding override. */
+  --page-pad: 32px;
+
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2.5rem;
+  --space-xl: 4rem;
+  --space-2xl: 6rem;
+  --space-section: 2.75rem; /* major-section padding-block (~89px gap incl. border) */
+
+  /* Typography scale — every component should draw from these five tiers
+     rather than picking its own font-size. (Established CTA/button text at
+     0.9rem and secondary/muted SVG visualization labels are the two
+     deliberate exceptions, tuned separately for their own contexts.) */
+  --font-hero-name: 2.125rem; /* 34px */
+  --font-heading: 1.75rem; /* 28px — major section heading (h2) */
+  --font-subheading: 1.25rem; /* 20px — subsection heading (h3) */
+  --font-body: 1rem; /* 16px */
+  --font-meta: 0.8125rem; /* 13px — meta/caption/labels */
+}
+
+/* Dark mode — same neutral, minimal system as light mode; Midnight
+   lightened for legibility against a dark background, same accent-only
+   role. */
+[data-theme="dark"] {
+  --color-bg: #15171b;
+  --color-fg: #ececea;
+  --color-fg-muted: #9a9da3;
+  --color-border: #2c2f34;
+  --color-surface: #1b1e23;
+  --color-accent: #7fa8c9;
+  --color-secondary: #9fc3cb;
+  --color-support: #8fae84;
+  --color-highlight: #f5b274;
+  --color-tint: #23211a;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-fg);
+  font-family: var(--font-sans);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+a:hover {
+  opacity: 0.7;
+}
+
+h1,
+h2,
+h3 {
+  font-weight: 600;
+  line-height: 1.3;
+  margin: 0;
+}
+
+p {
+  margin: 0;
+}
+
+ul,
+ol,
+dl {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Shared layout utilities, used across pages. Every major section on
+   every page uses this same .container — the width formula (rather than
+   max-width + padding) means --page-pad only ever acts as a viewport-edge
+   safety margin: once the viewport is wide enough for --page-max to fit,
+   the container simply centers at that width via margin-inline auto. */
+.container {
+  width: min(100% - var(--page-pad) * 2, var(--page-max));
+  margin-inline: auto;
+}
+
+.section {
+  padding-block: var(--space-2xl);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.section:last-child {
+  border-bottom: none;
+}
+
+@media (max-width: 900px) {
+  :root {
+    --page-pad: 24px;
+  }
+}
+
+@media (max-width: 640px) {
+  :root {
+    --page-pad: 18px;
+    --space-2xl: 3rem;
+    --space-xl: 2.5rem;
+  }
+}
+
+/* Long-form page layout — About / How I Work / Project Detail. Main copy
+   is hard-capped at 880px (never grows to fill --page-max) with a 170px
+   sticky-rail column beside it; the whole ~1086px block centers within
+   the wider .container via justify-content, so it never fills the full
+   1180px page width even on very wide viewports. Home is exempt — it's a
+   summary page and keeps its own --visual-max-based width. */
+.longFormGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 880px) 170px;
+  gap: 36px;
+  justify-content: center;
+  align-items: start;
+}
+
+@media (max-width: 720px) {
+  .longFormGrid {
+    grid-template-columns: 1fr;
+    justify-content: stretch;
+  }
+
+  .longFormGrid > :first-child {
+    order: 2;
+  }
+
+  .longFormGrid > :last-child {
+    order: 1;
+  }
+}

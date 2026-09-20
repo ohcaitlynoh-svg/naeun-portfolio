@@ -1,0 +1,92 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background: var(--color-surface);
+  overflow: hidden;
+}
+
+/* Taller than a plain 4:3 thumbnail (~+14%) so the representative image
+   reads as a project preview, not a small icon — same ratio for all 3
+   cards regardless of each source image's own proportions. */
+.visual {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 7 / 6;
+  overflow: hidden;
+  background: var(--color-bg);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.visualImg {
+  object-fit: contain;
+}
+
+.visualPlaceholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: var(--color-fg-muted);
+  font-size: var(--font-meta);
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  padding: 1.1rem 1.25rem 1.25rem;
+  gap: 0.4rem;
+}
+
+.name {
+  font-size: var(--font-subheading);
+  font-weight: 700;
+}
+
+.meta {
+  color: var(--color-fg-muted);
+  font-size: var(--font-meta);
+}
+
+.summary {
+  color: var(--color-fg-muted);
+  white-space: pre-line;
+  line-height: 1.5;
+  margin-top: 0.15rem;
+}
+
+.cta {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  align-self: flex-start;
+}
+
+/* "large" variant — /projects index, 3-up compact grid. A fixed image
+   height (not aspect-ratio) keeps all 3 cards' image areas identical
+   regardless of column width, and never upscales past a sensible display
+   size the way a wide aspect-ratio box did in the old single-column
+   layout (that's what was reading as blurry). Grid gives every card in a
+   row the same stretched height; body flex-grows so the CTA still lines
+   up at the same baseline across all 3 even when summary lengths differ. */
+.large .visual {
+  aspect-ratio: unset;
+  height: 200px;
+}
+
+.large .body {
+  flex: 1;
+  padding: 1rem 1.1rem 1.1rem;
+  gap: 0.35rem;
+}
+
+.large .cta {
+  margin-top: auto;
+  padding-top: 0.5rem;
+}
+
+@media (max-width: 640px) {
+  .large .visual {
+    height: 170px;
+  }
+}

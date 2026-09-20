@@ -1,0 +1,137 @@
+.nav {
+  border-bottom: 1px solid var(--color-border);
+  position: sticky;
+  top: 0;
+  background: var(--color-bg);
+  z-index: 10;
+}
+
+.inner {
+  max-width: var(--page-max);
+  margin-inline: auto;
+  padding: 1rem var(--page-pad);
+  min-height: 4rem;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  grid-template-areas: "brand links controls";
+  align-items: center;
+  gap: 0.75rem 1.5rem;
+}
+
+.brand {
+  grid-area: brand;
+  justify-self: start;
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none;
+}
+
+.brand:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+/* Smaller than the brand text and subtle — a wayfinding cue, not a logo.
+   Hover/focus reuses the existing global a:hover opacity fade (no new
+   color rule needed). */
+.brandIcon {
+  width: 0.85rem;
+  height: 0.85rem;
+  color: var(--color-fg-muted);
+  flex-shrink: 0;
+}
+
+.brandName {
+  white-space: nowrap;
+}
+
+.links {
+  grid-area: links;
+  justify-self: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.25rem;
+}
+
+.links a {
+  font-size: 0.9rem;
+  color: var(--color-fg-muted);
+  text-decoration: none;
+}
+
+.links a:hover {
+  color: var(--color-fg);
+  opacity: 1;
+}
+
+.links a.current {
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.controls {
+  grid-area: controls;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  justify-self: end;
+}
+
+.segmented {
+  display: flex;
+  align-items: stretch;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.segment,
+.segmentCurrent {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  min-width: 2.1rem;
+  padding: 0.3rem 0.65rem;
+  font: inherit;
+  font-size: 0.75rem;
+  border: none;
+  cursor: pointer;
+  line-height: 1;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.segment {
+  background: transparent;
+  color: var(--color-fg-muted);
+}
+
+.segment:hover {
+  color: var(--color-fg);
+}
+
+.segmentCurrent {
+  background: var(--color-accent);
+  color: var(--color-bg);
+  font-weight: 600;
+}
+
+@media (max-width: 640px) {
+  .inner {
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+      "brand controls"
+      "links links";
+    padding: 1rem var(--page-pad);
+    min-height: 0;
+  }
+
+  .links {
+    gap: 0.85rem;
+  }
+}

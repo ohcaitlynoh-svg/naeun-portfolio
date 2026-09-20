@@ -1,0 +1,253 @@
+.title {
+  font-size: 2rem;
+  margin-bottom: 1.25rem;
+}
+
+.intro {
+  max-width: var(--text-max);
+  color: var(--color-fg-muted);
+  margin-bottom: 3rem;
+}
+
+.block {
+  margin-bottom: var(--space-lg);
+}
+
+.block:last-child {
+  margin-bottom: 0;
+}
+
+.blockTitle {
+  font-size: var(--font-subheading);
+  margin-bottom: 1.25rem;
+}
+
+.num {
+  color: var(--color-fg-muted);
+  font-weight: 400;
+  margin-right: 0.6rem;
+}
+
+/* Secondary visual sub-heading within a block (Experience Topology,
+   Freelance) — lower visual priority than the block's own h2. */
+.topologySubheading {
+  font-size: var(--font-body);
+  color: var(--color-fg-muted);
+  margin: 2rem 0 0.75rem;
+}
+
+/* "Experience Topology" specifically — sits closer to the Timeline above
+   it and reads smaller/quieter than .topologySubheading, so it doesn't
+   present as a third primary section inside Career. */
+.topologyHeading {
+  font-size: var(--font-meta);
+  letter-spacing: 0.03em;
+  color: var(--color-fg-muted);
+  margin: 1.25rem 0 0.5rem;
+}
+
+.role {
+  color: var(--color-fg-muted);
+  margin-top: 0.35rem;
+}
+
+/* Overseas Experience — a thin timeline guide + dot marker per entry, and
+   tabular-numeral period alignment, instead of two entries floating with
+   no visual anchor. Still plain text/dividers, not a card. */
+.overseasTimeline {
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid var(--color-border);
+  margin-left: 0.3rem;
+}
+
+.overseasEntry {
+  position: relative;
+  padding: 1.1rem 0 1.1rem 1.5rem;
+}
+
+.overseasEntry:first-child {
+  padding-top: 0.15rem;
+}
+
+.overseasEntry:last-child {
+  padding-bottom: 0.15rem;
+}
+
+.overseasEntry::before {
+  content: "";
+  position: absolute;
+  left: -0.35rem;
+  top: 1.35rem;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  border: 1.5px solid var(--color-fg-muted);
+  background: var(--color-bg);
+}
+
+.overseasEntry:first-child::before {
+  top: 0.5rem;
+}
+
+.overseasEntryHeader {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.overseasPeriod {
+  color: var(--color-fg-muted);
+  font-size: 0.85rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.domainList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem 1rem;
+  color: var(--color-fg-muted);
+}
+
+.domainList li {
+  padding: 0.2rem 0.7rem;
+  border: 1px solid var(--color-border);
+  font-size: 0.85rem;
+}
+
+.bulletList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  max-width: var(--text-max);
+  color: var(--color-fg-muted);
+  margin: 0.75rem 0;
+}
+
+.bulletList li {
+  padding-left: 1rem;
+  position: relative;
+}
+
+.bulletList li::before {
+  content: "–";
+  position: absolute;
+  left: 0;
+  color: var(--color-fg-muted);
+}
+
+.leadershipIntro,
+.leadershipOutro {
+  max-width: var(--text-max);
+  color: var(--color-fg-muted);
+}
+
+.closing {
+  max-width: 38rem;
+  font-size: var(--font-body);
+}
+
+.educationEntry {
+  position: relative;
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  padding-left: 1.1rem;
+}
+
+.educationEntry::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.45rem;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  border: 1.5px solid var(--color-fg-muted);
+  background: var(--color-bg);
+}
+
+.educationSchool {
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.educationNote {
+  color: var(--color-fg-muted);
+  font-size: 0.9rem;
+}
+
+/* Freelance accordion — moved here from Home's page.module.css, now that
+   the full Freelance list lives on this page instead. */
+.freelanceList {
+  display: flex;
+  flex-direction: column;
+}
+
+.freelanceEntry {
+  border-top: 1px solid var(--color-border);
+}
+
+.freelanceEntry:first-child {
+  border-top: none;
+}
+
+.freelanceSummary {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.5rem;
+  padding-block: 0.65rem;
+  cursor: pointer;
+  list-style: none;
+}
+
+.freelanceSummary::-webkit-details-marker {
+  display: none;
+}
+
+.freelanceName {
+  font-size: var(--font-meta);
+  font-weight: 600;
+}
+
+.freelancePeriod {
+  color: var(--color-fg-muted);
+  font-size: var(--font-meta);
+  white-space: nowrap;
+  margin-left: auto;
+}
+
+.freelanceChevron {
+  color: var(--color-fg-muted);
+  font-size: 0.9rem;
+  line-height: 1;
+  transition: transform 0.15s ease;
+}
+
+.freelanceEntry[open] .freelanceChevron {
+  transform: rotate(90deg);
+}
+
+.freelanceExpanded {
+  padding-bottom: 0.75rem;
+}
+
+.freelanceRole {
+  color: var(--color-fg-muted);
+  font-size: var(--font-meta);
+}
+
+.freelanceNote {
+  color: var(--color-fg-muted);
+  font-size: var(--font-meta);
+  margin-top: 0.25rem;
+}
+
+@media (max-width: 640px) {
+  .domainList li {
+    font-size: 0.8rem;
+  }
+}

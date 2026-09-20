@@ -1,0 +1,204 @@
+.wrap {
+  margin-top: 0.25rem;
+}
+
+/* Secondary visual within About's Career section — sized down from the
+   full visual-max so it reads as supporting the Career Graph above it,
+   not as another primary visual at the same weight. */
+.stage {
+  max-width: 72%;
+  margin: 0 auto;
+}
+
+.svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.edge {
+  stroke: var(--color-fg-muted);
+  stroke-opacity: 0.55;
+  stroke-width: 1;
+  transition: stroke 0.15s ease, stroke-width 0.15s ease, opacity 0.15s ease;
+}
+
+.edgeLight {
+  stroke-width: 0.7;
+  stroke-opacity: 0.4;
+}
+
+.edgeDim {
+  opacity: 0.15;
+}
+
+.node {
+  cursor: default;
+  transition: opacity 0.15s ease;
+}
+
+.nodeInteractive {
+  cursor: pointer;
+}
+
+.nodeInteractive:focus-visible .nodeCircle {
+  stroke: var(--color-accent);
+  stroke-width: 2;
+}
+
+.nodeDim {
+  opacity: 0.3;
+}
+
+.nodeCircle {
+  transition: stroke-width 0.15s ease, r 0.15s ease;
+}
+
+.node-center .nodeCircle {
+  fill: var(--color-accent);
+  fill-opacity: 0.1;
+  stroke: var(--color-accent);
+  stroke-width: 1.3;
+}
+
+.node-domain .nodeCircle {
+  fill: var(--color-bg);
+  stroke: var(--color-fg-muted);
+  stroke-width: 1;
+}
+
+.node-selected .nodeCircle {
+  fill: var(--color-accent);
+  fill-opacity: 0.15;
+  stroke: var(--color-accent);
+  stroke-width: 1.2;
+}
+
+.node-selected.nodeSelected .nodeCircle,
+.node-selected:hover .nodeCircle {
+  stroke-width: 2;
+}
+
+.node-career .nodeCircle {
+  fill: var(--color-fg-muted);
+  fill-opacity: 0.12;
+  stroke: var(--color-border);
+  stroke-width: 1;
+}
+
+.node-career.nodeSelected .nodeCircle,
+.node-career:hover .nodeCircle {
+  stroke: var(--color-fg-muted);
+  stroke-width: 1.4;
+}
+
+.node-freelance .nodeCircle {
+  fill: var(--color-fg-muted);
+  fill-opacity: 0.07;
+  stroke: var(--color-border);
+  stroke-width: 0.75;
+}
+
+.node-freelance.nodeSelected .nodeCircle,
+.node-freelance:hover .nodeCircle {
+  stroke: var(--color-fg-muted);
+  stroke-width: 1.1;
+}
+
+.nodeLabel {
+  font-size: 13px;
+  fill: var(--color-fg-muted);
+  pointer-events: none;
+}
+
+/* Sized a step below CareerGraphView's own 16px company-name labels, so
+   this stays legibly secondary even though it's the biggest label here. */
+.nodeLabel-center {
+  font-size: 15px;
+  font-weight: 600;
+  fill: var(--color-fg-muted);
+}
+
+.nodeLabel-domain {
+  font-size: 13px;
+  font-weight: 600;
+  fill: var(--color-fg);
+}
+
+.nodeLabel-selected {
+  font-size: 13px;
+  font-weight: 600;
+  fill: var(--color-fg);
+}
+
+.nodeLabel-career {
+  font-size: 12px;
+  fill: var(--color-fg-muted);
+}
+
+.nodeLabel-freelance {
+  font-size: 11px;
+  fill: var(--color-fg-muted);
+}
+
+.detailPanel {
+  max-width: 32rem;
+  margin: 1.25rem 0 0;
+  padding: 1.1rem;
+  border: 1px solid var(--color-border);
+}
+
+.detailPlaceholder {
+  color: var(--color-fg-muted);
+  font-size: var(--font-meta);
+}
+
+.detailHeader {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.detailName {
+  font-size: var(--font-body);
+  font-weight: 600;
+}
+
+.detailPeriod {
+  font-size: var(--font-meta);
+  color: var(--color-fg-muted);
+  white-space: nowrap;
+}
+
+.detailRole {
+  margin-top: 0.35rem;
+  font-size: var(--font-meta);
+  color: var(--color-fg-muted);
+  white-space: pre-line;
+}
+
+.detailSummary {
+  margin-top: var(--space-sm);
+  white-space: pre-line;
+}
+
+.detailCta {
+  display: inline-block;
+  margin-top: var(--space-sm);
+  font-size: 0.9rem;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+@media (max-width: 640px) {
+  .stage {
+    max-width: 21rem;
+  }
+
+  .detailHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+}

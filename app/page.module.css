@@ -1,0 +1,306 @@
+.hero {
+  min-height: 520px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+/* Visual content (career graph) inside a section that otherwise reads as
+   text — sized from the shared --visual-max, centered within the section's
+   own .container rather than escaping it. No negative-margin breakout: the
+   page container is already wide enough (--page-max) to hold --visual-max
+   with room either side. */
+.visualSummary {
+  max-width: var(--visual-max);
+  margin-inline: auto;
+}
+
+/* Row 1 — About + How I Work, side by side on desktop. Each card is plain
+   (no border/surface chrome — only the project cards below get that
+   treatment), just an icon+heading block like the rest of Home. Capped at
+   --content-max (960px, same token Hero uses) and centered so this row
+   reads as one compact block under Hero, not a section spanning the full
+   page width. */
+.summaryGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-lg);
+  max-width: var(--content-max);
+  margin-inline: auto;
+}
+
+/* Equal-height (grid stretch, row 1) + flex column so both cards share one
+   uniform vertical rhythm (see the *Reset classes below, which zero out
+   each child's own margin so this single gap is the only spacing source)
+   and so .sectionCta can pin to the bottom via margin-top:auto, keeping
+   both CTAs on the same line even when one card's content runs shorter.
+   At the <=900px single-column breakpoint each card is back in its own
+   grid row, so stretch/auto naturally stop applying — no separate mobile
+   override needed. */
+.summaryCard {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  min-width: 0;
+}
+
+.cardHeading {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: var(--font-heading);
+  margin-bottom: 1.5rem;
+}
+
+/* Home-only rhythm reset — used solely inside .summaryCard to replace
+   About's/How I Work's own (differing) margin-bottom values with this
+   card's single shared gap, without touching the shared about.module.css /
+   how-i-work.module.css rules those classes also serve on their own pages.
+   Written as ".summaryCard .xReset" (two of *this* file's own classes) so
+   specificity (0,2,0) reliably beats the shared single-class rules
+   (0,1,0) regardless of which CSS-module file the bundler places first —
+   no dependency on cross-file source order. */
+.summaryCard .cardHeadingReset {
+  margin-bottom: 0;
+}
+
+.summaryCard .cardIntroReset {
+  margin-bottom: 0;
+}
+
+.summaryCard .cardBlockReset {
+  margin-bottom: 0;
+}
+
+.summaryCard .cardFlowStripReset {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.cardIcon {
+  flex-shrink: 0;
+  color: var(--color-accent);
+}
+
+/* Core Projects — 3 image-led cards, capped/centered like any other
+   visual-summary content. */
+.projectCardGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-md);
+  max-width: var(--visual-max);
+  margin-inline: auto;
+}
+
+@media (max-width: 900px) {
+  .summaryGrid {
+    grid-template-columns: 1fr;
+    gap: var(--space-xl);
+  }
+
+  .projectCardGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* The whole [photo + text] group is centered as one block on the page —
+   not the photo alone, not the text alone. Reuses --content-max (960px,
+   already the site's token for this kind of mid-width content block)
+   rather than inventing a new width value. Internal 2-column grid/gap/
+   alignment are unchanged. */
+.heroInner {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: clamp(1.25rem, 2.5vw, 2rem);
+  align-items: center;
+  max-width: var(--content-max);
+  margin-inline: auto;
+}
+
+.heroPhoto {
+  position: relative;
+  width: 19rem;
+  aspect-ratio: 4 / 5;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  flex-shrink: 0;
+}
+
+.heroPhotoImg {
+  object-fit: cover;
+  object-position: 50% 18%;
+}
+
+.heroName {
+  font-size: var(--font-hero-name);
+  line-height: 1.25;
+  margin-bottom: 0.25rem;
+}
+
+.heroTitle {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-accent);
+  margin-bottom: 1.25rem;
+}
+
+.heroMain {
+  max-width: 34rem;
+  font-size: var(--font-subheading);
+  font-weight: 600;
+  line-height: 1.5;
+  word-break: keep-all;
+  margin-bottom: 0.6rem;
+}
+
+.heroSupporting {
+  max-width: 34rem;
+  color: var(--color-fg-muted);
+  font-size: var(--font-body);
+  line-height: 1.7;
+  word-break: keep-all;
+  margin-bottom: 1.25rem;
+}
+
+.heroCtas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+}
+
+.ctaPrimary,
+.ctaSecondary {
+  display: inline-block;
+  padding: 0.65rem 1.4rem;
+  font-size: 0.9rem;
+  text-decoration: none;
+  border: 1px solid var(--color-accent);
+}
+
+.ctaPrimary {
+  color: var(--color-bg);
+  background: var(--color-accent);
+}
+
+.ctaPrimary:hover {
+  opacity: 0.85;
+}
+
+.ctaSecondary {
+  color: var(--color-fg);
+  border-color: var(--color-border);
+}
+
+.ctaSecondary:hover {
+  border-color: var(--color-accent);
+  opacity: 1;
+}
+
+.homeSection {
+  padding-block: var(--space-section);
+}
+
+.anchorSection {
+  scroll-margin-top: 5rem;
+}
+
+.labsPlaceholder {
+  color: var(--color-fg-muted);
+  max-width: var(--text-max);
+}
+
+/* Product Domains chip row on Home's compact About card — same chip style
+   as about.module.css's .domainList, just a touch more breathing room so
+   it doesn't read as footnote-sized in this wider summary context. */
+.domainListHome {
+  gap: 0.75rem 1.1rem;
+}
+
+.domainListHome li {
+  padding: 0.3rem 0.85rem;
+}
+
+.sectionCta {
+  margin-top: 2rem;
+}
+
+/* Pins the CTA to the bottom of the (grid-stretched, equal-height)
+   summary card, so About's and How I Work's CTAs land on the same line
+   even when one card's content runs shorter — scoped to these two cards
+   only, every other .sectionCta usage on Home is untouched. */
+.summaryCard .sectionCta {
+  margin-top: auto;
+}
+
+.contactList {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.contactList li {
+  display: flex;
+  gap: 1rem;
+  align-items: baseline;
+}
+
+.contactLabel {
+  width: 6rem;
+  flex-shrink: 0;
+  color: var(--color-fg-muted);
+  font-size: var(--font-meta);
+}
+
+.placeholder {
+  color: var(--color-fg-muted);
+  font-style: italic;
+}
+
+@media (max-width: 640px) {
+  .hero {
+    min-height: unset;
+    gap: 1.75rem;
+    padding-top: 1.25rem;
+    padding-bottom: 1.5rem;
+  }
+
+  .heroInner {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+    gap: 1rem;
+  }
+
+  .heroPhoto {
+    width: 11rem;
+    aspect-ratio: 4 / 5;
+  }
+
+  .heroName {
+    font-size: 1.6rem;
+  }
+
+  .heroMain,
+  .heroSupporting {
+    max-width: none;
+  }
+
+  .heroCtas {
+    justify-content: center;
+  }
+
+  .contactList li {
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .contactLabel {
+    width: auto;
+  }
+}

@@ -1,0 +1,257 @@
+"use client";
+
+import Link from "next/link";
+import Image from "next/image";
+import { Fragment } from "react";
+import { useLanguage } from "@/components/SiteProviders";
+import CareerGraphView from "@/components/CareerGraphView";
+import ProjectCard from "@/components/ProjectCard";
+import HomeSectionRail from "@/components/HomeSectionRail";
+import {
+  AboutIcon,
+  HowIWorkIcon,
+  ProjectIcon,
+  CareerIcon,
+  AiLabsIcon,
+  ContactIcon,
+} from "@/components/icons/HomeIcons";
+import { projects } from "@/lib/projects";
+import { projectsEn } from "@/lib/projects.en";
+import styles from "./page.module.css";
+import aboutStyles from "./about/about.module.css";
+import howStyles from "./how-i-work/how-i-work.module.css";
+import {
+  careerTimeline,
+  freelanceExperience,
+  productDomains,
+  aboutIntro,
+} from "@/lib/about-content";
+import {
+  careerTimelineEn,
+  freelanceExperienceEn,
+  productDomainsEn,
+  aboutIntroEn,
+} from "@/lib/about-content.en";
+import { flowSteps } from "@/lib/how-i-work-content";
+import { flowStepsEn } from "@/lib/how-i-work-content.en";
+import { aiLabsIntro } from "@/lib/ai-labs-content";
+import { aiLabsIntroEn } from "@/lib/ai-labs-content.en";
+
+function Lines({ lines }: { lines: string[] }) {
+  return (
+    <>
+      {lines.map((line, i) => (
+        <Fragment key={i}>
+          {i > 0 && <br />}
+          {line}
+        </Fragment>
+      ))}
+    </>
+  );
+}
+
+export default function HomePage() {
+  const { language } = useLanguage();
+  const isEn = language === "en";
+
+  const t = {
+    heroMain: isEn
+      ? "I structure complex customer needs and operational problems from a product perspective."
+      : "복잡한 고객 요구와 운영 문제를 제품 관점으로 구조화합니다.",
+    heroSupporting: isEn
+      ? "From 0→1 products to Enterprise B2B, I've decided what's feasible to build within business and technical constraints, prioritized it, and carried it through to launch and operations."
+      : "0→1 제품부터 Enterprise B2B까지, 사업·기술 제약 안에서 구현 가능한 범위와 우선순위를 결정하고 출시와 운영까지 연결해왔습니다.",
+    howIWorkIntro: isEn
+      ? "Starting by weighing customer VOC equally against internal development / sales / engineering input, I judge the implementation approach and scope against clear criteria, align on it, and deliver."
+      : "고객 VOC와 내부 개발 / 영업 / 엔지니어 의견을 동등하게 듣는 것에서 시작해, 명확한 기준으로 구현 방식과 범위를 판단하고 합의를 거쳐 전달합니다.",
+    resumePlaceholder: isEn
+      ? "[Resume download — coming soon.]"
+      : "[Resume 다운로드 영역 — 추후 추가 예정.]",
+  };
+
+  const projectList = isEn ? projectsEn : projects;
+  const careerList = isEn ? careerTimelineEn : careerTimeline;
+  const freelanceList = isEn ? freelanceExperienceEn : freelanceExperience;
+  const domains = isEn ? productDomainsEn : productDomains;
+  const aboutIntroLines = isEn ? aboutIntroEn : aboutIntro;
+  const flow = isEn ? flowStepsEn : flowSteps;
+  const labsIntroLines = isEn ? aiLabsIntroEn : aiLabsIntro;
+
+  return (
+    <>
+      <HomeSectionRail />
+
+      <section id="hero" className={`container section ${styles.hero}`}>
+        <div className={styles.heroInner}>
+          <div className={styles.heroPhoto}>
+            <Image
+              src="/naeun-profile.png"
+              alt="Naeun Oh"
+              fill
+              sizes="(max-width: 640px) 11rem, 19rem"
+              className={styles.heroPhotoImg}
+              priority
+            />
+          </div>
+          <div>
+            <h1 className={styles.heroName}>{isEn ? "Naeun Oh" : "오나은"}</h1>
+            <p className={styles.heroTitle}>Product Manager</p>
+            <p className={styles.heroMain}>{t.heroMain}</p>
+            <p className={styles.heroSupporting}>{t.heroSupporting}</p>
+            <div className={styles.heroCtas}>
+              <a href="#contact" className={styles.ctaPrimary}>
+                Contact Me
+              </a>
+              <a
+                href="https://www.linkedin.com/in/%EB%82%98%EC%9D%80-%EC%98%A4/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.ctaSecondary}
+              >
+                LinkedIn
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className={`container section ${styles.homeSection}`}>
+        <div className={styles.summaryGrid}>
+          <div id="about" className={`${styles.summaryCard} ${styles.anchorSection}`}>
+            <h2 className={`${styles.cardHeading} ${styles.cardHeadingReset}`}>
+              <AboutIcon className={styles.cardIcon} /> About
+            </h2>
+            <p className={`${aboutStyles.intro} ${styles.cardIntroReset}`}>
+              <Lines lines={aboutIntroLines} />
+            </p>
+
+            <div className={`${aboutStyles.block} ${styles.cardBlockReset}`}>
+              <h3 className={aboutStyles.blockTitle}>Product Domains</h3>
+              <ul className={`${aboutStyles.domainList} ${styles.domainListHome}`}>
+                {domains.slice(0, 6).map((domain) => (
+                  <li key={domain}>{domain}</li>
+                ))}
+              </ul>
+            </div>
+
+            <p className={styles.sectionCta}>
+              <Link href="/about">{isEn ? "Read Full Story →" : "Read Full Story →"}</Link>
+            </p>
+          </div>
+
+          <div id="how-i-work" className={`${styles.summaryCard} ${styles.anchorSection}`}>
+            <h2 className={`${styles.cardHeading} ${styles.cardHeadingReset}`}>
+              <HowIWorkIcon className={styles.cardIcon} /> How I Work
+            </h2>
+            <p className={`${howStyles.intro} ${styles.cardIntroReset}`}>{t.howIWorkIntro}</p>
+
+            <ol className={`${howStyles.flowStrip} ${styles.cardFlowStripReset}`}>
+              {flow.map((step) => (
+                <li key={step.label} className={howStyles.flowStep}>
+                  <span className={howStyles.flowNumber}>{step.num}</span>
+                  <span className={howStyles.flowLabel}>{step.label}</span>
+                </li>
+              ))}
+            </ol>
+
+            <p className={styles.sectionCta}>
+              <Link href="/how-i-work">
+                {isEn ? "View Full Operating Model →" : "View Full Operating Model →"}
+              </Link>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section
+        id="projects"
+        className={`container section ${styles.homeSection} ${styles.anchorSection}`}
+      >
+        <h2 className={styles.cardHeading}>
+          <ProjectIcon className={styles.cardIcon} /> Core Projects
+        </h2>
+
+        <div className={styles.projectCardGrid}>
+          {projectList.map((project) => (
+            <ProjectCard key={project.slug} project={project} size="compact" />
+          ))}
+        </div>
+
+        <p className={styles.sectionCta}>
+          <Link href="/projects">
+            {isEn ? "View All Projects →" : "View All Projects →"}
+          </Link>
+        </p>
+      </section>
+
+      <section
+        id="experience"
+        className={`container section ${styles.homeSection} ${styles.anchorSection}`}
+      >
+        <h2 className={styles.cardHeading}>
+          <CareerIcon className={styles.cardIcon} /> Career Snapshot
+        </h2>
+
+        <div className={styles.visualSummary}>
+          <CareerGraphView
+            projects={projectList}
+            career={careerList}
+            freelance={freelanceList}
+            size="large"
+            showDetail={false}
+          />
+        </div>
+
+        <p className={styles.sectionCta}>
+          <Link href="/about#career">
+            {isEn ? "View Full Career →" : "View Full Career →"}
+          </Link>
+        </p>
+      </section>
+
+      <section
+        id="labs"
+        className={`container section ${styles.homeSection} ${styles.anchorSection}`}
+      >
+        <h2 className={styles.cardHeading}>
+          <AiLabsIcon className={styles.cardIcon} /> AI Labs
+        </h2>
+        <p className={styles.labsPlaceholder}>
+          <Lines lines={labsIntroLines} />
+        </p>
+        <p className={styles.sectionCta}>
+          <Link href="/ai-labs">{isEn ? "View AI Labs →" : "View AI Labs →"}</Link>
+        </p>
+      </section>
+
+      <section
+        id="contact"
+        className={`container section ${styles.homeSection} ${styles.anchorSection}`}
+      >
+        <h2 className={styles.cardHeading}>
+          <ContactIcon className={styles.cardIcon} /> Contact
+        </h2>
+        <ul className={styles.contactList}>
+          <li>
+            <span className={styles.contactLabel}>Email</span>
+            <a href="mailto:ohcaitlyn@hotmail.com">ohcaitlyn@hotmail.com</a>
+          </li>
+          <li>
+            <span className={styles.contactLabel}>LinkedIn</span>
+            <a
+              href="https://www.linkedin.com/in/%EB%82%98%EC%9D%80-%EC%98%A4/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              LinkedIn Profile
+            </a>
+          </li>
+          <li>
+            <span className={styles.contactLabel}>Resume</span>
+            <span className={styles.placeholder}>{t.resumePlaceholder}</span>
+          </li>
+        </ul>
+      </section>
+    </>
+  );
+}

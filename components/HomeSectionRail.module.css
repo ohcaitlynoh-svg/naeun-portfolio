@@ -1,0 +1,64 @@
+/* Hidden by default; shown only well above --page-max (1180px) so it never
+   overlaps Home's own content column. Home-only, desktop-only. */
+.rail {
+  display: none;
+}
+
+@media (min-width: 1360px) {
+  .rail {
+    display: block;
+    position: fixed;
+    top: 50%;
+    right: 1.5rem;
+    transform: translateY(-50%);
+    z-index: 10;
+  }
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.list a {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--color-fg-muted);
+  text-decoration: none;
+  font-size: 0.7rem;
+  letter-spacing: 0.02em;
+  opacity: 0.7;
+  transition: opacity 0.15s ease, color 0.15s ease;
+}
+
+.list a:hover {
+  opacity: 1;
+}
+
+.icon {
+  flex-shrink: 0;
+  width: 14px;
+  height: 14px;
+}
+
+.label {
+  max-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  opacity: 0;
+  transition: max-width 0.15s ease, opacity 0.15s ease;
+}
+
+.list a:hover .label,
+.current .label {
+  max-width: 8rem;
+  opacity: 1;
+}
+
+.current {
+  color: var(--color-accent);
+  opacity: 1;
+  font-weight: 600;
+}
