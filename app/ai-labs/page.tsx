@@ -26,6 +26,7 @@ export default function AiLabsPage() {
   const isEn = language === "en";
   const intro = isEn ? aiLabsIntroEn : aiLabsIntro;
   const projects = isEn ? aiLabsProjectsEn : aiLabsProjects;
+  const ctaLabel = isEn ? "View Project" : "자세히 보기";
   const [activeSlug, setActiveSlug] = useState<string | null>(null);
 
   const activeProject = projects.find((p) => p.slug === activeSlug) ?? null;
@@ -44,6 +45,7 @@ export default function AiLabsPage() {
               <AiLabCard
                 key={project.slug}
                 project={project}
+                ctaLabel={ctaLabel}
                 onOpen={() => setActiveSlug(project.slug)}
               />
             ))}

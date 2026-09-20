@@ -17,58 +17,56 @@ export type AiLabProject = {
   // One-line description — shown on the card (wraps to ~2-3 lines at card
   // width) and again at the top of the modal.
   subtitle: string;
-  // Not every AI Labs project has a tracked date range (these are personal
-  // experiments, not career entries), so left unset rather than guessed.
-  period?: string;
-  // Thumbnail/banner image only — no title/description text baked into the
-  // image itself. Left unset until a real file exists under
-  // public/ai-labs/<slug>-cover.png; the card falls back to a plain
-  // placeholder (same pattern as components/ProjectCard.tsx) rather than
-  // pointing at a file that doesn't exist yet.
-  coverImage?: string;
+  status: string;
+  // Thumbnail/banner image only — no title/description/number text baked
+  // into the image itself. Swapping in a real project screenshot later is
+  // just replacing the file at this same path; no content-code change.
+  coverImage: string;
   // The 4 modal sections, always in this order: 시작 배경 / 주요 기능 /
   // 지속적 개선 / 성과 및 회고.
   sections: AiLabSection[];
-  link?: string;
 };
 
 export const aiLabsProjects: AiLabProject[] = [
   {
     slug: "ai-portfolio",
-    title: "AI와 함께 만든 PM 포트폴리오",
+    title: "AI를 활용한 PM 포트폴리오 제작",
     subtitle:
-      "AI를 활용해 포트폴리오 정보 구조를 재정리하고, 콘텐츠 구조화·UI 개선·카피 다듬기까지 반복적으로 실험하며 직접 구축한 프로젝트.",
+      "AI와 협업해 정보 구조, UI, 콘텐츠, QA까지 반복 개선하며 직접 구축한 웹 포트폴리오",
+    status: "진행 중",
+    coverImage: "/ai-labs/ai-portfolio-cover.png",
     sections: [
       {
         title: "시작 배경",
         bullets: [
-          "긴 경력과 다양한 프로젝트를 하나의 포트폴리오로 정리하는 과정에서, 정보 구조와 우선순위를 빠르게 실험할 필요가 있었음",
-          "정적 문서가 아닌 실제 배포 가능한 웹 포트폴리오 형태로 구현하며, 기획자의 사고와 결과물을 함께 보여주는 것을 목표로 함",
+          "다양한 경력과 프로젝트를 문서형 이력서가 아니라 실제 탐색 가능한 웹 포트폴리오로 재구성하고자 시작",
+          "긴 경력 정보를 어떻게 구조화하고 우선순위를 보여줄지 반복적으로 검증할 필요가 있었음",
         ],
       },
       {
         title: "주요 기능",
         bullets: [
-          "포트폴리오 IA 재구성 및 페이지 구조 설계",
-          "About / How I Work / Core Projects / AI Labs 구조 설계",
-          "카드, 모달, 인디케이터, 프로젝트 상세 페이지 설계",
-          "AI와 협업하여 카피라이팅, 구조 정리, QA 포인트 도출 반복",
+          "Portfolio IA 설계",
+          "Home / About / How I Work / Core Projects / AI Labs 구조 설계",
+          "카드, 모달, Section Indicator, Case Study 구조 설계",
+          "AI와 협업해 카피라이팅, UI 개선, QA, 구조 변경 반복",
         ],
       },
       {
         title: "지속적 개선",
         bullets: [
-          "섹션 간 위계, 콘텐츠 폭, 정렬 기준을 반복 조정",
-          "프로젝트 카드/히어로/인디케이터의 일관된 레이아웃 규칙 수립",
-          "모바일/데스크톱에서의 가독성과 시각적 밀도를 지속적으로 보정",
+          "Hero와 각 페이지 content width system 통일",
+          "카드 및 long-form page hierarchy 조정",
+          "responsive / spacing / alignment 지속 개선",
+          "AI가 제안한 결과를 그대로 쓰지 않고 실제 화면을 기준으로 반복 검수",
         ],
       },
       {
         title: "성과 및 회고",
         bullets: [
-          "문서형 이력서가 아닌, 실제 탐색 가능한 포트폴리오 형태로 전환",
-          "기획/설계/검수 전 과정을 AI와 협업하는 방식으로 실험",
-          "빠른 시도와 수정에는 강하지만, 최종 구조화와 품질 판단은 사람의 역할이 중요하다는 점을 확인",
+          "문서형 경력 정리에서 실제 배포 가능한 제품 형태의 포트폴리오로 전환",
+          "PM이 AI와 협업하며 구조 설계 → 구현 → QA → 배포까지 연결하는 workflow 경험",
+          "빠른 구현에는 AI가 효과적이지만 최종 구조와 품질 판단은 사람의 역할이라는 점 확인",
         ],
       },
     ],
@@ -77,80 +75,90 @@ export const aiLabsProjects: AiLabProject[] = [
     slug: "career-translator",
     title: "직장인을 위한 AI 경력 번역기",
     subtitle:
-      "채용 공고의 표현과 개인 경력의 표현 사이 간극을 줄여, JD에 맞는 언어로 이력서와 경력 내용을 재구성해주는 AI 도구 기획.",
+      "JD와 이력서의 표현을 의미 단위로 연결해 지원 포지션에 맞는 경력 문장으로 재구성하는 AI 도구",
+    status: "기획 / 제작 예정",
+    coverImage: "/ai-labs/career-translator-cover.png",
     sections: [
       {
         title: "시작 배경",
         bullets: [
-          "실제 이직 과정에서, 같은 경험도 표현 방식에 따라 전달력이 크게 달라진다는 문제를 체감",
-          "JD와 경력기술서 사이의 언어 차이를 줄이는 도구가 있으면 지원 효율이 높아질 것이라 판단",
+          "실제 경험은 충분하지만 JD와 이력서가 서로 다른 언어를 사용해 강점이 전달되지 않는 문제에서 출발",
+          "단순 키워드 복사가 아니라 경력의 의미와 수준을 유지하면서 채용 언어로 번역하는 도구를 목표로 함",
         ],
       },
       {
         title: "주요 기능",
         bullets: [
-          "JD 핵심 키워드 추출",
-          "사용자의 경력 문장과 JD 요구사항 간 의미 매칭",
-          "유사 레벨/유사 의미 워딩 추천",
-          "이력서 bullet / 경력기술서 / 자기소개용 문장 자동 재구성",
-          "PM/PO/Product Lead 포지션 중심의 표현 가이드 제안",
+          "JD 핵심 역할 / 역량 / 키워드 추출",
+          "사용자 이력서 경험과 JD 요구사항 의미 매칭",
+          "유사 의미 / 유사 seniority 표현 연결",
+          "사실 범위 안에서 경력 bullet 재작성",
+          "지원 포지션별 요약 문장 생성",
+          "예상 Flow: JD 입력 → 핵심 요구사항 추출 → 이력서 경험 구조화 → 의미 · 수준 매칭 → Gap 확인 → 추천 워딩 생성 → 이력서 문장 재구성",
         ],
       },
       {
         title: "지속적 개선",
         bullets: [
-          "단순 키워드 치환이 아니라 맥락 기반 표현 변환으로 개선",
-          "포지션/연차/도메인별 추천 문장 톤 차별화",
-          "경력 과장 없이 사실 범위 내에서 설득력 있게 재표현하는 로직 보완",
+          "단순 keyword matching에서 semantic matching으로 고도화",
+          "직무 / 연차 / 도메인에 따른 표현 차이 반영",
+          "사용자가 실제 수행하지 않은 경험을 생성하지 않도록 검증 단계 강화",
+          "ATS 최적화와 사람에게 자연스러운 문장 사이 균형 개선",
         ],
       },
       {
         title: "성과 및 회고",
         bullets: [
-          "구직자 관점에서 가장 실용적인 AI 보조 도구 중 하나가 될 가능성을 확인",
-          "표현 최적화는 가능하지만, 사실 검증과 우선순위 판단은 사용자 주도성이 필요",
-          "향후 실제 프로토타입으로 발전 가능한 주제",
+          "현재는 제품 가설 및 프로토타입 단계",
+          "실제 제작 완료 후 실제 화면과 사용 결과로 업데이트 예정",
+          "개인 구직 문제를 AI Product로 전환하는 실험",
         ],
       },
     ],
   },
   {
-    slug: "classical-creative-workflow",
-    title: "AI 클래식 채널 크리에이티브 워크플로우",
+    slug: "ai-classical-workflow",
+    title: "AI 클래식 채널 운영 실험",
     subtitle:
-      "AI를 활용해 클래식 음악 기반 콘텐츠 기획, 이미지 생성, 영상 편집, 발행까지 연결하는 개인 크리에이티브 운영 실험.",
+      "AI 도구를 연결해 클래식 음악 콘텐츠의 기획, 제작, 편집, 발행까지 직접 운영하는 크리에이티브 실험",
+    status: "운영 중",
+    coverImage: "/ai-labs/ai-classical-workflow-cover.png",
     sections: [
       {
         title: "시작 배경",
         bullets: [
-          "음악 콘텐츠를 혼자 제작하고 운영하는 과정에서, 기획부터 비주얼, 편집, 발행까지의 제작 부담을 줄일 방법이 필요했음",
-          "AI 도구를 조합해 소규모 크리에이티브 파이프라인을 직접 실험",
+          "개인이 음악 콘텐츠를 지속적으로 제작하려면 음악, 비주얼, 영상, 썸네일, 발행까지 여러 제작 업무가 필요",
+          "여러 AI 도구를 연결하면 1인이 어디까지 반복 가능한 콘텐츠 제작 파이프라인을 만들 수 있는지 실험",
         ],
       },
       {
         title: "주요 기능",
         bullets: [
-          "GPT 기반 콘텐츠 기획 및 프롬프트 작성",
-          "Suno를 활용한 음악 제작 실험",
-          "Midjourney 기반 이미지 제작",
-          "CapCut / ALLO / Canva를 활용한 영상 편집 및 패키징",
-          "하나의 음악 아이디어를 썸네일, 영상, 업로드 에셋까지 연결하는 제작 흐름 구축",
+          "GPT → 음악 콘셉트 및 프롬프트 작성",
+          "Suno → 클래식 기반 음악 제작",
+          "Midjourney → 곡의 분위기에 맞는 visual asset 제작",
+          "CapCut → 영상 편집",
+          "ALLO → 영상 / 모션 관련 제작 보조",
+          "Canva → 썸네일 및 publishing asset 제작",
+          "YouTube → 실제 콘텐츠 발행 및 운영",
         ],
       },
       {
         title: "지속적 개선",
         bullets: [
-          "프롬프트 구조를 반복 개선해 결과물 일관성 향상",
-          "음악-이미지-영상 간 톤앤매너 정렬",
-          "짧은 제작 시간 안에서 반복 가능한 운영 방식 정리",
+          "음악과 visual tone의 일관성 개선",
+          "프롬프트 구조 반복 개선",
+          "short-form / long-form 콘텐츠 포맷 테스트",
+          "제작 시간과 품질 사이 workflow 최적화",
+          "실제 발행 데이터를 보며 콘텐츠 형식 지속 조정",
         ],
       },
       {
         title: "성과 및 회고",
         bullets: [
-          "개인 창작자도 AI 조합만으로 기획-제작-발행까지 연결 가능한 워크플로우를 구축할 수 있음을 확인",
-          "각 도구의 품질보다, 전체 파이프라인을 어떻게 연결하느냐가 더 중요하다는 점을 체감",
-          "향후 클래식 기반 영상 콘텐츠 운영과 자동화 실험으로 확장 가능",
+          "AI 기반 음악 / 이미지 / 영상 도구를 하나의 운영 workflow로 연결",
+          "결과물 생성보다 여러 도구 사이의 연결 방식과 반복 가능한 프로세스 설계가 중요하다는 점 확인",
+          "실제 상업적 발행까지 연결해 AI creative workflow의 실사용 가능성을 검증 중",
         ],
       },
     ],

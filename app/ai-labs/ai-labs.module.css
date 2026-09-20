@@ -9,15 +9,22 @@
   margin-bottom: 2.5rem;
 }
 
-/* 3 cards in one row, same tone as Core Projects' own grid — collapses to
-   1 column below 900px, matching Home's .projectCardGrid breakpoint. */
+/* Same breakpoints as Core Projects' own .cardGrid (app/projects/
+   page.module.css) — 3 columns desktop, 2 tablet, 1 mobile — so AI Labs
+   reads as the same grid system, not a different/larger one. */
 .grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: var(--space-md);
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
   .grid {
     grid-template-columns: 1fr;
   }

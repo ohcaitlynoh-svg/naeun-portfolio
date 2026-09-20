@@ -39,15 +39,6 @@
   object-fit: cover;
 }
 
-.visualPlaceholder {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  color: var(--color-fg-muted);
-  font-size: var(--font-meta);
-}
-
 .body {
   display: flex;
   flex-direction: column;
@@ -56,20 +47,36 @@
   gap: 0.35rem;
 }
 
+/* Status badge — same pill language as the site's other small tags
+   (e.g. Product Domains chips), never the accent fill reserved for
+   primary buttons/active states. */
+.status {
+  align-self: flex-start;
+  padding: 0.2rem 0.6rem;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  font-size: var(--font-meta);
+  color: var(--color-fg-muted);
+  margin-bottom: 0.2rem;
+}
+
 .name {
   font-size: var(--font-subheading);
   font-weight: 700;
-}
-
-.meta {
-  color: var(--color-fg-muted);
-  font-size: var(--font-meta);
 }
 
 .summary {
   color: var(--color-fg-muted);
   line-height: 1.5;
   margin-top: 0.15rem;
+}
+
+.cta {
+  margin-top: auto;
+  padding-top: 0.6rem;
+  font-size: 0.9rem;
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 @media (max-width: 640px) {

@@ -18,17 +18,19 @@
   background: var(--color-bg);
   border: 1px solid var(--color-border);
   border-radius: 10px;
-  padding: 2rem;
 }
 
+/* Viewport-fixed (not panel-relative) so it stays put regardless of the
+   panel's own internal scroll — same pattern as ProjectDetailView's
+   existing image lightbox close button. */
 .close {
-  position: sticky;
-  top: 0;
-  float: right;
-  margin: -0.5rem -0.5rem 0 0;
+  position: fixed;
+  top: 1.25rem;
+  right: 1.5rem;
+  z-index: 101;
   border: none;
   background: none;
-  color: var(--color-fg-muted);
+  color: #fff;
   font-size: 0.85rem;
   letter-spacing: 0.02em;
   cursor: pointer;
@@ -36,7 +38,28 @@
 }
 
 .close:hover {
-  color: var(--color-fg);
+  opacity: 0.7;
+}
+
+/* The "large visual" — full-bleed at the top of the panel, rounded to
+   match the panel's own top corners. Plain thumbnail/banner only; no
+   text is ever read from this image. */
+.visual {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+  border-radius: 10px 10px 0 0;
+  overflow: hidden;
+}
+
+.visualImg {
+  object-fit: cover;
+}
+
+.body {
+  padding: 1.75rem 2rem 2rem;
 }
 
 .header {
@@ -45,29 +68,25 @@
   border-bottom: 1px solid var(--color-border);
 }
 
+.status {
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  font-size: var(--font-meta);
+  color: var(--color-fg-muted);
+  margin-bottom: 0.75rem;
+}
+
 .title {
   font-size: var(--font-heading);
   font-weight: 700;
   margin-bottom: 0.5rem;
 }
 
-.period {
-  font-size: var(--font-meta);
-  color: var(--color-fg-muted);
-  margin-bottom: 0.5rem;
-}
-
 .subtitle {
   color: var(--color-fg-muted);
   line-height: 1.6;
-}
-
-.link {
-  display: inline-block;
-  margin-top: 0.75rem;
-  font-size: 0.9rem;
-  text-decoration: underline;
-  text-underline-offset: 3px;
 }
 
 .sections {
@@ -109,7 +128,10 @@
   }
 
   .panel {
-    padding: 1.5rem;
     max-height: 90vh;
+  }
+
+  .body {
+    padding: 1.25rem 1.25rem 1.5rem;
   }
 }
