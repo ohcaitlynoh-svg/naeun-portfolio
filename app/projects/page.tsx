@@ -240,66 +240,68 @@ export default function ProjectsIndexPage() {
 
   return (
     <div className={`container section ${styles.projectsWrap}`}>
-      <div id="core-projects">
-        <h1 className={styles.title}>Core Projects</h1>
-        <p className={styles.intro}>
-          {intro.map((line, i) => (
-            <Fragment key={i}>
-              {i > 0 && <br />}
-              {line}
-            </Fragment>
-          ))}
-        </p>
+      <div className={styles.pageInner}>
+        <div id="core-projects">
+          <h1 className={styles.title}>Core Projects</h1>
+          <p className={styles.intro}>
+            {intro.map((line, i) => (
+              <Fragment key={i}>
+                {i > 0 && <br />}
+                {line}
+              </Fragment>
+            ))}
+          </p>
 
-        <div className={styles.cardGrid}>
-          {projectList.map((project) => (
-            <ProjectCard key={project.slug} project={project} size="large" />
-          ))}
+          <div className={styles.cardGrid}>
+            {projectList.map((project) => (
+              <ProjectCard key={project.slug} project={project} size="large" />
+            ))}
+          </div>
         </div>
-      </div>
 
-      <div id="other-projects" className={styles.otherSection}>
-        <h2 className={styles.otherTitle}>Other Projects</h2>
-        <div className={styles.otherList}>
-          {TOP_LEVEL_ORDER.map((key) => {
-            if (key === "__freelance_group__") {
-              return (
-                <details key="freelance-group" className={styles.otherEntry}>
-                  <summary className={styles.otherSummary}>
-                    <span className={styles.otherName}>
-                      {isEn ? "Freelance / Project Experience" : "Freelance / Project Experience"}
-                    </span>
-                    <span className={styles.otherChevron} aria-hidden="true">
-                      ›
-                    </span>
-                  </summary>
-                  <div className={styles.otherExpanded}>
-                    <div className={styles.otherSubList}>
-                      {FREELANCE_GROUP_COMPANIES.map((company) => (
-                        <SnapshotRow
-                          key={company}
-                          company={company}
-                          period={periodByCompany[company]}
-                          snapshot={snapshots[company]}
-                          isEn={isEn}
-                          nested
-                        />
-                      ))}
+        <div id="other-projects" className={styles.otherSection}>
+          <h2 className={styles.otherTitle}>Other Projects</h2>
+          <div className={styles.otherList}>
+            {TOP_LEVEL_ORDER.map((key) => {
+              if (key === "__freelance_group__") {
+                return (
+                  <details key="freelance-group" className={styles.otherEntry}>
+                    <summary className={styles.otherSummary}>
+                      <span className={styles.otherName}>
+                        {isEn ? "Freelance / Project Experience" : "Freelance / Project Experience"}
+                      </span>
+                      <span className={styles.otherChevron} aria-hidden="true">
+                        ›
+                      </span>
+                    </summary>
+                    <div className={styles.otherExpanded}>
+                      <div className={styles.otherSubList}>
+                        {FREELANCE_GROUP_COMPANIES.map((company) => (
+                          <SnapshotRow
+                            key={company}
+                            company={company}
+                            period={periodByCompany[company]}
+                            snapshot={snapshots[company]}
+                            isEn={isEn}
+                            nested
+                          />
+                        ))}
+                      </div>
                     </div>
-                  </div>
-                </details>
+                  </details>
+                );
+              }
+              return (
+                <SnapshotRow
+                  key={key}
+                  company={key}
+                  period={periodByCompany[key]}
+                  snapshot={snapshots[key]}
+                  isEn={isEn}
+                />
               );
-            }
-            return (
-              <SnapshotRow
-                key={key}
-                company={key}
-                period={periodByCompany[key]}
-                snapshot={snapshots[key]}
-                isEn={isEn}
-              />
-            );
-          })}
+            })}
+          </div>
         </div>
       </div>
 

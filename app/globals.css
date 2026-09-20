@@ -200,6 +200,21 @@ dl {
   align-items: start;
 }
 
+/* Shared wrapper for a long-form page's material ABOVE .longFormGrid
+   (title, intro, How I Work's flow strip, Project Detail's overview) —
+   .longFormGrid's own outer box always spans the full .container width
+   (only its inner grid TRACKS center at --visual-max via
+   justify-content), so title/intro/flow-strip, having no width cap of
+   their own, were rendering flush at .container's wider --page-max edge:
+   50px further out than --visual-max on each side, past Hero's boundary.
+   Capping this wrapper at --visual-max — the same value .longFormGrid's
+   own track total now resolves to — puts them back on the same left/right
+   edge as .longFormGrid's content column, Hero, and the Header. */
+.pageIntro {
+  max-width: var(--visual-max);
+  margin-inline: auto;
+}
+
 @media (max-width: 720px) {
   .longFormGrid {
     grid-template-columns: 1fr;

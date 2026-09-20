@@ -71,10 +71,12 @@ export default function AboutPage() {
 
   return (
     <div className="container section">
-      <h1 className={styles.title}>About</h1>
-      <p className={styles.intro}>
-        <Lines lines={introLines} />
-      </p>
+      <div className="pageIntro">
+        <h1 className={styles.title}>About</h1>
+        <p className={styles.intro}>
+          <Lines lines={introLines} />
+        </p>
+      </div>
 
       <div className="longFormGrid">
         <div>

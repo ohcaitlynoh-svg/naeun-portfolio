@@ -1,3 +1,16 @@
+/* Shared outer-alignment wrapper for this page's whole body (title, intro,
+   card grid, Other Projects) — everything except .indicatorRail, which
+   stays anchored to .projectsWrap itself (see its own comment below).
+   Capped at --visual-max, the same width Home Hero/Header/every Home
+   section share, so .title/.intro (which have no width cap of their own
+   and previously sat flush at .projectsWrap's wider --page-max edge,
+   overhanging past Hero on both sides) now start at the exact same left
+   edge as Hero instead. */
+.pageInner {
+  max-width: var(--visual-max);
+  margin-inline: auto;
+}
+
 .title {
   font-size: 2rem;
   margin-bottom: 1.25rem;
@@ -9,13 +22,17 @@
   margin-bottom: 3rem;
 }
 
-/* 3 comparable cards in one row, capped well under --page-max so a lone
-   card never stretches to near-full page width. */
+/* 3 comparable cards in one row. Capped at --visual-max — the same width
+   as .pageInner itself, i.e. exactly Hero's width, not a narrower value
+   centered within it — so the grid's own edges line up with .title/.intro
+   above it (was 1000px, an unrelated number that left a ~40px gap between
+   the grid's edge and the title's edge once .pageInner made title/intro
+   match Hero) while still never exceeding Hero's boundary. */
 .cardGrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 22px;
-  max-width: 1000px;
+  max-width: var(--visual-max);
   margin-inline: auto;
   margin-bottom: 2rem;
 }
@@ -338,38 +355,40 @@
 
 /* Reuses the shared SectionIndicator component as-is (no changes to
    SectionIndicator.tsx/.module.css). Rather than placing it in the shared
-   .longFormGrid (which would cap main content at 880px and shrink
-   .cardGrid's 1000px width), this page keeps its own container width
-   untouched and positions just the desktop rail relative to the content
-   column itself, the same "content edge + gap + rail" relationship
-   About/How I Work get from .longFormGrid — just computed here instead of
-   coming from a shared grid track.
-   - .cardGrid is 1000px, centered in .projectsWrap: its right edge sits at
-     the wrap's horizontal center + 500px. Anchoring the rail's left edge
-     at center + 500px + 40px reproduces that same "content right edge +
-     ~40px gap" relationship, instead of docking to the viewport's right
-     edge.
+   .longFormGrid (which would cap main content at 874px and shrink
+   .cardGrid's --visual-max width), this page keeps its own container
+   width untouched and positions just the desktop rail relative to the
+   content column itself, the same "content edge + gap + rail"
+   relationship About/How I Work get from .longFormGrid — just computed
+   here instead of coming from a shared grid track.
+   - .cardGrid/.pageInner are --visual-max (1080px), centered in
+     .projectsWrap: their right edge sits at the wrap's horizontal center
+     + 540px. Anchoring the rail's left edge at center + 540px + 40px
+     reproduces that same "content right edge + ~40px gap" relationship,
+     instead of docking to the viewport's right edge.
    - The wrapper spans the full content height (top:0;bottom:0) purely so
      SectionIndicator's own `.desktopRail { position: sticky; top: 6rem }`
      (untouched) has room to stick and travel within it, exactly like it
      does as a grid column on the other long-form pages.
-   - Below 1440px there usually isn't enough clearance beside the centered
-     1000px-wide .cardGrid for a 170px rail without overlapping it, so it
-     stays hidden (matching SectionIndicator's own "hide below 720px"
-     mobile-nav threshold — between 720–1440px neither variant shows,
-     same trade-off Home's own right rail already makes).
+   - Needs viewport >= ~1520px for the rail (540 + 40 + 170 = 750px from
+     center) to clear the viewport edge without overlap/overflow — below
+     that there usually isn't enough clearance beside the centered
+     1080px-wide .cardGrid for a 170px rail, so it stays hidden (matching
+     SectionIndicator's own "hide below 720px" mobile-nav threshold —
+     between 720–1520px neither variant shows, same trade-off Home's own
+     right rail already makes).
    - SectionIndicator's mobileNav (<=720px) is untouched and still works
      normally, since only the second <nav> (desktopRail) is targeted here. */
 .indicatorRail nav:last-of-type {
   display: none;
 }
 
-@media (min-width: 1440px) {
+@media (min-width: 1520px) {
   .indicatorRail {
     position: absolute;
     top: 0;
     bottom: 0;
-    left: calc(50% + 500px + 40px);
+    left: calc(50% + 540px + 40px);
     width: 170px;
   }
 

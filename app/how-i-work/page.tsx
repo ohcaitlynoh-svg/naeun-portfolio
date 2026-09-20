@@ -59,17 +59,19 @@ export default function HowIWorkPage() {
 
   return (
     <div className="container section">
-      <h1 className={styles.title}>How I Work</h1>
-      <p className={styles.intro}>{isEn ? introEn : introKo}</p>
+      <div className="pageIntro">
+        <h1 className={styles.title}>How I Work</h1>
+        <p className={styles.intro}>{isEn ? introEn : introKo}</p>
 
-      <ol className={styles.flowStrip}>
-        {flow.map((step) => (
-          <li key={step.label} className={styles.flowStep}>
-            <span className={styles.flowNumber}>{step.num}</span>
-            <span className={styles.flowLabel}>{step.label}</span>
-          </li>
-        ))}
-      </ol>
+        <ol className={styles.flowStrip}>
+          {flow.map((step) => (
+            <li key={step.label} className={styles.flowStep}>
+              <span className={styles.flowNumber}>{step.num}</span>
+              <span className={styles.flowLabel}>{step.label}</span>
+            </li>
+          ))}
+        </ol>
+      </div>
 
       <div className="longFormGrid">
         <div>

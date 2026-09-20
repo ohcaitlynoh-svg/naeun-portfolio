@@ -90,10 +90,11 @@ export default function ProjectDetailView({ slug }: { slug: string }) {
 
   return (
     <div className="container section">
-      <p className={styles.domain}>{project.domain}</p>
-      <h1 className={styles.title}>{project.fullName ?? project.name}</h1>
+      <div className="pageIntro">
+        <p className={styles.domain}>{project.domain}</p>
+        <h1 className={styles.title}>{project.fullName ?? project.name}</h1>
 
-      <div id="overview">
+        <div id="overview">
         {hasHero ? (
           <dl className={styles.meta}>
             <div>
@@ -142,6 +143,7 @@ export default function ProjectDetailView({ slug }: { slug: string }) {
             </dl>
           </>
         )}
+        </div>
       </div>
 
       <div className="longFormGrid">
