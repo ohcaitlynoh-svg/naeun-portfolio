@@ -60,6 +60,10 @@ export default function HowIWorkPage() {
     <div className="container section">
       <div className="pageIntro" id="approach">
         <h1 className={styles.title}>How I Work</h1>
+        <div className={styles.stepHead}>
+          <span className={styles.stepNumBig}>01</span>
+          <h2 className={styles.stepTitle}>Approach</h2>
+        </div>
         <p className={styles.intro}>{intro}</p>
       </div>
 
