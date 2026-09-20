@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import { useLanguage } from "@/components/SiteProviders";
 import ProjectCard from "@/components/ProjectCard";
 import SectionIndicator from "@/components/SectionIndicator";
@@ -74,16 +74,26 @@ function SnapshotRow({
   snapshot,
   isEn,
   nested = false,
+  open,
+  onToggle,
 }: {
   company: string;
   period?: string;
   snapshot?: OtherProjectSnapshot;
   isEn: boolean;
   nested?: boolean;
+  open: boolean;
+  onToggle: () => void;
 }) {
   return (
-    <details className={nested ? styles.otherSubEntry : styles.otherEntry}>
-      <summary className={styles.otherSummary}>
+    <details className={nested ? styles.otherSubEntry : styles.otherEntry} open={open}>
+      <summary
+        className={styles.otherSummary}
+        onClick={(e) => {
+          e.preventDefault();
+          onToggle();
+        }}
+      >
         <span className={styles.otherName}>{company}</span>
         {snapshot?.projectName && (
           <span className={styles.otherProjectLabel}>{snapshot.projectName}</span>
@@ -230,6 +240,16 @@ export default function ProjectsIndexPage() {
   const careerList = isEn ? careerTimelineEn : careerTimeline;
   const freelanceList = isEn ? freelanceExperienceEn : freelanceExperience;
 
+  const [openTopKey, setOpenTopKey] = useState<string | null>(null);
+  const [openSubKey, setOpenSubKey] = useState<string | null>(null);
+
+  const toggleTop = (key: string) => {
+    setOpenTopKey((prev) => (prev === key ? null : key));
+  };
+  const toggleSub = (key: string) => {
+    setOpenSubKey((prev) => (prev === key ? null : key));
+  };
+
   const periodByCompany: Record<string, string> = {};
   careerList.forEach((entry) => {
     periodByCompany[entry.company] = entry.period;
@@ -265,8 +285,18 @@ export default function ProjectsIndexPage() {
             {TOP_LEVEL_ORDER.map((key) => {
               if (key === "__freelance_group__") {
                 return (
-                  <details key="freelance-group" className={styles.otherEntry}>
-                    <summary className={styles.otherSummary}>
+                  <details
+                    key="freelance-group"
+                    className={styles.otherEntry}
+                    open={openTopKey === "__freelance_group__"}
+                  >
+                    <summary
+                      className={styles.otherSummary}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        toggleTop("__freelance_group__");
+                      }}
+                    >
                       <span className={styles.otherName}>
                         {isEn ? "Freelance / Project Experience" : "Freelance / Project Experience"}
                       </span>
@@ -284,6 +314,8 @@ export default function ProjectsIndexPage() {
                             snapshot={snapshots[company]}
                             isEn={isEn}
                             nested
+                            open={openSubKey === company}
+                            onToggle={() => toggleSub(company)}
                           />
                         ))}
                       </div>
@@ -298,6 +330,8 @@ export default function ProjectsIndexPage() {
                   period={periodByCompany[key]}
                   snapshot={snapshots[key]}
                   isEn={isEn}
+                  open={openTopKey === key}
+                  onToggle={() => toggleTop(key)}
                 />
               );
             })}
