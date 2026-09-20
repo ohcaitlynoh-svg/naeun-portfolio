@@ -103,6 +103,22 @@
   font-size: 0.875rem;
 }
 
+/* Desktop only: force the strip onto one row instead of relying on the
+   compact sizing above happening to fit — .flowStep's own flex-shrink
+   (inherited, unset) could otherwise let long labels compress instead of
+   forcing a wrap, so each step is pinned to its natural width. Below the
+   900px single-column breakpoint this is dropped and .flowStrip's own
+   flex-wrap: wrap (untouched) takes back over. */
+@media (min-width: 901px) {
+  .summaryCard .cardFlowStripReset {
+    flex-wrap: nowrap;
+  }
+
+  .summaryCard .cardFlowStepReset {
+    flex: 0 0 auto;
+  }
+}
+
 .cardIcon {
   flex-shrink: 0;
   color: var(--color-accent);
