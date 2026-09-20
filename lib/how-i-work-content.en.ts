@@ -142,3 +142,51 @@ export const operatingModelEn: OperatingModelStep[] = [
 
 export const closingStatementEn =
   "These cases are a record of judgment proven by results. I'll keep working to the same standard — finding answers that are actually executable within constraints, and proving them the same way.";
+
+export const executionToolkitTitleEn = "Execution Toolkit";
+export const executionToolkitDescriptionEn = [
+  "I don't let ideas stay in documents —",
+  "I turn them into verifiable screens, data, and executable units of work.",
+];
+
+export type ExecutionToolkitItem = {
+  num: string;
+  title: string;
+  body: string[];
+  tools: string[];
+  workflow?: string[];
+};
+
+export const executionToolkitEn: ExecutionToolkitItem[] = [
+  {
+    num: "01",
+    title: "Planning Docs & Prototyping",
+    body: [
+      "I don't hand off requirements as documents alone — I build prototypes close to the target screen myself.",
+      "Even before design is applied, this lets developers understand the feature flow and intent from an actually working screen, and lets me check feasibility and the API/data structure it needs in more concrete terms.",
+      "This narrows the gap in interpretation between planning, design, and development, and builds a shared understanding of the target outcome before development starts.",
+    ],
+    tools: ["Figma", "Claude", "ChatGPT"],
+  },
+  {
+    num: "02",
+    title: "Data-Driven Prioritization & Decisions",
+    body: [
+      "I don't manage VOC and field requirements as a plain request list — I turn them into classifiable data and analyze recurring problems and their impact.",
+      "I collect and categorize VOC and requirements in ClickUp, then use ChatGPT to analyze the accumulated data by type, frequency, and key issue, structuring it into a report usable for decision-making.",
+      "Based on that analysis, I select which tasks to prioritize and allocate limited development resources accordingly, managing PoC and release scope within the target schedule.",
+    ],
+    tools: ["ClickUp", "ChatGPT"],
+    workflow: ["Collect VOC", "Categorization", "AI-assisted Analysis", "Priority Decision", "Report"],
+  },
+  {
+    num: "03",
+    title: "Project Management & Dev Collaboration",
+    body: [
+      "I don't just manage the schedule with the dev team — I make the implementation criteria concrete at the planning stage so development can start quickly.",
+      "I write planning docs down to prototype level to clarify the target screens and feature flow, and coordinate the preconditions and work order across development, design, and planning so API and backend work can start even before design is finalized.",
+      "I continuously document requirements, schedule, issues, and decisions so multiple teams stay aligned on the same goals and standards.",
+    ],
+    tools: ["ClickUp", "Notion", "Jira", "Confluence"],
+  },
+];

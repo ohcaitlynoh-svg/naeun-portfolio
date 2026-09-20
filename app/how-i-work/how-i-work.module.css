@@ -250,6 +250,92 @@
   color: var(--color-fg-muted);
 }
 
+/* Execution Toolkit — 3 stacked items (same border-top divider language
+   as .caseBlock/.toolkitItem below), each a title + short paragraphs +
+   a Tools/Workflow meta row, instead of the Operating Model's one-line
+   summary. This is the concrete "how" behind that process, so it sits
+   directly after it and before Closing. */
+.toolkitIntro {
+  max-width: var(--text-max);
+  color: var(--color-fg-muted);
+  margin-bottom: 1.75rem;
+}
+
+.toolkitList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.toolkitItem {
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.toolkitItem:first-child {
+  padding-top: 0;
+  border-top: none;
+}
+
+.toolkitHead {
+  display: flex;
+  align-items: baseline;
+  gap: 0.65rem;
+  margin-bottom: 0.75rem;
+}
+
+.toolkitNum {
+  font-size: var(--font-meta);
+  font-weight: 700;
+  color: var(--color-accent);
+  font-variant-numeric: tabular-nums;
+}
+
+.toolkitItemTitle {
+  font-size: var(--font-body);
+  font-weight: 600;
+}
+
+.toolkitBody {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  max-width: var(--text-max);
+  margin-bottom: 1rem;
+}
+
+.toolkitBody p {
+  font-size: var(--font-meta);
+  color: var(--color-fg);
+  line-height: 1.65;
+}
+
+.toolkitMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.toolkitMetaRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.6rem;
+}
+
+.toolkitMetaLabel {
+  min-width: 4.5rem;
+  font-size: var(--font-meta);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-fg-muted);
+}
+
+.toolkitMetaValue {
+  font-size: var(--font-meta);
+  color: var(--color-fg-muted);
+}
+
 .closingText {
   max-width: var(--text-max);
   color: var(--color-fg-muted);

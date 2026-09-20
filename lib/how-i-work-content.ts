@@ -130,3 +130,51 @@ export const operatingModel: OperatingModelStep[] = [
 
 export const closingStatement =
   "이 사례들은 결과로 증명된 판단의 기록입니다. 앞으로도 같은 기준으로, 제약 안에서 실행 가능한 답을 만들어 갑니다.";
+
+export const executionToolkitTitle = "Execution Toolkit";
+export const executionToolkitDescription = [
+  "아이디어를 문서에 머물게 하지 않고,",
+  "검증 가능한 화면과 데이터, 실행 가능한 업무 단위로 구체화합니다.",
+];
+
+export type ExecutionToolkitItem = {
+  num: string;
+  title: string;
+  body: string[];
+  tools: string[];
+  workflow?: string[];
+};
+
+export const executionToolkit: ExecutionToolkitItem[] = [
+  {
+    num: "01",
+    title: "기획안 & 프로토타이핑",
+    body: [
+      "요구사항을 문서로만 전달하지 않고, PM이 직접 목표 화면에 가까운 프로토타입까지 제작합니다.",
+      "디자인이 적용되기 전 단계에서도 개발자가 실제 동작 화면을 기준으로 기능 흐름과 개발 의도를 이해할 수 있도록 하며, 구현 가능성(Feasibility)과 필요한 API·데이터 구조를 보다 구체적으로 확인합니다.",
+      "이를 통해 기획 → 디자인 → 개발 사이의 해석 차이를 줄이고, 개발 착수 전에 목표 결과물에 대한 공통 이해를 만듭니다.",
+    ],
+    tools: ["Figma", "Claude", "ChatGPT"],
+  },
+  {
+    num: "02",
+    title: "데이터 기반 우선순위 & 의사결정",
+    body: [
+      "VOC와 현업 요구사항을 단순 요청 목록으로 관리하지 않고, 분류 가능한 데이터로 전환해 반복되는 문제와 영향도를 분석합니다.",
+      "ClickUp에서 VOC와 요구사항을 수집·분류하고, 누적된 데이터를 ChatGPT를 활용해 유형·빈도·핵심 이슈 중심으로 분석한 뒤 의사결정에 활용할 수 있는 보고서 형태로 구조화합니다.",
+      "분석 결과를 바탕으로 선행 과제를 선정하고 한정된 개발 리소스를 우선순위에 따라 배분해, 목표 일정 안에서 PoC와 Release 범위를 관리합니다.",
+    ],
+    tools: ["ClickUp", "ChatGPT"],
+    workflow: ["VOC 수집", "Categorization", "AI-assisted Analysis", "Priority Decision", "Report"],
+  },
+  {
+    num: "03",
+    title: "프로젝트 관리 & 개발 협업",
+    body: [
+      "개발팀과 일정만 관리하는 것이 아니라, 개발이 빠르게 시작될 수 있도록 기획 단계에서 구현 기준을 구체화합니다.",
+      "기획안을 프로토타입 수준까지 작성해 목표 화면과 기능 흐름을 명확히 하고, 디자인 완성 이전에도 API와 Backend 개발이 먼저 착수할 수 있도록 개발·디자인·기획의 선행 조건과 작업 순서를 조율합니다.",
+      "요구사항, 일정, 이슈와 의사결정 내용을 지속적으로 문서화해 여러 팀이 같은 목표와 기준을 공유하도록 Align합니다.",
+    ],
+    tools: ["ClickUp", "Notion", "Jira", "Confluence"],
+  },
+];
