@@ -147,9 +147,16 @@ export default function HomePage() {
 
             <ol className={`${howStyles.flowStrip} ${styles.cardFlowStripReset}`}>
               {flow.map((step) => (
-                <li key={step.label} className={howStyles.flowStep}>
-                  <span className={howStyles.flowNumber}>{step.num}</span>
-                  <span className={howStyles.flowLabel}>{step.label}</span>
+                <li
+                  key={step.label}
+                  className={`${howStyles.flowStep} ${styles.cardFlowStepReset}`}
+                >
+                  <span className={`${howStyles.flowNumber} ${styles.cardFlowNumberReset}`}>
+                    {step.num}
+                  </span>
+                  <span className={`${howStyles.flowLabel} ${styles.cardFlowLabelReset}`}>
+                    {step.label}
+                  </span>
                 </li>
               ))}
             </ol>
