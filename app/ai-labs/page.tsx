@@ -1,38 +1,58 @@
 "use client";
 
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import { useLanguage } from "@/components/SiteProviders";
+import AiLabCard from "@/components/AiLabCard";
+import AiLabModal from "@/components/AiLabModal";
 import { aiLabsIntro, aiLabsProjects } from "@/lib/ai-labs-content";
 import { aiLabsIntroEn, aiLabsProjectsEn } from "@/lib/ai-labs-content.en";
 import styles from "./ai-labs.module.css";
+
+function Lines({ lines }: { lines: string[] }) {
+  return (
+    <>
+      {lines.map((line, i) => (
+        <Fragment key={i}>
+          {i > 0 && <br />}
+          {line}
+        </Fragment>
+      ))}
+    </>
+  );
+}
 
 export default function AiLabsPage() {
   const { language } = useLanguage();
   const isEn = language === "en";
   const intro = isEn ? aiLabsIntroEn : aiLabsIntro;
   const projects = isEn ? aiLabsProjectsEn : aiLabsProjects;
+  const [activeSlug, setActiveSlug] = useState<string | null>(null);
+
+  const activeProject = projects.find((p) => p.slug === activeSlug) ?? null;
 
   return (
     <div className="container section">
-      <h1 className={styles.title}>AI Labs</h1>
-      <p className={styles.intro}>
-        {intro.map((line, i) => (
-          <Fragment key={i}>
-            {i > 0 && <br />}
-            {line}
-          </Fragment>
-        ))}
-      </p>
+      <div className="pageIntro">
+        <h1 className={styles.title}>AI Labs</h1>
+        <p className={styles.intro}>
+          <Lines lines={intro} />
+        </p>
 
-      {projects.length > 0 && (
-        <div className={styles.list}>
-          {projects.map((project) => (
-            <article key={project.name} className={styles.item}>
-              <h2 className={styles.name}>{project.name}</h2>
-              <p className={styles.summary}>{project.summary}</p>
-            </article>
-          ))}
-        </div>
+        {projects.length > 0 && (
+          <div className={styles.grid}>
+            {projects.map((project) => (
+              <AiLabCard
+                key={project.slug}
+                project={project}
+                onOpen={() => setActiveSlug(project.slug)}
+              />
+            ))}
+          </div>
+        )}
+      </div>
+
+      {activeProject && (
+        <AiLabModal project={activeProject} onClose={() => setActiveSlug(null)} />
       )}
     </div>
   );
