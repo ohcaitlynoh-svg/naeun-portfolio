@@ -5,14 +5,13 @@
 import type { OtherProjectSnapshot } from "./other-projects-content";
 
 export const otherProjectSnapshotsEn: Record<string, OtherProjectSnapshot> = {
-  // Planned assets (mirror lib/other-projects-content.ts's comments — add
-  // once the real files exist under public/others/, same src for both
-  // languages, only alt/caption text differs):
-  //   assets: [
-  //     { src: "/others/Biginsight_overview.png", alt: "Biginsight product overview", caption: "Overview" },
-  //     { src: "/others/Biginsight_ia-wireframe.png", alt: "Biginsight IA / wireframe", caption: "IA / Wireframe" },
-  //   ],
   Biginsight: {
+    assets: [
+      { src: "/others/biginsight-evidence-01.png", alt: "Biginsight product screen 1" },
+      { src: "/others/biginsight-evidence-02.png", alt: "Biginsight product screen 2" },
+      { src: "/others/biginsight-evidence-03.png", alt: "Biginsight product screen 3" },
+      { src: "/others/biginsight-evidence-04.png", alt: "Biginsight product screen 4" },
+    ],
     role: "Product Management / Product Owner\nTeam/Part Lead · Senior PM",
     domain: "CRM · CDP · Ads · Marketing SaaS",
     summary: [
@@ -67,14 +66,12 @@ export const otherProjectSnapshotsEn: Record<string, OtherProjectSnapshot> = {
     keyDecision:
       "Rather than stopping at operating different data sources as separate features, I extended the structure into one product that connects customer behavior data and ad performance data so the whole marketing process can be analyzed as a single flow.",
   },
-  // Planned assets:
-  //   assets: [
-  //     { src: "/others/AladinMarket_transaction-rating.jpg", alt: "Aladin Market post-transaction rating screen", caption: "Post-Transaction Rating" },
-  //     { src: "/others/AladinMarket_shipping-tobe.png", alt: "Aladin Market shipping method TO-BE flow", caption: "Shipping TO-BE" },
-  //     { src: "/others/AladinMarket_region-selection.png", alt: "Aladin Market region selection UX", caption: "Region Selection" },
-  //   ],
   "Aladin Communication": {
     projectName: "Aladin Market",
+    assets: [
+      { src: "/others/aladin-evidence-01.png", alt: "Aladin Market product screen 1" },
+      { src: "/others/aladin-evidence-02.png", alt: "Aladin Market product screen 2" },
+    ],
     role: "Service Planning\nPlanning Part Lead",
     domain: "C2C Commerce · Marketplace · Mobile App · UX Planning",
     summary: [
@@ -119,12 +116,11 @@ export const otherProjectSnapshotsEn: Record<string, OtherProjectSnapshot> = {
       },
     ],
   },
-  // Planned assets:
-  //   assets: [
-  //     { src: "/others/Cafe24_monitoring-dashboard.png", alt: "Cafe24 server monitoring dashboard", caption: "Server Monitoring Dashboard" },
-  //     { src: "/others/Cafe24_infrastructure-prototype.png", alt: "Cafe24 infrastructure prototype", caption: "Infrastructure Prototype" },
-  //   ],
   Cafe24: {
+    assets: [
+      { src: "/others/cafe24-evidence-01.png", alt: "Cafe24 product screen 1" },
+      { src: "/others/cafe24-evidence-02.png", alt: "Cafe24 product screen 2" },
+    ],
     role: "Infrastructure Planning Team\nService / UI/UX Planning\nCTO-direct organization",
     domain: "Server Infrastructure · Monitoring · Internal Platform · UI/UX",
     summary: [
