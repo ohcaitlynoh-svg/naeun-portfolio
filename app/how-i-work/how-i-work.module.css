@@ -268,20 +268,21 @@
   color: var(--color-fg-muted);
 }
 
-/* Execution Toolkit — 3 large stacked cards (never a cramped 3-column
-   grid), each image-first so the workflow diagram is understood before
-   any text. Plain border + surface fill, no shadow. Image uses
-   object-fit: contain (not cover) since these are labeled diagrams —
-   cropping would cut off step labels at the edges. */
+/* Execution Toolkit — same card footprint as components/AiLabCard.module
+   .css (border, radius, fixed-height image band, body padding), 3 in a
+   row like AI Labs' own grid, instead of the earlier full-width stacked
+   layout. Image still uses object-fit: contain (not AiLabCard's cover) —
+   these are labeled diagrams, and cropping would cut off their step
+   labels at the edges. */
 .toolkitCardList {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-xl);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-md);
 }
 
 .toolkitCard {
   border: 1px solid var(--color-border);
-  border-radius: 10px;
+  border-radius: 8px;
   overflow: hidden;
   background: var(--color-bg);
 }
@@ -289,7 +290,7 @@
 .toolkitCardImage {
   position: relative;
   width: 100%;
-  aspect-ratio: 16 / 9;
+  height: 200px;
   background: var(--color-surface);
   border-bottom: 1px solid var(--color-border);
 }
@@ -299,7 +300,7 @@
 }
 
 .toolkitCardBody {
-  padding: 1.5rem 1.75rem 1.75rem;
+  padding: 1rem 1.1rem 1.1rem;
 }
 
 .toolkitCardHead {
@@ -374,6 +375,14 @@
   line-height: 1.7;
 }
 
+/* Same breakpoints as AI Labs' own .grid (app/ai-labs/ai-labs.module.css)
+   and Core Projects' .cardGrid — 3 columns desktop, 2 tablet, 1 mobile. */
+@media (max-width: 1024px) {
+  .toolkitCardList {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 @media (max-width: 640px) {
   .flowStrip {
     gap: 1rem 1.5rem;
@@ -389,7 +398,11 @@
     gap: 1.5rem;
   }
 
-  .toolkitCardBody {
-    padding: 1.25rem 1.25rem 1.5rem;
+  .toolkitCardList {
+    grid-template-columns: 1fr;
+  }
+
+  .toolkitCardImage {
+    height: 170px;
   }
 }
