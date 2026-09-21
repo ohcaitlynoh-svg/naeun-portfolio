@@ -2,16 +2,24 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import Navigation from "@/components/Navigation";
 import { SiteProviders } from "@/components/SiteProviders";
+import { buildMetadata, SITE_URL } from "@/lib/seo";
 import "./globals.css";
 
+const title = "Naeun Oh | Product Planner · Product Manager";
+const description =
+  "복잡한 고객 요구와 운영 문제를 제품 관점으로 구조화하고, 0→1 제품부터 Enterprise B2B까지 실제 출시와 운영으로 연결해온 Product Planner · Product Manager 포트폴리오.";
+
 export const metadata: Metadata = {
-  title: "오나은 · Naeun Oh — Senior Product Manager",
-  description:
-    "Senior Product Manager portfolio — the problems tackled, the decision criteria used, and how complex B2B/Enterprise products get shaped.",
+  metadataBase: new URL(SITE_URL),
+  ...buildMetadata({ title, description, path: "/" }),
   // Filename itself changes on every favicon swap (not a fixed app/icon.png)
   // so a fresh image reliably busts browser favicon caches.
   icons: {
-    icon: "/favicon/favicon-profile-v2.png",
+    icon: [
+      { url: "/favicon/favicon-profile-v2-optimized-32.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon/favicon-profile-v2-optimized-48.png", sizes: "48x48", type: "image/png" },
+    ],
+    apple: "/favicon/favicon-profile-v2-optimized-180.png",
   },
 };
 
