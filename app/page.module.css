@@ -313,11 +313,6 @@
   font-size: var(--font-meta);
 }
 
-.placeholder {
-  color: var(--color-fg-muted);
-  font-style: italic;
-}
-
 @media (max-width: 640px) {
   .hero {
     min-height: unset;

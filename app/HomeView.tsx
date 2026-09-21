@@ -65,9 +65,6 @@ export default function HomeView() {
     howIWorkIntro: isEn
       ? "Starting by weighing customer VOC equally against internal development / sales / engineering input, I judge the implementation approach and scope against clear criteria, align on it, and deliver."
       : "고객 VOC와 내부 개발 / 영업 / 엔지니어 의견을 동등하게 듣는 것에서 시작해, 명확한 기준으로 구현 방식과 범위를 판단하고 합의를 거쳐 전달합니다.",
-    resumePlaceholder: isEn
-      ? "[Resume download — coming soon.]"
-      : "[Resume 다운로드 영역 — 추후 추가 예정.]",
   };
 
   const projectList = isEn ? projectsEn : projects;
@@ -262,10 +259,6 @@ export default function HomeView() {
               >
                 LinkedIn Profile
               </a>
-            </li>
-            <li>
-              <span className={styles.contactLabel}>Resume</span>
-              <span className={styles.placeholder}>{t.resumePlaceholder}</span>
             </li>
           </ul>
         </div>
