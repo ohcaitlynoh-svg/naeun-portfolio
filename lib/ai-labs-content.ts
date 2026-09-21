@@ -1,6 +1,10 @@
 // Shared between Home's short "AI Labs" teaser and the dedicated /ai-labs
 // page's card + modal. All card/modal text is read from this file — never
 // hardcoded into an image — so future edits only ever touch this file.
+import { TOOL_LOGOS, type ToolLogo } from "./tool-logos";
+
+export type { ToolLogo };
+
 export const aiLabsIntro = [
   "AI를 활용해 기획부터 제작, 운영까지 직접 실험한 개인 프로젝트입니다.",
   "완료되는 대로 이 영역에 계속 추가할 예정입니다.",
@@ -25,6 +29,9 @@ export type AiLabProject = {
   // The 4 modal sections, always in this order: 시작 배경 / 주요 기능 /
   // 지속적 개선 / 성과 및 회고.
   sections: AiLabSection[];
+  // Shown as the card's TOOL bar (components/ToolBar.tsx), same visual
+  // system as /how-i-work's Execution Toolkit cards.
+  tools: ToolLogo[];
 };
 
 export const aiLabsProjects: AiLabProject[] = [
@@ -35,6 +42,7 @@ export const aiLabsProjects: AiLabProject[] = [
       "AI와 협업해 정보 구조, UI, 콘텐츠, QA까지 반복 개선하며 직접 구축한 웹 포트폴리오",
     status: "진행 중",
     coverImage: "/ai-labs/ai-portfolio-cover.png",
+    tools: [TOOL_LOGOS.figma, TOOL_LOGOS.claudeCode, TOOL_LOGOS.codex, TOOL_LOGOS.chatgpt, TOOL_LOGOS.vercel],
     sections: [
       {
         title: "시작 배경",
@@ -78,6 +86,7 @@ export const aiLabsProjects: AiLabProject[] = [
       "JD와 이력서의 표현을 의미 단위로 연결해 지원 포지션에 맞는 경력 문장으로 재구성하는 AI 도구",
     status: "진행 중",
     coverImage: "/ai-labs/career-translator-cover.png",
+    tools: [TOOL_LOGOS.chatgpt, TOOL_LOGOS.claude, TOOL_LOGOS.codex, TOOL_LOGOS.vercel],
     sections: [
       {
         title: "시작 배경",
@@ -123,6 +132,15 @@ export const aiLabsProjects: AiLabProject[] = [
       "AI 도구를 연결해 클래식 음악 콘텐츠의 기획, 제작, 편집, 발행까지 직접 운영하는 크리에이티브 실험",
     status: "운영 중",
     coverImage: "/ai-labs/ai-classical-workflow-cover.png",
+    tools: [
+      TOOL_LOGOS.suno,
+      TOOL_LOGOS.midjourney,
+      TOOL_LOGOS.capcut,
+      TOOL_LOGOS.allo,
+      TOOL_LOGOS.canva,
+      TOOL_LOGOS.chatgpt,
+      TOOL_LOGOS.youtube,
+    ],
     sections: [
       {
         title: "시작 배경",

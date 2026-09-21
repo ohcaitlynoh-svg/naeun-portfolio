@@ -109,15 +109,22 @@ export const cases: HowIWorkCase[] = [
   },
 ];
 
+import { TOOL_LOGOS, type ToolLogo } from "./tool-logos";
+
+export type { ToolLogo };
+
 export type ToolkitCard = {
   num: string;
   title: string;
   subtitle: string;
   evidence: string[];
   coreFlow: string[];
-  tools: string[];
+  tools: ToolLogo[];
   image: string;
 };
+
+const { figma: FIGMA, claudeCode: CLAUDE_CODE, codex: CODEX, chatgpt: CHATGPT, clickup: CLICKUP, notion: NOTION, jira: JIRA, confluence: CONFLUENCE } =
+  TOOL_LOGOS;
 
 export const executionToolkit: ToolkitCard[] = [
   {
@@ -129,7 +136,7 @@ export const executionToolkit: ToolkitCard[] = [
       "디자인 적용 전에도 개발자가 실제 동작 화면을 기준으로 기능 흐름과 개발 의도를 이해할 수 있도록 하며, Feasibility와 필요한 API·데이터 구조를 개발 착수 전에 확인합니다.",
     ],
     coreFlow: ["요구사항 정리", "PM 프로토타입 제작", "개발자와 화면 기준 소통", "Feasibility Check", "개발 착수"],
-    tools: ["Figma", "Claude", "ChatGPT"],
+    tools: [FIGMA, CLAUDE_CODE, CODEX, CHATGPT],
     image: "/how-i-work/how-i-work-prototyping.png",
   },
   {
@@ -142,7 +149,7 @@ export const executionToolkit: ToolkitCard[] = [
       "분석 결과를 바탕으로 선행 과제를 선정하고, 한정된 개발 리소스를 우선순위에 따라 배분하며 PoC와 Release 범위를 관리합니다.",
     ],
     coreFlow: ["VOC 수집", "분류 / 데이터화", "AI 분석", "우선순위 선정", "리소스 배분", "PoC / Release"],
-    tools: ["ClickUp", "ChatGPT"],
+    tools: [CLICKUP, CHATGPT],
     image: "/how-i-work/how-i-work-priority-analysis.png",
   },
   {
@@ -155,7 +162,7 @@ export const executionToolkit: ToolkitCard[] = [
       "요구사항, 일정, 이슈, 의사결정은 지속적으로 문서화합니다.",
     ],
     coreFlow: ["기획 / 프로토타입", "디자인 / 화면 설계", "개발 / API·Backend"],
-    tools: ["ClickUp", "Notion", "Jira", "Confluence"],
+    tools: [CLICKUP, NOTION, JIRA, CONFLUENCE],
     image: "/how-i-work/how-i-work-development-collaboration.png",
   },
 ];

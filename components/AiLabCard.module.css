@@ -71,8 +71,16 @@
   margin-top: 0.15rem;
 }
 
-.cta {
+/* Pins the shared <ToolBar> (components/ToolBar.tsx) directly above the
+   CTA — margin-top: auto here (not on .cta anymore) is what keeps the
+   bar's own position/height consistent across all 3 cards in a row,
+   since the grid above already stretches every card to equal height. */
+.toolBarSlot {
   margin-top: auto;
+  padding-top: 0.6rem;
+}
+
+.cta {
   padding-top: 0.6rem;
   font-size: 0.9rem;
   text-decoration: underline;

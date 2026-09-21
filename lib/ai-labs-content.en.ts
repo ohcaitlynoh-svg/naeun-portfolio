@@ -1,6 +1,7 @@
 // English counterpart to lib/ai-labs-content.ts — same structure, same
 // facts, translated content.
 import type { AiLabProject } from "./ai-labs-content";
+import { TOOL_LOGOS } from "./tool-logos";
 
 export const aiLabsIntroEn = [
   "Personal projects where I used AI hands-on across planning, production, and operations.",
@@ -15,6 +16,7 @@ export const aiLabsProjectsEn: AiLabProject[] = [
       "A web portfolio I built myself, collaborating with AI to repeatedly refine information structure, UI, content, and QA.",
     status: "In Progress",
     coverImage: "/ai-labs/ai-portfolio-cover.png",
+    tools: [TOOL_LOGOS.figma, TOOL_LOGOS.claudeCode, TOOL_LOGOS.codex, TOOL_LOGOS.chatgpt, TOOL_LOGOS.vercel],
     sections: [
       {
         title: "Starting Point",
@@ -58,6 +60,7 @@ export const aiLabsProjectsEn: AiLabProject[] = [
       "An AI tool that semantically connects JD and resume language, rewriting career sentences to match a target position.",
     status: "In Progress",
     coverImage: "/ai-labs/career-translator-cover.png",
+    tools: [TOOL_LOGOS.chatgpt, TOOL_LOGOS.claude, TOOL_LOGOS.codex, TOOL_LOGOS.vercel],
     sections: [
       {
         title: "Starting Point",
@@ -103,6 +106,15 @@ export const aiLabsProjectsEn: AiLabProject[] = [
       "A creative experiment connecting AI tools to plan, produce, edit, and publish classical-music content myself.",
     status: "Operating",
     coverImage: "/ai-labs/ai-classical-workflow-cover.png",
+    tools: [
+      TOOL_LOGOS.suno,
+      TOOL_LOGOS.midjourney,
+      TOOL_LOGOS.capcut,
+      TOOL_LOGOS.allo,
+      TOOL_LOGOS.canva,
+      TOOL_LOGOS.chatgpt,
+      TOOL_LOGOS.youtube,
+    ],
     sections: [
       {
         title: "Starting Point",

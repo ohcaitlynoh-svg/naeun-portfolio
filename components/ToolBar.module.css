@@ -1,0 +1,79 @@
+/* Shared TOOL row — used by both /how-i-work's Execution Toolkit cards and
+   /ai-labs' project cards, so both pages read as one consistent system
+   instead of each hand-rolling its own tool-tag treatment. A parent that
+   wants every card's bar to start/end at the same Y (Execution Toolkit)
+   pins this via margin-top: auto on a flex-column card; a parent that
+   just wants it directly above its own CTA (AI Labs) places it inline —
+   this component itself only owns the label + logo-box layout, not the
+   pinning behavior. */
+.toolBar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.toolBarLabel {
+  flex: 0 0 auto;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--color-fg-muted);
+}
+
+/* The logo box itself — subtle accent tint + rounded corners, hand-written
+   per theme (rgba, not color-mix) to match every other dark-mode override
+   in this codebase. */
+.toolLogos {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  padding: 0.4rem 0.7rem;
+  border-radius: 6px;
+  background: rgba(1, 61, 90, 0.05);
+}
+
+[data-theme="dark"] .toolLogos {
+  background: rgba(127, 168, 201, 0.08);
+}
+
+/* Each logo is an empty span painted via CSS mask, not an <img> — this is
+   what makes every brand mark (regardless of its own source colors)
+   render as the same flat, toned-down var(--color-fg-muted) silhouette,
+   inside a fixed 19px bounding box so mixed aspect ratios still align on
+   one baseline. mask-size: contain preserves each icon's own aspect
+   ratio inside that box, same as object-fit: contain would for an img. */
+.toolLogoImage {
+  display: inline-block;
+  width: 19px;
+  height: 19px;
+  flex: 0 0 auto;
+  background-color: var(--color-fg-muted);
+  opacity: 0.8;
+  -webkit-mask-image: var(--tool-logo-url);
+  mask-image: var(--tool-logo-url);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  transition: opacity 0.15s ease;
+}
+
+.toolLogoImage:hover {
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .toolLogos {
+    gap: 10px;
+    padding: 0.35rem 0.6rem;
+  }
+
+  .toolLogoImage {
+    width: 17px;
+    height: 17px;
+  }
+}

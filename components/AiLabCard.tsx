@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import type { AiLabProject } from "@/lib/ai-labs-content";
+import ToolBar from "./ToolBar";
 import styles from "./AiLabCard.module.css";
 
 export default function AiLabCard({
@@ -29,6 +30,9 @@ export default function AiLabCard({
         <span className={styles.status}>{project.status}</span>
         <h3 className={styles.name}>{project.title}</h3>
         <p className={styles.summary}>{project.subtitle}</p>
+        <div className={styles.toolBarSlot}>
+          <ToolBar tools={project.tools} />
+        </div>
         <span className={styles.cta}>{ctaLabel} →</span>
       </div>
     </button>

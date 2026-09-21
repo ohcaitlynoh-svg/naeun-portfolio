@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useLanguage } from "@/components/SiteProviders";
 import SectionIndicator from "@/components/SectionIndicator";
+import ToolBar from "@/components/ToolBar";
 import styles from "./how-i-work.module.css";
 import {
   approachIntro,
@@ -145,11 +146,10 @@ export default function HowIWorkPage() {
                         <li key={item}>{item}</li>
                       ))}
                     </ul>
+                  </div>
 
-                    <p className={styles.toolkitCardTools}>
-                      <span className={styles.toolkitCardToolsLabel}>Tools</span>
-                      {card.tools.join(" · ")}
-                    </p>
+                  <div className={styles.toolBarSlot}>
+                    <ToolBar tools={card.tools} />
                   </div>
                 </article>
               ))}

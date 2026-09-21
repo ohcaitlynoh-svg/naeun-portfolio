@@ -104,15 +104,22 @@ export const casesEn: HowIWorkCase[] = [
   },
 ];
 
+import { TOOL_LOGOS, type ToolLogo } from "./tool-logos";
+
+export type { ToolLogo };
+
 export type ToolkitCard = {
   num: string;
   title: string;
   subtitle: string;
   evidence: string[];
   coreFlow: string[];
-  tools: string[];
+  tools: ToolLogo[];
   image: string;
 };
+
+const { figma: FIGMA, claudeCode: CLAUDE_CODE, codex: CODEX, chatgpt: CHATGPT, clickup: CLICKUP, notion: NOTION, jira: JIRA, confluence: CONFLUENCE } =
+  TOOL_LOGOS;
 
 export const executionToolkitEn: ToolkitCard[] = [
   {
@@ -130,7 +137,7 @@ export const executionToolkitEn: ToolkitCard[] = [
       "Feasibility check",
       "Development starts",
     ],
-    tools: ["Figma", "Claude", "ChatGPT"],
+    tools: [FIGMA, CLAUDE_CODE, CODEX, CHATGPT],
     image: "/how-i-work/how-i-work-prototyping.png",
   },
   {
@@ -150,7 +157,7 @@ export const executionToolkitEn: ToolkitCard[] = [
       "Allocate resources",
       "PoC / Release",
     ],
-    tools: ["ClickUp", "ChatGPT"],
+    tools: [CLICKUP, CHATGPT],
     image: "/how-i-work/how-i-work-priority-analysis.png",
   },
   {
@@ -163,7 +170,7 @@ export const executionToolkitEn: ToolkitCard[] = [
       "Requirements, schedule, issues, and decisions are continuously documented.",
     ],
     coreFlow: ["Planning / Prototype", "Design / Screen design", "Development / API & Backend"],
-    tools: ["ClickUp", "Notion", "Jira", "Confluence"],
+    tools: [CLICKUP, NOTION, JIRA, CONFLUENCE],
     image: "/how-i-work/how-i-work-development-collaboration.png",
   },
 ];
