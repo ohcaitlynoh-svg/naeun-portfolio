@@ -33,11 +33,33 @@ export const projectsEn: Project[] = [
         title: "Problem",
         blocks: [
           {
+            type: "p",
+            text: "EXEM ONE is an Enterprise Observability product designed to monitor large-scale infrastructure distributed not just across Korea but worldwide, in a single control environment.",
+          },
+          {
             type: "bullets",
             items: [
               "Monitoring was scattered across separate products and screens — APM, DPM, Cloud — making it hard for customers to read system health against one consistent standard.",
               "Requirements varied by customer; adopting them as-is would have driven up product complexity and maintenance cost.",
               "Delivery was bidding-based, so the schedule was effectively fixed — the integration direction and priorities had to be judged quickly.",
+            ],
+          },
+        ],
+      },
+      {
+        title: "Goal",
+        blocks: [
+          {
+            type: "p",
+            text: "The goal was to integrate fragmented APM, DPM, Kubernetes, and Cloud monitoring capabilities into one Enterprise Observability product.",
+          },
+          {
+            type: "bullets",
+            intro: "Success Criteria",
+            items: [
+              "Build the MVP within 6 months",
+              "Reach a level of product completeness that could be proposed, validated, and delivered in a real Enterprise environment",
+              "Establish a product structure that could keep absorbing customer requirements going forward",
             ],
           },
         ],
@@ -58,6 +80,27 @@ export const projectsEn: Project[] = [
               "Does it preserve existing usability and stability?",
               "Can it be solved with existing features, our own products, or internal/external APIs?",
             ],
+          },
+        ],
+      },
+      {
+        title: "Execution",
+        blocks: [
+          {
+            type: "p",
+            text: "Rather than moving the large volume of accumulating customer VOC and sales/technical-support requests straight into a feature list, I structured them by recurrence, product fit, schedule, and technical feasibility to decide the product's scope and priorities.",
+          },
+          {
+            type: "p",
+            text: "Instead of the product being handed to sales only after it was built, I detailed the product structure, policies, screens, and features to an actual product-level fidelity from before development started.",
+          },
+          {
+            type: "p",
+            text: "I used that planning output as the standard for development, and drove the development process so the product was built to match it.",
+          },
+          {
+            type: "p",
+            text: "Even after launch, I kept maintaining and advancing the product by continuously reflecting Enterprise customer needs and requirements that surfaced during operation.",
           },
         ],
       },
@@ -166,28 +209,50 @@ export const projectsEn: Project[] = [
         ],
       },
       {
-        title: "Impact",
+        title: "Result",
         blocks: [
           {
             type: "impactGrid",
             items: [
               { label: "6 Months", description: "Unified Observability MVP shipped" },
-              { label: "v3.0", description: "Product upgraded, version expanded" },
-              { label: "GS", description: "GS certification obtained" },
+              { label: "Launch", description: "Product launched and continuously upgraded" },
               {
-                label: "Enterprise",
-                description:
-                  "Used in LG PoC and Samsung, among other Enterprise contract processes",
-              },
-              {
-                label: "Business Impact",
-                description: "Contributed to roughly ₩4B in business impact",
+                label: "GS Certified",
+                description: "GS certification obtained across 4 programs — APM · DPM · Kubernetes · Cloud",
               },
             ],
           },
           {
             type: "p",
             text: "After the MVP, the product expanded step by step into Cloud, Kubernetes, and AI-based anomaly detection, among other areas.",
+          },
+        ],
+      },
+      {
+        title: "Business Impact",
+        blocks: [
+          {
+            type: "p",
+            text: "I detailed EXEM ONE's product structure and core features to an actual product-level fidelity before development was complete, and drove the development and customer-validation process against that standard.",
+          },
+          {
+            type: "p",
+            text: "Large-scale infrastructure monitoring projects — for LG Electronics, Samsung Electronics, KFTC (Korea Financial Telecommunications & Clearings Institute), and the Korean National Police Agency, among others — were carried out on top of this product, contributing to roughly ₩4B in revenue on the major projects.",
+          },
+        ],
+      },
+      {
+        title: "My Contribution",
+        blocks: [
+          {
+            type: "bullets",
+            items: [
+              "Defined the product structure, policies, screens, and features",
+              "Decided scope and priorities",
+              "Established the implementation standard",
+              "Drove the development process",
+              "Continuously maintained and advanced the product based on customer needs",
+            ],
           },
         ],
       },

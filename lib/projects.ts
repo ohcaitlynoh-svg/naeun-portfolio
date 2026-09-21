@@ -197,11 +197,33 @@ export const projects: Project[] = [
         title: "Problem",
         blocks: [
           {
+            type: "p",
+            text: "EXEM ONE은 한국뿐 아니라 전 세계에 분산된 대규모 인프라를 하나의 관제 환경에서 통합 모니터링할 수 있도록 설계된 Enterprise Observability 제품입니다.",
+          },
+          {
             type: "bullets",
             items: [
               "APM·DPM·Cloud 등 여러 제품과 화면에 모니터링이 흩어져 있어, 고객이 시스템 상태를 하나의 기준으로 파악하기 어려웠습니다.",
               "고객사별 요구가 서로 달라, 요청을 그대로 반영하면 제품 복잡도와 유지보수 부담이 커지는 구조였습니다.",
               "비딩 기반 납품으로 일정이 사실상 고정되어 있어, 통합 방향과 우선순위를 빠르게 판단해야 했습니다.",
+            ],
+          },
+        ],
+      },
+      {
+        title: "Goal",
+        blocks: [
+          {
+            type: "p",
+            text: "분산된 APM·DPM·Kubernetes·Cloud 관제 기능을 하나의 Enterprise Observability 제품으로 통합하는 것이 목표였습니다.",
+          },
+          {
+            type: "bullets",
+            intro: "Success Criteria",
+            items: [
+              "6개월 내 MVP 구축",
+              "실제 Enterprise 환경에서 제안·검증·납품 가능한 수준의 제품 완성도 확보",
+              "고객 요구를 지속적으로 반영 가능한 제품 구조 확립",
             ],
           },
         ],
@@ -222,6 +244,27 @@ export const projects: Project[] = [
               "기존 사용성과 안정성을 해치지 않는가",
               "기존 기능·자사 제품·내부/외부 API로 대체 가능한가",
             ],
+          },
+        ],
+      },
+      {
+        title: "Execution",
+        blocks: [
+          {
+            type: "p",
+            text: "대량으로 축적되는 고객 VOC와 영업·기술지원 요구를 그대로 기능 목록으로 옮기지 않고, 반복성·제품 적합성·일정·기술 가능성을 기준으로 구조화해 제품 범위와 우선순위를 결정했습니다.",
+          },
+          {
+            type: "p",
+            text: "제품이 완성된 뒤 영업에 활용된 것이 아니라, 개발 이전 단계부터 실제 제품 수준으로 제품 구조·정책·화면·기능을 구체화했습니다.",
+          },
+          {
+            type: "p",
+            text: "이 기획 산출물을 개발의 기준으로 삼아, 기획서대로 구현되도록 개발 프로세스를 주도했습니다.",
+          },
+          {
+            type: "p",
+            text: "출시 이후에도 Enterprise 고객 요구와 운영 과정에서 발생하는 요구를 지속적으로 반영하며 제품을 유지·고도화했습니다.",
           },
         ],
       },
@@ -330,28 +373,50 @@ export const projects: Project[] = [
         ],
       },
       {
-        title: "Impact",
+        title: "Result",
         blocks: [
           {
             type: "impactGrid",
             items: [
               { label: "6 Months", description: "통합 Observability MVP 출시" },
-              { label: "v3.0", description: "제품 고도화 및 Version 확장" },
-              { label: "GS", description: "GS 인증" },
+              { label: "Launch", description: "제품 정식 출시 및 지속 고도화" },
               {
-                label: "Enterprise",
-                description:
-                  "LG PoC 및 Samsung 등 Enterprise 고객 계약 과정에 제품 활용",
-              },
-              {
-                label: "Business Impact",
-                description: "약 40억 원 규모 사업성과에 기여",
+                label: "GS 인증",
+                description: "APM · DPM · Kubernetes · Cloud 4개 프로그램 GS 인증 획득",
               },
             ],
           },
           {
             type: "p",
             text: "MVP 이후 Cloud·Kubernetes·AI 이상 탐지 등으로 제품 영역을 단계적으로 확장했습니다.",
+          },
+        ],
+      },
+      {
+        title: "Business Impact",
+        blocks: [
+          {
+            type: "p",
+            text: "EXEM ONE의 제품 구조와 주요 기능을 개발 완료 이전부터 실제 제품 수준으로 구체화하고, 이를 기준으로 개발과 고객 검증 프로세스를 주도했습니다.",
+          },
+          {
+            type: "p",
+            text: "이 제품을 기반으로 LG전자·삼성전자·금융결제원·경찰청 등 대규모 인프라 관제 프로젝트가 진행되었으며, 주요 프로젝트 기준 약 40억 원의 매출 성과로 이어졌습니다.",
+          },
+        ],
+      },
+      {
+        title: "My Contribution",
+        blocks: [
+          {
+            type: "bullets",
+            items: [
+              "제품 구조·정책·화면·기능 정의",
+              "범위 및 우선순위 결정",
+              "구현 기준 수립",
+              "개발 프로세스 주도",
+              "고객 요구 기반 지속적 유지·고도화",
+            ],
           },
         ],
       },
