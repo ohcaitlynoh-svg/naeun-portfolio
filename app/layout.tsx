@@ -8,6 +8,11 @@ export const metadata: Metadata = {
   title: "오나은 · Naeun Oh — Senior Product Manager",
   description:
     "Senior Product Manager portfolio — the problems tackled, the decision criteria used, and how complex B2B/Enterprise products get shaped.",
+  // Filename itself changes on every favicon swap (not a fixed app/icon.png)
+  // so a fresh image reliably busts browser favicon caches.
+  icons: {
+    icon: "/favicon/favicon-profile-v2.png",
+  },
 };
 
 // Runs before hydration so the stored/system theme and language apply
