@@ -95,7 +95,7 @@ export default function HomePage() {
           </div>
           <div>
             <h1 className={styles.heroName}>{isEn ? "Naeun Oh" : "오나은"}</h1>
-            <p className={styles.heroTitle}>Product Manager</p>
+            <p className={styles.heroTitle}>Product Planner · Product Manager</p>
             <p className={styles.heroMain}>{t.heroMain}</p>
             <p className={styles.heroSupporting}>{t.heroSupporting}</p>
             <div className={styles.heroCtas}>
