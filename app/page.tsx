@@ -102,14 +102,6 @@ export default function HomePage() {
               <a href="#contact" className={styles.ctaPrimary}>
                 Contact Me
               </a>
-              <a
-                href="https://www.linkedin.com/in/%EB%82%98%EC%9D%80-%EC%98%A4/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={styles.ctaSecondary}
-              >
-                LinkedIn
-              </a>
             </div>
           </div>
         </div>

@@ -230,32 +230,18 @@
   gap: var(--space-sm);
 }
 
-.ctaPrimary,
-.ctaSecondary {
+.ctaPrimary {
   display: inline-block;
   padding: 0.65rem 1.4rem;
   font-size: 0.9rem;
   text-decoration: none;
   border: 1px solid var(--color-accent);
-}
-
-.ctaPrimary {
   color: var(--color-bg);
   background: var(--color-accent);
 }
 
 .ctaPrimary:hover {
   opacity: 0.85;
-}
-
-.ctaSecondary {
-  color: var(--color-fg);
-  border-color: var(--color-border);
-}
-
-.ctaSecondary:hover {
-  border-color: var(--color-accent);
-  opacity: 1;
 }
 
 .homeSection {
