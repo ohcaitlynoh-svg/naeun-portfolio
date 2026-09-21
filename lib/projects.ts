@@ -179,7 +179,8 @@ export const projects: Project[] = [
     // /projects' compact 3-up grid has more image height to work with, so
     // the whole dashboard fits legibly without needing the Home crop.
     cardVisualLarge: { fit: "contain" },
-    oneLiner: "분산된 모니터링 환경을 하나의 통합 Observability 제품으로 재구성",
+    oneLiner:
+      "분산된 모니터링 환경을 통합 Observability 제품으로 구축\n6개월 MVP · 4개 제품 GS 인증 · 주요 프로젝트 약 40억 매출",
     role: "Senior Product Manager",
     keyResult:
       "6개월 내 통합 MVP 출시\n\nEnterprise PoC·계약 과정에서\n약 40억 원 규모 사업성과에 기여",
@@ -468,7 +469,7 @@ export const projects: Project[] = [
     // showing the whole tall page shrunk down to illegible size.
     cardVisualLarge: { fit: "cover", position: "center top" },
     oneLiner:
-      "6단계 수작업 운영 프로세스를 플랫폼에서 자동화\n고객 100명 기준 연 최대 400건 일정 관리 구조\n개인 고객 → 건설사 2곳 B2B 확장",
+      "6단계 수작업 운영 프로세스를 하나의 플랫폼으로 자동화\n고객 100명 기준 연 최대 400개 일정 관리 · 건설사 2곳 B2B 확장",
     role: "Founder / Product Manager",
     heroPeriod: "2018.08.08 – 2021.03",
     keyResult:
@@ -769,7 +770,7 @@ export const projects: Project[] = [
     // the slide's own whitespace margin without reaching them.
     cardVisualLarge: { scale: 1.08 },
     oneLiner:
-      "2.5년간 참여한 국가 단위 전자무역·통관 시스템 현지화 프로젝트\n한국·벨라루스 양국 정부기관 대면 인터뷰\n제도·업무 차이를 시스템 정책으로 재설계",
+      "국가 단위 통관·관세 업무를 분석해 현지 시스템으로 Localization\n2.5년 전 과정 참여 · 양국 정부기관·민간·민원 사용자 범위",
     role: "Product Manager / IT Expert\n5명의 PM 중 1인 · 시스템 기획·현지화 담당",
     heroPeriod: "2015.09.21 – 2018.02.28",
     keyResult:

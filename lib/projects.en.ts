@@ -15,7 +15,7 @@ export const projectsEn: Project[] = [
     },
     cardVisualLarge: { fit: "contain" },
     oneLiner:
-      "Restructured a fragmented monitoring landscape into one unified Observability product",
+      "Built a unified Observability product from a fragmented monitoring landscape\n6-month MVP · GS certification across 4 programs · ~₩4B in revenue on major projects",
     role: "Senior Product Manager",
     keyResult:
       "Shipped the unified MVP within 6 months\n\nContributed to roughly ₩4B in business impact\nthrough Enterprise PoC and contract processes",
@@ -301,7 +301,7 @@ export const projectsEn: Project[] = [
     },
     cardVisualLarge: { fit: "cover", position: "center top" },
     oneLiner:
-      "Automated a 6-stage manual operating process on one platform\nUp to 400 individual schedules a year at 100 customers\nExpanded from individual customers to B2B with 2 construction companies",
+      "Automated a 6-stage manual operating process into one platform\nUp to 400 schedules a year at 100 customers · Expanded to B2B with 2 construction companies",
     role: "Founder / Product Manager",
     heroPeriod: "2018.08.08 – 2021.03",
     keyResult:
@@ -606,7 +606,7 @@ export const projectsEn: Project[] = [
     },
     cardVisualLarge: { scale: 1.08 },
     oneLiner:
-      "A 2.5-year national-scale e-trade / customs system localization project\nIn-person interviews with government agencies on both sides\nRedesigned institutional and process differences into system policy",
+      "Analyzed national-scale customs and trade operations and localized the system\n2.5 years, full project lifecycle · Government, private, and citizen users on both sides",
     role: "Product Manager / IT Expert\nOne of 5 PMs · Owned system planning and localization",
     heroPeriod: "2015.09.21 – 2018.02.28",
     keyResult:
