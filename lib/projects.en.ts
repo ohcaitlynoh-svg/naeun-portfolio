@@ -301,46 +301,136 @@ export const projectsEn: Project[] = [
     },
     cardVisualLarge: { fit: "cover", position: "center top" },
     oneLiner:
-      "Turned manual booking and delivery operations\ninto a subscription product with an operating system",
+      "Automated a 6-stage manual operating process on one platform\nUp to 400 individual schedules a year at 100 customers\nExpanded from individual customers to B2B with 2 construction companies",
     role: "Founder / Product Manager",
     heroPeriod: "2018.08.08 – 2021.03",
     keyResult:
-      "Launched a subscription delivery platform\n\nSelected for a government pre-startup program\n\nExpanded the revenue model from B2C to B2B module sales",
+      "Automated a 6-stage manual operating process on one platform\n\nExpanded to B2B with 2 construction companies\n\nAn initial customer base of roughly 2,000 combined subscribers and SNS followers",
     customSections: [
       {
-        title: "Problem",
+        title: "Context",
         blocks: [
           {
             type: "p",
-            text: "Funeral flowers and handcrafted products required complex production, scheduling, and delivery management after ordering,\nand recurring deliveries were hard to run with simple order features alone.",
+            text: "Flor Momento is a solo-operated commerce business selling funeral-flower and anniversary flower products on a recurring-delivery basis.",
           },
           {
             type: "bullets",
             items: [
-              "Booking",
-              "Schedule management",
-              "Delivery management",
-              "Customer notifications",
+              "Customer consultation",
+              "Order intake",
+              "Securing logistics",
+              "Production",
+              "Delivery",
+              "After-service",
             ],
-            outro:
-              "and other recurring tasks relied on manual work, creating heavy operational load.",
           },
           {
             type: "p",
-            text: "For solo and small-scale operators, existing e-commerce features were excessive or simply didn't fit.",
+            text: "This 6-stage operating process ran on manual work — phone calls, KakaoTalk, and handwritten schedule tracking.",
           },
         ],
       },
       {
-        title: "Product Opportunity",
+        title: "Operational Problem",
         blocks: [
           {
             type: "p",
-            text: "I concluded that recurring-delivery operations themselves — not just a storefront — needed to be productized.",
+            text: "A subscription customer didn't order just once a year — anniversaries of a loved one's passing, Lunar New Year, Chuseok, birthdays, and other customer-specific dates could each trigger a repeat order, up to 4 times a year per customer.",
           },
           {
             type: "p",
-            text: "I redefined the core problem as recurring operations rather than ordering,\nand turned the real operational work into product features.",
+            text: "At the same time, I was directly running the offline flower shop, making the flowers, securing logistics, and handling delivery myself — so schedule-management complexity grew sharply as the customer base grew.",
+          },
+        ],
+      },
+      {
+        title: "Scale",
+        blocks: [
+          {
+            type: "impactGrid",
+            items: [
+              { label: "6 Stages", description: "Manual, hands-on operating process" },
+              { label: "Up to 4x / year", description: "Repeat order events per customer" },
+              { label: "Up to 400", description: "Individual schedules a year at 100 customers" },
+            ],
+          },
+          {
+            type: "p",
+            text: "That 400 figure isn't a real order-volume statistic — it illustrates the maximum number of schedules that could arise from managing 100 customers.",
+          },
+        ],
+      },
+      {
+        title: "Goal",
+        blocks: [
+          {
+            type: "p",
+            text: "The goal wasn't to build an online flower-ordering feature — it was to turn the recurring booking, scheduling, production, delivery, and after-service work into an operating system that a platform could manage automatically.",
+          },
+          {
+            type: "bullets",
+            intro: "Success Criteria",
+            items: [
+              "Connect the 6-stage manual operating process into one platform flow",
+              "Automatically notify on each customer's recurring schedule",
+              "Take orders without in-person contact",
+              "Visualize the production process",
+              "Manage delivery progress",
+              "Handle after-service without in-person contact",
+              "Let a solo operator run the business off the platform instead of memorizing each schedule",
+            ],
+          },
+        ],
+      },
+      {
+        title: "Product Decision",
+        blocks: [
+          {
+            type: "p",
+            text: "The judgment wasn't to eliminate stages — it was to automate and connect the existing 6-stage workflow within the platform.",
+          },
+          {
+            type: "p",
+            text: "The core of that judgment was workflow automation and operational productization, not workflow reduction.",
+          },
+          {
+            type: "bullets",
+            items: [
+              "Lightened the product to only the core features a solo operator needs",
+              "Focused on schedule management and recurring delivery operations rather than full commerce functionality",
+              "Extended beyond B2C into a customizable module structure",
+              "Defined screens, policies, and features to a build-ready level",
+            ],
+          },
+        ],
+      },
+      {
+        title: "Before / After",
+        blocks: [
+          {
+            type: "bullets",
+            intro: "Before",
+            items: [
+              "Phone calls",
+              "KakaoTalk",
+              "Handwritten schedule tracking",
+              "Memorizing each customer's schedule individually",
+              "Checking production/delivery progress case by case",
+              "Reaching out for after-service one by one",
+            ],
+          },
+          {
+            type: "bullets",
+            intro: "After",
+            items: [
+              "Contactless order intake",
+              "Unified customer and schedule management",
+              "Automatic notification when a schedule comes due",
+              "Visualized production process",
+              "Delivery progress management",
+              "Contactless after-service",
+            ],
           },
         ],
       },
@@ -374,20 +464,6 @@ export const projectsEn: Project[] = [
         ],
       },
       {
-        title: "Product Decisions",
-        blocks: [
-          {
-            type: "bullets",
-            items: [
-              "Lightened the product to only the core features a solo operator needs",
-              "Focused on schedule management and recurring delivery operations rather than full commerce functionality",
-              "Extended beyond B2C into a customizable module structure",
-              "Defined screens, policies, and features to a build-ready level",
-            ],
-          },
-        ],
-      },
-      {
         title: "Evidence / Product Design",
         blocks: [
           {
@@ -407,33 +483,55 @@ export const projectsEn: Project[] = [
         ],
       },
       {
-        title: "Ownership & Delivery",
-        emphasis: "detail",
-        collapsible: { summary: "View ownership details" },
+        title: "Result",
         blocks: [
           {
             type: "bullets",
             items: [
-              "Business and product planning",
-              "Service structure definition",
-              "Customer journey and subscription-delivery logic design",
-              "Screen / feature / operations policy definition",
-              "Collaboration with outsourced development and design",
-              "Launch and operations",
-              "Monetization, including module sales",
+              "Turned the manual, 6-stage operating process into a platform",
+              "Automatic notification on recurring schedules",
+              "Contactless order, production, delivery, and after-service operations",
+              "Ran the service for roughly 2 years",
             ],
           },
         ],
       },
       {
-        title: "Impact",
+        title: "Business Model / B2B Expansion",
+        blocks: [
+          {
+            type: "p",
+            text: "I expanded the individual-customer subscription service so it could also serve corporate customer-management work, and supplied it to 2 construction companies as a B2B model: a platform onboarding fee plus a per-order product fee.",
+          },
+          {
+            type: "bullets",
+            intro: "Representative Use Cases",
+            items: [
+              "Gifting new move-in customers interior/flower gifts timed to their move",
+              "Managing key dates — such as anniversaries — for a specific sales customer segment, and supplying wreaths/bouquets accordingly",
+            ],
+          },
+          {
+            type: "bullets",
+            intro: "Revenue Model",
+            items: [
+              "A ₩2M platform onboarding fee",
+              "Billed for the flower product cost whenever a separate order occurred",
+              "Sold and invoiced on a VAT-inclusive basis",
+            ],
+          },
+        ],
+      },
+      {
+        title: "Traction",
         blocks: [
           {
             type: "bullets",
             items: [
+              "An initial customer base of roughly 2,000 combined subscribers and SNS followers",
+              "Ran the service for roughly 2 years",
+              "About 3 years total building and operating the product, including preparation",
               "Selected for the Korea Ministry of SMEs and Startups' Pre-Startup Package",
-              "Operated as a real B2C service",
-              "Modularized features / B2B sales",
             ],
           },
           {
@@ -448,6 +546,25 @@ export const projectsEn: Project[] = [
                 height: 368,
                 caption: "Pre-Startup Package — supporting evidence",
               },
+            ],
+          },
+        ],
+      },
+      {
+        title: "My Contribution",
+        emphasis: "detail",
+        collapsible: { summary: "View ownership details" },
+        blocks: [
+          {
+            type: "bullets",
+            items: [
+              "Business and product planning",
+              "Service structure definition",
+              "Customer journey and subscription-delivery logic design",
+              "Screen / feature / operations policy definition",
+              "Collaboration with outsourced development and design",
+              "Launch and operations",
+              "Monetization, including module sales",
             ],
           },
         ],

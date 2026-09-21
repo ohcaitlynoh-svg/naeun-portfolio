@@ -467,40 +467,130 @@ export const projects: Project[] = [
     // Cropped to the top of the page (brand, nav, hero banner) rather than
     // showing the whole tall page shrunk down to illegible size.
     cardVisualLarge: { fit: "cover", position: "center top" },
-    oneLiner: "수동 예약·배송 운영을\n정기구독 제품과 운영 시스템으로 전환",
+    oneLiner:
+      "6단계 수작업 운영 프로세스를 플랫폼에서 자동화\n고객 100명 기준 연 최대 400건 일정 관리 구조\n개인 고객 → 건설사 2곳 B2B 확장",
     role: "Founder / Product Manager",
     heroPeriod: "2018.08.08 – 2021.03",
     keyResult:
-      "정기배송 플랫폼 출시\n\n예비창업패키지 선정\n\nB2C에서 B2B 모듈 판매까지 수익모델 확장",
+      "6단계 수작업 운영 프로세스의 플랫폼 자동화\n\n건설사 2곳 B2B 확장\n\n가입자·SNS 팔로워 합산 약 2,000명 초기 고객 기반",
     customSections: [
       {
-        title: "Problem",
+        title: "Context",
         blocks: [
           {
             type: "p",
-            text: "조문장식·핸드크래프트 제품은 주문 이후 제작·일정·배송 관리가 복잡했고,\n반복 배송에서는 단순 주문 기능만으로 운영이 어려웠습니다.",
+            text: "Flor Momento는 조문장식·기념일 꽃 상품을 정기배송하는 1인 운영 커머스입니다.",
           },
           {
             type: "bullets",
-            items: ["예약", "일정 관리", "배송 관리", "고객 알림"],
-            outro: "등 반복 업무를 수작업에 의존해 운영 부담이 컸습니다.",
+            items: ["고객응대 및 상담", "주문접수", "물류 확보", "제작", "발송", "사후관리"],
           },
           {
             type: "p",
-            text: "1인 사업자·소규모 운영자에게는 기존 이커머스 기능이 과도하거나 맞지 않았습니다.",
+            text: "이 6단계 운영 프로세스는 전화, 카카오톡, 수기 관리 등 수작업 중심으로 운영되고 있었습니다.",
           },
         ],
       },
       {
-        title: "Product Opportunity",
+        title: "Operational Problem",
         blocks: [
           {
             type: "p",
-            text: "단순 쇼핑몰이 아니라 정기배송 운영 자체를 제품화해야 한다고 판단했습니다.",
+            text: "정기배송 고객은 1년에 1회만 주문하는 것이 아니라, 고인의 기일·설·추석·생일 등 고객별 일정에 따라 연간 최대 4회까지 반복 주문 이벤트가 발생할 수 있었습니다.",
           },
           {
             type: "p",
-            text: "핵심 문제를 주문이 아니라 반복 운영으로 재정의하고,\n실제 업무를 제품 기능으로 전환했습니다.",
+            text: "동시에 오프라인 꽃집 운영, 꽃 제작, 물류 확보, 배송까지 직접 수행해야 했기 때문에, 고객 수가 늘어날수록 일정 관리 복잡도가 급격히 커지는 구조였습니다.",
+          },
+        ],
+      },
+      {
+        title: "Scale",
+        blocks: [
+          {
+            type: "impactGrid",
+            items: [
+              { label: "6단계", description: "수작업 중심 운영 프로세스" },
+              { label: "연 최대 4회", description: "고객 1인당 반복 주문 일정 발생" },
+              { label: "최대 400건", description: "고객 100명 기준 연간 개별 일정 관리 규모" },
+            ],
+          },
+          {
+            type: "p",
+            text: "위 400건은 실제 전체 주문량 통계가 아니라, 고객 100명을 관리할 경우 발생할 수 있는 최대 일정 수를 보여주는 예시입니다.",
+          },
+        ],
+      },
+      {
+        title: "Goal",
+        blocks: [
+          {
+            type: "p",
+            text: "Flor Momento의 목표는 온라인 꽃 주문 기능을 만드는 것이 아니라, 반복되는 예약·일정·제작·배송·사후관리 업무를 하나의 플랫폼에서 자동으로 관리할 수 있는 운영 시스템으로 전환하는 것이었습니다.",
+          },
+          {
+            type: "bullets",
+            intro: "Success Criteria",
+            items: [
+              "6단계 수작업 운영 프로세스를 하나의 플랫폼 흐름으로 연결",
+              "고객별 반복 일정 도래 시 자동 알림",
+              "비대면 주문 접수",
+              "제작 과정 시각화",
+              "배송 진행 관리",
+              "비대면 사후관리",
+              "1인 사업자가 개별 일정을 기억하지 않고 플랫폼 기준으로 운영 가능하게 만들기",
+            ],
+          },
+        ],
+      },
+      {
+        title: "Product Decision",
+        blocks: [
+          {
+            type: "p",
+            text: "단계를 없애는 것이 아니라, 기존 6단계 업무를 플랫폼 안에서 자동화하고 연결하는 방향으로 판단했습니다.",
+          },
+          {
+            type: "p",
+            text: "이 판단의 핵심은 Workflow Reduction이 아니라 Workflow Automation / Operational Productization이었습니다.",
+          },
+          {
+            type: "bullets",
+            items: [
+              "1인 사업자에게 필요한 핵심 기능만 남기는 경량화",
+              "일반 커머스 전체 기능보다 일정관리·반복배송 운영에 집중",
+              "B2C로 끝내지 않고 커스터마이징 가능한 모듈 구조로 확장",
+              "실제 구현 가능한 수준으로 화면·정책·기능 정의",
+            ],
+          },
+        ],
+      },
+      {
+        title: "Before / After",
+        blocks: [
+          {
+            type: "bullets",
+            intro: "Before",
+            items: [
+              "전화",
+              "카카오톡",
+              "수기 일정관리",
+              "고객별 일정 개별 기억",
+              "제작/배송 진행을 개별 확인",
+              "사후관리도 개별 연락",
+            ],
+          },
+          {
+            type: "bullets",
+            intro: "After",
+            items: [
+              "비대면 주문접수",
+              "고객 및 일정 통합 관리",
+              "일정 도래 자동 알림",
+              "제작 과정 시각화",
+              "배송 진행 관리",
+              "비대면 사후관리",
+            ],
           },
         ],
       },
@@ -534,20 +624,6 @@ export const projects: Project[] = [
         ],
       },
       {
-        title: "Product Decisions",
-        blocks: [
-          {
-            type: "bullets",
-            items: [
-              "1인 사업자에게 필요한 핵심 기능만 남기는 경량화",
-              "일반 커머스 전체 기능보다 일정관리·반복배송 운영에 집중",
-              "B2C로 끝내지 않고 커스터마이징 가능한 모듈 구조로 확장",
-              "실제 구현 가능한 수준으로 화면·정책·기능 정의",
-            ],
-          },
-        ],
-      },
-      {
         title: "Evidence / Product Design",
         blocks: [
           {
@@ -567,33 +643,55 @@ export const projects: Project[] = [
         ],
       },
       {
-        title: "Ownership & Delivery",
-        emphasis: "detail",
-        collapsible: { summary: "View ownership details" },
+        title: "Result",
         blocks: [
           {
             type: "bullets",
             items: [
-              "사업 및 제품 기획",
-              "서비스 구조 정의",
-              "고객 Journey 및 정기배송 Logic 설계",
-              "화면 / 기능 / 운영 정책 정의",
-              "외주 개발·디자인 협업",
-              "출시 및 운영",
-              "모듈 판매 등 수익화",
+              "수작업 중심 6단계 운영 프로세스 플랫폼화",
+              "반복 일정 자동 알림",
+              "주문·제작·배송·사후관리 비대면 운영",
+              "약 2년간 실제 서비스 운영",
             ],
           },
         ],
       },
       {
-        title: "Impact",
+        title: "Business Model / B2B Expansion",
+        blocks: [
+          {
+            type: "p",
+            text: "개인 고객 중심의 정기배송 서비스를 기업 고객관리 업무에도 적용할 수 있도록 확장하고, 건설사 2곳에 플랫폼 도입비 200만원 + 건별 상품비 구조의 B2B 모델로 공급했습니다.",
+          },
+          {
+            type: "bullets",
+            intro: "대표 활용 방식",
+            items: [
+              "신규 입주 고객에게 이사 시기에 맞춰 인테리어·꽃 선물 제공",
+              "특정 영업 고객군의 기일 등 주요 일정을 관리해 조화·꽃다발 제공",
+            ],
+          },
+          {
+            type: "bullets",
+            intro: "수익모델",
+            items: [
+              "플랫폼 도입비 200만원",
+              "별도 주문 발생 시 꽃 상품 비용 청구",
+              "VAT 포함 기준으로 실제 판매·청구",
+            ],
+          },
+        ],
+      },
+      {
+        title: "Traction",
         blocks: [
           {
             type: "bullets",
             items: [
+              "가입자·SNS 팔로워 합산 약 2,000명 규모의 초기 고객 기반",
+              "실제 서비스 운영 약 2년",
+              "사전 준비 포함 약 3년간 제품 구축·운영 경험",
               "중소벤처기업부 예비창업패키지 선정",
-              "B2C 실제 운영",
-              "기능 모듈화 / B2B 판매",
             ],
           },
           {
@@ -608,6 +706,25 @@ export const projects: Project[] = [
                 height: 368,
                 caption: "예비창업패키지 선정 보조 자료",
               },
+            ],
+          },
+        ],
+      },
+      {
+        title: "My Contribution",
+        emphasis: "detail",
+        collapsible: { summary: "View ownership details" },
+        blocks: [
+          {
+            type: "bullets",
+            items: [
+              "사업 및 제품 기획",
+              "서비스 구조 정의",
+              "고객 Journey 및 정기배송 Logic 설계",
+              "화면 / 기능 / 운영 정책 정의",
+              "외주 개발·디자인 협업",
+              "출시 및 운영",
+              "모듈 판매 등 수익화",
             ],
           },
         ],
