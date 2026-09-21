@@ -224,24 +224,30 @@
   margin-bottom: 1.25rem;
 }
 
-.heroCtas {
+/* Hero's lightweight contact row — replaces the old CTA buttons. Plain
+   inline links (no button chrome/background/border), colored with the
+   site's accent ("Midnight") instead of inheriting body text color, so
+   they read as quiet supporting info rather than a call to action.
+   Underline/hover behavior comes from the global `a` rule in globals.css
+   — not redeclared here — matching how every other link on the site
+   behaves. */
+.heroContact {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-sm);
+  align-items: center;
+  gap: 1.25rem;
 }
 
-.ctaPrimary {
-  display: inline-block;
-  padding: 0.65rem 1.4rem;
-  font-size: 0.9rem;
-  text-decoration: none;
-  border: 1px solid var(--color-accent);
-  color: var(--color-bg);
-  background: var(--color-accent);
+.heroContactItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: var(--font-meta);
+  color: var(--color-accent);
 }
 
-.ctaPrimary:hover {
-  opacity: 0.85;
+.heroContactIcon {
+  flex-shrink: 0;
 }
 
 .homeSection {
@@ -333,7 +339,7 @@
     max-width: none;
   }
 
-  .heroCtas {
+  .heroContact {
     justify-content: center;
   }
 

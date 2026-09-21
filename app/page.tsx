@@ -14,6 +14,7 @@ import {
   CareerIcon,
   AiLabsIcon,
   ContactIcon,
+  LinkedInIcon,
 } from "@/components/icons/HomeIcons";
 import { projects } from "@/lib/projects";
 import { projectsEn } from "@/lib/projects.en";
@@ -98,12 +99,45 @@ export default function HomePage() {
             <p className={styles.heroTitle}>Product Planner · Product Manager</p>
             <p className={styles.heroMain}>{t.heroMain}</p>
             <p className={styles.heroSupporting}>{t.heroSupporting}</p>
-            <div className={styles.heroCtas}>
-              <a href="#contact" className={styles.ctaPrimary}>
-                Contact Me
+            <div className={styles.heroContact}>
+              <a href="mailto:ohcaitlyn@hotmail.com" className={styles.heroContactItem}>
+                <ContactIcon className={styles.heroContactIcon} />
+                ohcaitlyn@hotmail.com
+              </a>
+              <a
+                href="https://www.linkedin.com/in/%EB%82%98%EC%9D%80-%EC%98%A4/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.heroContactItem}
+              >
+                <LinkedInIcon className={styles.heroContactIcon} />
+                LinkedIn
               </a>
             </div>
           </div>
+        </div>
+      </section>
+
+      <section
+        id="projects"
+        className={`container section ${styles.homeSection} ${styles.anchorSection}`}
+      >
+        <div className={styles.sectionInner}>
+          <h2 className={styles.cardHeading}>
+            <ProjectIcon className={styles.cardIcon} /> Core Projects
+          </h2>
+
+          <div className={styles.projectCardGrid}>
+            {projectList.map((project) => (
+              <ProjectCard key={project.slug} project={project} size="compact" />
+            ))}
+          </div>
+
+          <p className={styles.sectionCta}>
+            <Link href="/projects">
+              {isEn ? "View All Projects →" : "View All Projects →"}
+            </Link>
+          </p>
         </div>
       </section>
 
@@ -159,29 +193,6 @@ export default function HomePage() {
               </Link>
             </p>
           </div>
-        </div>
-      </section>
-
-      <section
-        id="projects"
-        className={`container section ${styles.homeSection} ${styles.anchorSection}`}
-      >
-        <div className={styles.sectionInner}>
-          <h2 className={styles.cardHeading}>
-            <ProjectIcon className={styles.cardIcon} /> Core Projects
-          </h2>
-
-          <div className={styles.projectCardGrid}>
-            {projectList.map((project) => (
-              <ProjectCard key={project.slug} project={project} size="compact" />
-            ))}
-          </div>
-
-          <p className={styles.sectionCta}>
-            <Link href="/projects">
-              {isEn ? "View All Projects →" : "View All Projects →"}
-            </Link>
-          </p>
         </div>
       </section>
 

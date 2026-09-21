@@ -89,3 +89,15 @@ export function ContactIcon(props: SVGProps<SVGSVGElement>) {
     </IconBase>
   );
 }
+
+export function LinkedInIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <IconBase {...props}>
+      <rect x="3.5" y="3.5" width="17" height="17" rx="2.5" />
+      <path d="M8 10.5v6" />
+      <circle cx="8" cy="7.3" r="0.9" fill="currentColor" stroke="none" />
+      <path d="M12 16.5v-3.7a2.3 2.3 0 0 1 4.5 0v3.7" />
+      <path d="M12 10.5v1.5" />
+    </IconBase>
+  );
+}

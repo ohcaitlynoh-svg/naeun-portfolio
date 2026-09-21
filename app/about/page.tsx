@@ -46,10 +46,10 @@ function Lines({ lines }: { lines: string[] }) {
 
 const sections = [
   { id: "career", label: "Career" },
-  { id: "education", label: "Education" },
-  { id: "overseas-experience", label: "Overseas Experience" },
-  { id: "product-domains", label: "Product Domains" },
   { id: "leadership", label: "Leadership" },
+  { id: "product-domains", label: "Product Domains" },
+  { id: "overseas-experience", label: "Overseas Experience" },
+  { id: "education", label: "Education" },
   { id: "closing", label: "Closing" },
 ];
 
@@ -124,19 +124,35 @@ export default function AboutPage() {
             </div>
           </section>
 
-          <section id="education" className={styles.block}>
+          <section id="leadership" className={styles.block}>
             <h2 className={styles.blockTitle}>
-              <span className={styles.num}>02</span>Education
+              <span className={styles.num}>02</span>Leadership
             </h2>
-            <p className={styles.educationEntry}>
-              <span className={styles.educationSchool}>{edu.school}</span>
-              <span className={styles.educationNote}>{edu.note}</span>
+            <p className={styles.leadershipIntro}>
+              <Lines lines={leadershipIntroLines} />
             </p>
+            <ul className={styles.bulletList}>
+              {leadership.map((area) => (
+                <li key={area}>{area}</li>
+              ))}
+            </ul>
+            <p className={styles.leadershipOutro}>{leadershipOutro}</p>
+          </section>
+
+          <section id="product-domains" className={styles.block}>
+            <h2 className={styles.blockTitle}>
+              <span className={styles.num}>03</span>Product Domains
+            </h2>
+            <ul className={styles.domainList}>
+              {domains.map((domain) => (
+                <li key={domain}>{domain}</li>
+              ))}
+            </ul>
           </section>
 
           <section id="overseas-experience" className={styles.block}>
             <h2 className={styles.blockTitle}>
-              <span className={styles.num}>03</span>Overseas Experience
+              <span className={styles.num}>04</span>Overseas Experience
             </h2>
             <ol className={styles.overseasTimeline}>
               {overseas.map((entry) => (
@@ -152,30 +168,14 @@ export default function AboutPage() {
             </ol>
           </section>
 
-          <section id="product-domains" className={styles.block}>
+          <section id="education" className={styles.block}>
             <h2 className={styles.blockTitle}>
-              <span className={styles.num}>04</span>Product Domains
+              <span className={styles.num}>05</span>Education
             </h2>
-            <ul className={styles.domainList}>
-              {domains.map((domain) => (
-                <li key={domain}>{domain}</li>
-              ))}
-            </ul>
-          </section>
-
-          <section id="leadership" className={styles.block}>
-            <h2 className={styles.blockTitle}>
-              <span className={styles.num}>05</span>Leadership
-            </h2>
-            <p className={styles.leadershipIntro}>
-              <Lines lines={leadershipIntroLines} />
+            <p className={styles.educationEntry}>
+              <span className={styles.educationSchool}>{edu.school}</span>
+              <span className={styles.educationNote}>{edu.note}</span>
             </p>
-            <ul className={styles.bulletList}>
-              {leadership.map((area) => (
-                <li key={area}>{area}</li>
-              ))}
-            </ul>
-            <p className={styles.leadershipOutro}>{leadershipOutro}</p>
           </section>
 
           <section id="closing" className={styles.block}>

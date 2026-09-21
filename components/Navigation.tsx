@@ -7,9 +7,9 @@ import { HomeIcon } from "@/components/icons/HomeIcons";
 import styles from "./Navigation.module.css";
 
 const navItems = [
-  { href: "/about", label: "About" },
-  { href: "/how-i-work", label: "How I Work" },
   { href: "/projects", label: "Core Projects" },
+  { href: "/how-i-work", label: "How I Work" },
+  { href: "/about", label: "About" },
   { href: "/ai-labs", label: "AI Labs" },
 ];
 

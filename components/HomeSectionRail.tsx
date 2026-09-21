@@ -19,9 +19,9 @@ import styles from "./HomeSectionRail.module.css";
 // with the Global Nav (page-to-page) for attention.
 const items = [
   { id: "hero", label: "Home", Icon: HomeIcon },
+  { id: "projects", label: "Projects", Icon: ProjectIcon },
   { id: "about", label: "About", Icon: AboutIcon },
   { id: "how-i-work", label: "How I Work", Icon: HowIWorkIcon },
-  { id: "projects", label: "Projects", Icon: ProjectIcon },
   { id: "experience", label: "Career", Icon: CareerIcon },
   { id: "labs", label: "AI Labs", Icon: AiLabsIcon },
 ];
