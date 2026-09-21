@@ -16,50 +16,48 @@
   margin-bottom: 1.25rem;
 }
 
+/* No max-width of its own — .pageInner already caps the whole page body
+   at --visual-max, so this just fills that shared column instead of
+   re-narrowing to --text-max on top of it (that made this paragraph
+   stop short of .title/.cardGrid/.otherSection's shared edge). */
 .intro {
-  max-width: var(--text-max);
   color: var(--color-fg-muted);
   margin-bottom: 3rem;
 }
 
-/* 3 comparable cards in one row. Capped at --visual-max — the same width
-   as .pageInner itself, i.e. exactly Hero's width, not a narrower value
-   centered within it — so the grid's own edges line up with .title/.intro
-   above it (was 1000px, an unrelated number that left a ~40px gap between
-   the grid's edge and the title's edge once .pageInner made title/intro
-   match Hero) while still never exceeding Hero's boundary. */
+/* No max-width/margin-inline of its own, same reasoning as .intro above:
+   .pageInner is the single source of this page's content width, so the
+   grid just fills it at every breakpoint instead of re-declaring its own
+   (previously mismatched: 700px/420px at tablet/mobile were arbitrary
+   values that didn't match any other section, leaving .otherSection
+   below looking wider or narrower than the grid depending on viewport).
+   Only grid-template-columns changes per breakpoint now. */
 .cardGrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 22px;
-  max-width: var(--visual-max);
-  margin-inline: auto;
   margin-bottom: 2rem;
 }
 
 @media (max-width: 1024px) {
   .cardGrid {
     grid-template-columns: repeat(2, 1fr);
-    max-width: 700px;
   }
 }
 
 @media (max-width: 640px) {
   .cardGrid {
     grid-template-columns: 1fr;
-    max-width: 420px;
   }
 }
 
-/* Centered on the same axis as .cardGrid above (margin-inline: auto was
-   missing here, leaving this section flush against .projectsWrap's own
-   left edge while the 3-card grid above it sat centered — the "Other
-   Projects stuck to the left" mismatch). Kept narrower than .cardGrid on
-   purpose (--text-max reads better for this list of text rows), just no
-   longer off-axis from it. */
+/* No max-width/margin-inline of its own — shares .pageInner's width like
+   .intro/.cardGrid above, so this list's left/right edges land on the
+   exact same axis as the card grid and title instead of the narrower
+   --text-max this used to have (which read fine on its own but broke
+   the page's single content-width axis once compared side by side with
+   the wider card grid). */
 .otherSection {
-  max-width: var(--text-max);
-  margin-inline: auto;
   margin-top: 2rem;
   padding-top: 2.5rem;
   border-top: 1px solid var(--color-border);
