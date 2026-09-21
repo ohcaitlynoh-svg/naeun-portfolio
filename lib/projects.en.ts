@@ -606,11 +606,11 @@ export const projectsEn: Project[] = [
     },
     cardVisualLarge: { scale: 1.08 },
     oneLiner:
-      "Analyzed local administrative and trade processes to\nlocalize a Korean e-government system",
+      "A 2.5-year national-scale e-trade / customs system localization project\nIn-person interviews with government agencies on both sides\nRedesigned institutional and process differences into system policy",
     role: "Product Manager / IT Expert\nOne of 5 PMs · Owned system planning and localization",
     heroPeriod: "2015.09.21 – 2018.02.28",
     keyResult:
-      "Delivered a ₩200M World Bank consulting project\n\nDelivered a ~₩20B e-government ICT build project",
+      "A national-scale project spanning 2.5 years\n\nDelivered a ₩200M World Bank consulting project\n\nDelivered a ~₩20B e-government ICT build project",
     customSections: [
       {
         // See lib/projects.ts — "Project Cover" (not "Overview") avoids a
@@ -630,11 +630,19 @@ export const projectsEn: Project[] = [
         ],
       },
       {
-        title: "Complexity",
+        title: "Context",
         blocks: [
           {
             type: "p",
-            text: "This was a global consulting and build project applying Korea's e-government and e-trade systems to the Belarusian context.",
+            text: "Rather than replicating Korea's e-government and e-trade systems in Belarus as-is, this project redesigned national-scale customs and trade operations to fit the local institutions and system of law.",
+          },
+          {
+            type: "p",
+            text: "I was involved for the full duration, roughly 2.5 years, from kickoff to close.",
+          },
+          {
+            type: "p",
+            text: "Internally, the organization regarded it at the time as the largest overseas project since a Qatar engagement in the 1990s.",
           },
           {
             type: "p",
@@ -655,8 +663,57 @@ export const projectsEn: Project[] = [
         ],
       },
       {
-        title: "Research / Evidence",
+        title: "Stakeholder Scale",
         blocks: [
+          {
+            type: "p",
+            text: "We ran in-person interviews with government agencies on both sides, with vice-minister-level officials present alongside working-level staff.",
+          },
+          {
+            type: "bullets",
+            intro: "Korea side",
+            items: ["Korea Customs Service", "Diplomatic-affairs agencies", "Other related government agencies"],
+          },
+          {
+            type: "bullets",
+            intro: "Belarus side",
+            items: [
+              "Central government agencies",
+              "Agriculture / fisheries agencies",
+              "Railways",
+              "Aviation",
+              "Police",
+              "Customs",
+              "Diplomatic-affairs agencies",
+              "Other national agencies broadly",
+            ],
+          },
+          {
+            type: "p",
+            text: "Rather than a handful of specific features, we analyzed customs and trade operations running through the entire country, institution by institution.",
+          },
+          {
+            type: "flow",
+            items: [
+              "Gathering requirements by institution",
+              "Structuring into system requirements",
+              "Reporting and alignment",
+            ],
+          },
+          {
+            type: "bullets",
+            intro: "Collaborating Organizations",
+            items: ["World Bank", "KTNET", "NIA / NIPA", "Local development team", "Domestic development · planning · design team"],
+          },
+        ],
+      },
+      {
+        title: "Research / Interview",
+        blocks: [
+          {
+            type: "p",
+            text: "Rather than simply collecting each institution's AS-IS operations, I analyzed the actual differences in law, administration, and organizational structure between the two countries through in-person interviews with working-level and senior staff.",
+          },
           {
             type: "bullets",
             items: [
@@ -671,7 +728,7 @@ export const projectsEn: Project[] = [
         ],
       },
       {
-        title: "AS-IS → Gap → TO-BE",
+        title: "Gap Analysis",
         blocks: [
           {
             type: "flow",
@@ -686,7 +743,7 @@ export const projectsEn: Project[] = [
         ],
       },
       {
-        title: "Key Decisions",
+        title: "Product / Process Decision",
         blocks: [
           {
             type: "bullets",
@@ -696,6 +753,7 @@ export const projectsEn: Project[] = [
               "Reflected country-specific differences in system and document flow",
               "Prioritized the necessary modules and features",
               "Consolidated multiple institutions' requirements into one system structure",
+              "Organized and standardized the Korean/English terminology system for a large-scale system, to a level reusable on later projects",
             ],
           },
         ],
@@ -743,40 +801,29 @@ export const projectsEn: Project[] = [
         ],
       },
       {
-        title: "Stakeholder Alignment",
+        title: "System Scope",
         blocks: [
           {
-            type: "flow",
-            items: [
-              "Gathering requirements by institution",
-              "Structuring into system requirements",
-              "Reporting and alignment",
-            ],
+            type: "p",
+            text: "The system was designed at a national scale, covering not just government agencies and related agencies but private businesses and citizen users as well.",
           },
+        ],
+      },
+      {
+        title: "My Role",
+        blocks: [
           {
             type: "bullets",
             items: [
-              "World Bank",
-              "Korean / Belarusian government agencies",
-              "KTNET",
-              "NIA / NIPA",
-              "Local development team",
-              "Domestic development · planning · design team",
-            ],
-          },
-          {
-            type: "bullets",
-            muted: true,
-            collapsible: { summary: "View ownership details" },
-            items: [
-              "Local operations and systems analysis",
-              "AS-IS / TO-BE design",
-              "System, screen, and process planning",
-              "Localization requirements definition",
-              "Project schedule and staffing management",
-              "Cross-institution communication",
-              "Authored Korean/English reports and World Bank submission materials",
-              "Coordinated development and design teams",
+              "PM",
+              "Local coordination",
+              "Local communication",
+              "Interpretation / translation",
+              "Documentation",
+              "Training local developers",
+              "Schedule management",
+              "Resource allocation",
+              "Deliverable management",
             ],
           },
           {
@@ -797,7 +844,7 @@ export const projectsEn: Project[] = [
         ],
       },
       {
-        title: "Impact + Learning",
+        title: "Result",
         blocks: [
           {
             type: "bullets",

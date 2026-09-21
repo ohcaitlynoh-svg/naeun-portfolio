@@ -769,11 +769,11 @@ export const projects: Project[] = [
     // the slide's own whitespace margin without reaching them.
     cardVisualLarge: { scale: 1.08 },
     oneLiner:
-      "현지 행정·무역 프로세스를 분석해\n한국형 전자정부 시스템을 Localization",
+      "2.5년간 참여한 국가 단위 전자무역·통관 시스템 현지화 프로젝트\n한국·벨라루스 양국 정부기관 대면 인터뷰\n제도·업무 차이를 시스템 정책으로 재설계",
     role: "Product Manager / IT Expert\n5명의 PM 중 1인 · 시스템 기획·현지화 담당",
     heroPeriod: "2015.09.21 – 2018.02.28",
     keyResult:
-      "2억 원 규모 World Bank 컨설팅 프로젝트 수행\n\n약 200억 원 규모 전자정부 ICT 구축 프로젝트 수행",
+      "2.5년간 참여한 국가 단위 프로젝트\n\n2억 원 규모 World Bank 컨설팅 수행\n\n약 200억 원 규모 전자정부 ICT 구축 프로젝트 수행",
     customSections: [
       {
         // Titled "Project Cover" (not "Overview") to avoid colliding with
@@ -795,11 +795,19 @@ export const projects: Project[] = [
         ],
       },
       {
-        title: "Complexity",
+        title: "Context",
         blocks: [
           {
             type: "p",
-            text: "한국의 전자정부·전자무역 시스템을 벨라루스 환경에 적용하는 Global Consulting 및 구축 프로젝트였습니다.",
+            text: "한국의 전자정부·전자무역 시스템을 벨라루스 환경에 그대로 복제하는 것이 아니라, 국가 단위 통관·관세 업무를 현지 제도와 기관 구조에 맞게 재설계하는 프로젝트였습니다.",
+          },
+          {
+            type: "p",
+            text: "약 2년 6개월간 착수부터 종료까지 전 기간 참여했습니다.",
+          },
+          {
+            type: "p",
+            text: "당시 조직 내부에서 1990년대 카타르 사업 이후 최대 규모로 평가되던 해외 프로젝트였습니다.",
           },
           {
             type: "p",
@@ -813,8 +821,53 @@ export const projects: Project[] = [
         ],
       },
       {
-        title: "Research / Evidence",
+        title: "Stakeholder Scale",
         blocks: [
+          {
+            type: "p",
+            text: "기관 실무자뿐 아니라 장·차관급 인사가 참석한 가운데 양국 정부기관을 대상으로 대면 인터뷰를 진행했습니다.",
+          },
+          {
+            type: "bullets",
+            intro: "한국 측",
+            items: ["관세청", "외교 관련 기관", "기타 관련 정부기관"],
+          },
+          {
+            type: "bullets",
+            intro: "벨라루스 측",
+            items: [
+              "정부 중앙기관",
+              "농수산 관련 기관",
+              "철도",
+              "항공",
+              "경찰",
+              "관세청",
+              "외교 관련 기관",
+              "기타 국가기관 전반",
+            ],
+          },
+          {
+            type: "p",
+            text: "특정 기능 몇 개가 아니라, 국가 전체를 관통하는 통관·관세 업무를 기관별로 분석했습니다.",
+          },
+          {
+            type: "flow",
+            items: ["기관별 요구 수집", "시스템 요구로 구조화", "보고 및 합의"],
+          },
+          {
+            type: "bullets",
+            intro: "협업 조직",
+            items: ["World Bank", "KTNET", "NIA / NIPA", "현지 개발 조직", "국내 개발·기획·디자인 조직"],
+          },
+        ],
+      },
+      {
+        title: "Research / Interview",
+        blocks: [
+          {
+            type: "p",
+            text: "기관별 AS-IS 업무를 단순히 수집한 것이 아니라, 양국의 법·행정·조직 구조와 실제 통관 업무 차이를 기관 현업 및 고위 관계자와의 대면 인터뷰를 통해 분석했습니다.",
+          },
           {
             type: "bullets",
             items: [
@@ -829,7 +882,7 @@ export const projects: Project[] = [
         ],
       },
       {
-        title: "AS-IS → Gap → TO-BE",
+        title: "Gap Analysis",
         blocks: [
           {
             type: "flow",
@@ -844,7 +897,7 @@ export const projects: Project[] = [
         ],
       },
       {
-        title: "Key Decisions",
+        title: "Product / Process Decision",
         blocks: [
           {
             type: "bullets",
@@ -854,6 +907,7 @@ export const projects: Project[] = [
               "국가별 시스템·문서 흐름 차이 반영",
               "필요한 모듈·기능의 우선순위 결정",
               "여러 기관 요구를 하나의 시스템 구조로 정리",
+              "대규모 시스템의 한·영 용어 체계를 직접 정리·표준화해 이후 프로젝트에서도 재사용 가능한 수준의 기준 구축",
             ],
           },
         ],
@@ -901,36 +955,29 @@ export const projects: Project[] = [
         ],
       },
       {
-        title: "Stakeholder Alignment",
+        title: "System Scope",
         blocks: [
           {
-            type: "flow",
-            items: ["기관별 요구 수집", "시스템 요구로 구조화", "보고 및 합의"],
+            type: "p",
+            text: "이 시스템은 정부기관과 관련 에이전시뿐 아니라, 민간기업과 민원 사용자까지 아우르는 국가 단위 시스템으로 설계됐습니다.",
           },
+        ],
+      },
+      {
+        title: "My Role",
+        blocks: [
           {
             type: "bullets",
             items: [
-              "World Bank",
-              "한국 / 벨라루스 정부기관",
-              "KTNET",
-              "NIA / NIPA",
-              "현지 개발 조직",
-              "국내 개발 · 기획 · 디자인 조직",
-            ],
-          },
-          {
-            type: "bullets",
-            muted: true,
-            collapsible: { summary: "View ownership details" },
-            items: [
-              "현지 업무·시스템 분석",
-              "AS-IS / TO-BE 설계",
-              "시스템 · 화면 · 프로세스 기획",
-              "현지화 요구사항 정의",
-              "프로젝트 일정·인력 관리",
-              "다기관 커뮤니케이션",
-              "한/영 보고서 및 World Bank 제출 자료 작성",
-              "개발·디자인 조직 조율",
+              "PM",
+              "현지 coordination",
+              "Local communication",
+              "통·번역",
+              "문서 작성",
+              "현지 개발자 교육",
+              "일정 관리",
+              "리소스 배분",
+              "결과물 관리",
             ],
           },
           {
@@ -951,7 +998,7 @@ export const projects: Project[] = [
         ],
       },
       {
-        title: "Impact + Learning",
+        title: "Result",
         blocks: [
           {
             type: "bullets",

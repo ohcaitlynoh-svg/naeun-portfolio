@@ -51,56 +51,50 @@ export const otherProjectSnapshots: Record<string, OtherProjectSnapshot> = {
     role: "Product Management / Product Owner\n파트장 / Senior PM",
     domain: "CRM · CDP · Ads · Marketing SaaS",
     summary: [
-      "이벤트 기반 고객 행동 데이터와 광고 매체 데이터를 각각 활용하던",
-      "CRM과 Ads 제품을 기획하고,",
-      "두 데이터 흐름을 연결해 마케팅 성과를 통합 분석할 수 있는",
-      "제품 구조로 확장했습니다.",
+      "200개 이상 고객사가 여러 광고매체에서 운영하는 캠페인을",
+      "개별로 등록·진행·관리해야 하는 CS 운영 복잡도를",
+      "제품 구조로 흡수해 자동화했습니다.",
     ],
-    products: [
-      {
-        name: "Bigin CRM",
-        items: [
-          "이벤트 기반 사용자 행동 데이터 수집",
-          "고객 데이터를 활용한 마케팅 캠페인",
-          "로그인 → 퍼널 → 데이터 수집 → 결과 확인 프로세스 개선",
-          "Campaign UIUX 고도화",
-          "CRM globalization / English support",
-        ],
-      },
-      {
-        name: "Bigin Ads",
-        items: [
-          "Meta / Instagram / Google / YouTube 등 광고 매체 데이터",
-          "광고 캠페인 생성 및 운영",
-          "매체 관리자 페이지 이동 프로세스 단축",
-          "광고 성과 dashboard",
-          "Data Integration",
-        ],
-      },
-      {
-        name: "Bigin ONE",
-        items: [
-          "CRM 고객 행동 데이터 + Ads 광고 성과 데이터 통합",
-          "광고 노출 → 유입 → 클릭 → 행동 → 성과 흐름을 연결한 Full-funnel Marketing Dashboard",
-        ],
-      },
+    keyScope: [
+      "CS 부서가 200개 이상 고객사 캠페인 운영 지원",
+      "4개 주요 광고매체 연동",
+      "일괄 등록·진행·관리 구조로 전환",
+      "월간 성과 리포트 표준화",
+      "롯데 계열사 대상 약 20대 서버 규모 POC",
     ],
-    workedOn: [
-      "CRM / Ads / Integrated Dashboard 3개 제품 기획 및 관리",
-      "Wireframe / Prototyping",
-      "IA / UIUX 기획",
-      "정책 관리",
-      "기획 프로세스 정립",
-      "데이터 활용기간 확대 정책",
-      "고객 유입 분석 Insight",
-      "Cafe24 API / Makeshop API 연동",
-      "Instagram / Naver 등 외부 연동 프로세스 개선",
-      "User ID 기반 사용자 식별",
-      "Trigger Campaign",
-      "동일인 중복 발송 방지 로직",
+    workedOnGroups: [
+      {
+        group: "Product Decision",
+        items: [
+          "여러 고객사의 캠페인을 여러 광고매체에서 개별 등록·진행·관리해야 하는 CS 운영 복잡도가 핵심 문제",
+          "캠페인 기능을 하나 더 만드는 대신, 이 운영 업무 자체를 제품 구조로 흡수하고 자동화하는 방향으로 판단",
+        ],
+      },
+      {
+        group: "Product Change",
+        items: [
+          "개별 등록 → 일괄 등록",
+          "개별 진행 → 일괄 진행",
+          "개별 관리 → 일괄 관리",
+          "매체별 개별 처리 → 자동 구분 / 매체 연동",
+        ],
+      },
+      {
+        group: "Reporting Standardization",
+        items: [
+          "월 1회 정기 성과 리포트의 정보 구조와 시각화 기준 표준화",
+          "지표별 그래프 유형 정의",
+          "1개월 단위 데이터 조회 기준 및 쿼리 구조 설계",
+          "CS가 데이터를 통계화해 발송할 수 있는 리포팅 프로세스 설계",
+        ],
+      },
+      {
+        group: "POC",
+        items: ["롯데 계열사 대상 초기 POC", "약 20대 서버 규모로 진행"],
+      },
     ],
     keyDecision:
-      "서로 다른 데이터 소스를 개별 기능으로 운영하는 데서 끝나지 않고, 고객 행동 데이터와 광고 성과 데이터를 연결해 마케팅 전 과정을 하나의 흐름으로 분석할 수 있는 제품 구조로 확장했습니다.",
+      "200개 이상 고객사 × 4개 광고매체의 캠페인 운영 복잡도를 일괄 등록·진행·관리 구조로 제품화한 경험입니다.",
   },
   "Aladin Communication": {
     projectName: "Aladin Market",
@@ -160,17 +154,16 @@ export const otherProjectSnapshots: Record<string, OtherProjectSnapshot> = {
     role: "Infrastructure Planning Team\nService / UIUX Planning\nCTO-direct organization",
     domain: "Server Infrastructure · Monitoring · Internal Platform · UIUX",
     summary: [
-      "대규모 서버 운영 환경에서 여러 인프라 도구와 운영 프로세스를 분석해,",
-      "서버 상태와 운영 정보를 통합적으로 확인할 수 있는",
-      "내부 관제 및 업무 시스템을 기획했습니다.",
+      "약 1,000~1,500대 규모 서버 운영 환경에서",
+      "여러 운영 도구와 모니터링 정보를 하나의 내부 UI로 구조화하고,",
+      "Axure prototype과 운영 정책을 기반으로 개발 협업을 진행했습니다.",
     ],
     keyScope: [
-      "Server Monitoring Dashboard",
-      "Load / Autoscaling monitoring policy",
-      "Infrastructure tool integration",
-      "Internal operational workflow",
-      "HQ ↔ Philippines collaboration",
-      "New commerce platform planning",
+      "약 1,000~1,500대 규모 서버 운영 환경",
+      "Slack / Jira / Wiki / Grafana / 보안 / 서버 모니터링 등 운영 도구 통합",
+      "Load / Autoscaling 운영 정책 정리",
+      "Axure prototype 기반 기획",
+      "한국 / 필리핀 개발 협업",
     ],
     workedOnGroups: [
       {
@@ -178,7 +171,7 @@ export const otherProjectSnapshots: Record<string, OtherProjectSnapshot> = {
         items: [
           "서버 관제 Dashboard UIUX",
           "Load / Autoscaling 정책 정의",
-          "FireEye / Grafana / Datadog / Slack 등 기존 도구 분석",
+          "Slack / Jira / Wiki / Grafana / 보안 / 서버 모니터링 등 기존 운영 도구 분석",
           "각 개발팀 업무 프로세스 분석",
           "자동화가 필요한 업무 파악",
           "Scenario / Screen Spec",

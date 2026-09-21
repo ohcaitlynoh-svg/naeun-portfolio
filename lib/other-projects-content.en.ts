@@ -15,56 +15,51 @@ export const otherProjectSnapshotsEn: Record<string, OtherProjectSnapshot> = {
     role: "Product Management / Product Owner\nTeam/Part Lead · Senior PM",
     domain: "CRM · CDP · Ads · Marketing SaaS",
     summary: [
-      "Planned CRM and Ads products that each used event-based customer",
-      "behavior data and ad-media data separately, then extended them",
-      "into a product structure that connects the two data flows for",
-      "integrated marketing performance analysis.",
+      "200+ client companies each running campaigns across several ad",
+      "media had to be registered, run, and managed individually —",
+      "a CS operating load I absorbed into the product structure and",
+      "automated.",
     ],
-    products: [
-      {
-        name: "Bigin CRM",
-        items: [
-          "Collects event-based user behavior data",
-          "Runs marketing campaigns based on customer data",
-          "Improved the login → funnel → data collection → results flow",
-          "Advanced the campaign UI/UX",
-          "CRM globalization / English support",
-        ],
-      },
-      {
-        name: "Bigin Ads",
-        items: [
-          "Ad-media data from Meta / Instagram / Google / YouTube, etc.",
-          "Creates and operates ad campaigns",
-          "Shortened the need to move to each platform's own ad manager",
-          "Ad performance dashboard",
-          "Data integration",
-        ],
-      },
-      {
-        name: "Bigin ONE",
-        items: [
-          "Integrates CRM's customer behavior data with Ads' performance data",
-          "A full-funnel marketing dashboard connecting impression → visit → click → behavior → outcome",
-        ],
-      },
+    keyScope: [
+      "CS team supporting campaign operations for 200+ client companies",
+      "Integrated with 4 major ad media",
+      "Moved to a batch registration / run / management structure",
+      "Standardized the monthly performance report",
+      "A roughly 20-server-scale POC for a Lotte affiliate",
     ],
-    workedOn: [
-      "Planned and managed 3 products: CRM, Ads, and the integrated dashboard",
-      "Wireframing / prototyping",
-      "IA / UI/UX planning",
-      "Policy management",
-      "Established the planning process",
-      "Policy for extending the data-usage retention period",
-      "Customer-acquisition analysis insight",
-      "Cafe24 API / Makeshop API integration",
-      "Improved the Instagram / Naver external-integration process",
-      "User-ID-based user identification",
-      "Trigger campaign",
-      "Duplicate-send prevention logic for the same person",
+    workedOnGroups: [
+      {
+        group: "Product Decision",
+        items: [
+          "The core problem: many client companies' campaigns had to be registered, run, and managed individually across several ad media",
+          "Judged that instead of building one more campaign feature, the operating work itself should be absorbed into the product structure and automated",
+        ],
+      },
+      {
+        group: "Product Change",
+        items: [
+          "Individual registration → batch registration",
+          "Individual execution → batch execution",
+          "Individual management → batch management",
+          "Per-medium manual handling → automatic classification / media integration",
+        ],
+      },
+      {
+        group: "Reporting Standardization",
+        items: [
+          "Standardized the information structure and visualization rules for the monthly performance report",
+          "Defined the chart type for each metric",
+          "Designed the monthly data-query basis and query structure",
+          "Designed the reporting process so CS could compile the stats and send the report",
+        ],
+      },
+      {
+        group: "POC",
+        items: ["An initial POC for a Lotte affiliate", "Run at a scale of roughly 20 servers"],
+      },
     ],
     keyDecision:
-      "Rather than stopping at operating different data sources as separate features, I extended the structure into one product that connects customer behavior data and ad performance data so the whole marketing process can be analyzed as a single flow.",
+      "Productized the operating complexity of 200+ client companies running campaigns across 4 ad media into a batch registration / execution / management structure.",
   },
   "Aladin Communication": {
     projectName: "Aladin Market",
@@ -124,17 +119,17 @@ export const otherProjectSnapshotsEn: Record<string, OtherProjectSnapshot> = {
     role: "Infrastructure Planning Team\nService / UI/UX Planning\nCTO-direct organization",
     domain: "Server Infrastructure · Monitoring · Internal Platform · UI/UX",
     summary: [
-      "Analyzed multiple infrastructure tools and operating processes in",
-      "a large-scale server environment to plan an internal monitoring",
-      "and operations system for a unified view of server status.",
+      "In a server environment of roughly 1,000–1,500 machines,",
+      "structured several operating tools and monitoring data into",
+      "one internal UI, and drove development collaboration on an",
+      "Axure prototype and operating policy.",
     ],
     keyScope: [
-      "Server monitoring dashboard",
-      "Load / autoscaling monitoring policy",
-      "Infrastructure tool integration",
-      "Internal operational workflow",
-      "HQ ↔ Philippines collaboration",
-      "New commerce platform planning",
+      "A server environment of roughly 1,000–1,500 machines",
+      "Integrated Slack / Jira / Wiki / Grafana / security / server monitoring, among other tools",
+      "Organized load / autoscaling operating policy",
+      "Planning based on an Axure prototype",
+      "Korea / Philippines development collaboration",
     ],
     workedOnGroups: [
       {
@@ -142,7 +137,7 @@ export const otherProjectSnapshotsEn: Record<string, OtherProjectSnapshot> = {
         items: [
           "Server monitoring dashboard UI/UX",
           "Defined load / autoscaling policy",
-          "Analyzed existing tools: FireEye / Grafana / Datadog / Slack, etc.",
+          "Analyzed existing tools: Slack / Jira / Wiki / Grafana / security / server monitoring, among others",
           "Analyzed each dev team's operating process",
           "Identified work that needed automation",
           "Scenario / screen spec",
