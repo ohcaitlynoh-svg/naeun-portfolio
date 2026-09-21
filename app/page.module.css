@@ -62,7 +62,7 @@
 .cardHeading {
   display: flex;
   align-items: center;
-  gap: 0.6rem;
+  gap: 0.7rem;
   font-size: var(--font-heading);
   margin-bottom: 1.5rem;
 }
@@ -131,8 +131,16 @@
   }
 }
 
+/* ~1.5x the shared IconBase default (16px) so these read at the same
+   visual weight as the bold "01/02" numerals used elsewhere on the site,
+   instead of looking thin/undersized next to the heading text — stroke
+   width bumped to match, since scaling the box up alone would otherwise
+   just stretch the same thin line. */
 .cardIcon {
   flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  stroke-width: 2;
   color: var(--color-accent);
 }
 
@@ -341,6 +349,15 @@
 
   .heroContact {
     justify-content: center;
+  }
+
+  .cardIcon {
+    width: 22px;
+    height: 22px;
+  }
+
+  .cardHeading {
+    gap: 0.6rem;
   }
 
   .contactList li {
