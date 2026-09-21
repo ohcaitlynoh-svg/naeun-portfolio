@@ -216,6 +216,7 @@ export default function ProjectDetailView({ slug }: { slug: string }) {
                         const positions = items.map((_, i) => padX + step * i);
 
                         return (
+                          <>
                           <div className={styles.flowDiagramScroll}>
                             <div className={styles.flowDiagram}>
                               <svg
@@ -282,6 +283,12 @@ export default function ProjectDetailView({ slug }: { slug: string }) {
                               </svg>
                             </div>
                           </div>
+                          <ol className={`${styles.processFlow} ${styles.flowDiagramMobile}`}>
+                            {items.map((item) => (
+                              <li key={item}>{item}</li>
+                            ))}
+                          </ol>
+                          </>
                         );
                       })()}
                     {block.type === "images" &&

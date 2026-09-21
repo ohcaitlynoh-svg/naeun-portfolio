@@ -88,17 +88,19 @@ export const casesEn: HowIWorkCase[] = [
     company: "Biginsight",
     domain: "CRM · CDP · Ads · Marketing SaaS",
     problem:
-      "CRM customer behavior data and ad performance data were separated, making it hard to see marketing performance as one flow.",
-    context: ["Ran CRM and Ads as two separate products", "Managed 3 products' planning together as part lead"],
+      "CS had to register, run, and manage 200+ client companies' campaigns individually across 4 major ad media.",
+    context: [
+      "Each client company used ad media differently",
+      "Repetitive work grew as operations scaled up",
+      "CS had to continuously manage many company × medium combinations",
+    ],
     action: [
-      "Analyzed the structure of CRM event data and Ads media data",
-      "Defined the flow from customer behavior → campaign → ad performance",
-      "Connected the CRM and Ads product structures",
-      "Planned an integrated dashboard / analytics structure",
+      "Designed a batch registration / execution / management structure instead of adding more per-company × per-medium work",
+      "Built automatic classification and integration per ad medium",
+      "Also expanded a connected CRM + Ads analytics structure, linking customer behavior data with ad performance data",
     ],
     result: [
-      "Expanded into an integrated CRM + Ads analytics structure",
-      "Connected separated marketing touchpoints into one product flow",
+      "Productized multi-media campaign operations for 200+ client companies into one operating structure",
     ],
     ctaHref: "/projects#other-projects",
     ctaLabel: "See more in Other Projects →",

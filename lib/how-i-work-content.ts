@@ -94,17 +94,19 @@ export const cases: HowIWorkCase[] = [
     company: "Biginsight",
     domain: "CRM · CDP · Ads · Marketing SaaS",
     problem:
-      "CRM 고객 행동 데이터와 광고 성과 데이터가 분리되어 마케팅 성과를 하나의 흐름으로 보기 어려웠습니다.",
-    context: ["CRM · Ads 2개 제품을 각각 운영 중", "파트장으로 3개 제품 기획을 함께 관리"],
+      "CS 조직이 200개 이상 고객사의 캠페인을 4개 주요 광고매체에서 개별 등록·진행·관리해야 했습니다.",
+    context: [
+      "고객사별 매체 사용 방식이 서로 다름",
+      "운영 규모가 커질수록 반복 작업 증가",
+      "CS 부서가 여러 기업과 매체 조합을 지속 관리해야 함",
+    ],
     action: [
-      "CRM event data와 Ads media data 구조 분석",
-      "고객 행동 → 캠페인 → 광고 성과 흐름 정의",
-      "CRM / Ads 제품 구조 연결",
-      "통합 dashboard / 분석 구조 기획",
+      "기업×매체별 개별 업무를 늘리는 대신 일괄 등록·진행·관리 구조로 설계",
+      "매체별 자동 구분 및 연동 구조 구축",
+      "CRM 고객 행동 데이터와 Ads 광고 성과 데이터를 연결한 통합 분석 구조로 함께 확장",
     ],
     result: [
-      "CRM + Ads 통합 분석 구조 확장",
-      "분리된 마케팅 touchpoint를 하나의 제품 흐름으로 연결",
+      "200개 이상 고객사의 멀티매체 캠페인 운영을 하나의 운영 구조에서 관리할 수 있도록 제품화",
     ],
     ctaHref: "/projects#other-projects",
     ctaLabel: "Other Projects에서 더 보기 →",

@@ -663,20 +663,50 @@ export const projectsEn: Project[] = [
         ],
       },
       {
+        title: "Goal",
+        blocks: [
+          {
+            type: "p",
+            text: "Rather than replicating Korea's customs and trade system as-is, the goal was to analyze the two countries' legal, administrative, and institutional differences and redesign a national-scale system that would actually work in the Belarusian context.",
+          },
+          {
+            type: "bullets",
+            intro: "Success Criteria",
+            items: [
+              "Analyze the institutional and operational differences between Korea and Belarus",
+              "Define AS-IS / Gap / TO-BE for each institution",
+              "Design a workflow connecting government agencies, agencies, private businesses, and citizen users",
+              "Document policies, processes, and system standards at a level local developers could implement",
+              "Carry it through to real build and collaboration across the full project duration",
+            ],
+          },
+        ],
+      },
+      {
         title: "Stakeholder Scale",
         blocks: [
           {
             type: "p",
-            text: "We ran in-person interviews with government agencies on both sides, with vice-minister-level officials present alongside working-level staff.",
+            text: "We ran national-scale, in-person interviews with government agencies on both sides over 2.5 years.",
+          },
+          {
+            type: "p",
+            text: "Vice-minister-level officials were present alongside working-level staff.",
           },
           {
             type: "bullets",
-            intro: "Korea side",
+            items: ["Korean government agencies", "Belarus's central government and key national agencies", "Agencies, private businesses, and citizen users"],
+          },
+          {
+            type: "bullets",
+            muted: true,
+            intro: "Korea side, in detail",
             items: ["Korea Customs Service", "Diplomatic-affairs agencies", "Other related government agencies"],
           },
           {
             type: "bullets",
-            intro: "Belarus side",
+            muted: true,
+            intro: "Belarus side, in detail",
             items: [
               "Central government agencies",
               "Agriculture / fisheries agencies",
@@ -794,8 +824,6 @@ export const projectsEn: Project[] = [
                 width: 925,
                 height: 379,
               },
-              { num: "02", caption: "System Architecture / Dashboard" },
-              { num: "03", caption: "Screen Specs / Prototype" },
             ],
           },
         ],
@@ -849,15 +877,36 @@ export const projectsEn: Project[] = [
           {
             type: "bullets",
             items: [
-              "Delivered a ₩200M World Bank consulting project",
-              "Delivered a ~₩20B Belarusian e-government ICT build project",
-              "Designed a Korean-model e-government/e-trade system adapted to the local context",
-              "Cross-border planning, development, and design collaboration across Korea, Belarus, and Ukraine",
+              "Localized the design of national-scale customs and trade operations",
+              "Organized each institution's operations, policies, and process standards",
+              "Documented the system to a level local developers could implement",
+              "Trained local developers",
+              "Carried the project from kickoff to close over 2 years and 6 months",
+            ],
+          },
+        ],
+      },
+      {
+        title: "Business Impact",
+        blocks: [
+          {
+            type: "bullets",
+            items: [
+              "The World Bank–linked consulting engagement was roughly ₩200M in scale",
+              "The follow-on ICT build engagement was roughly ₩20B in scale",
             ],
           },
           {
+            type: "p",
+            text: "I took part as one of 5 PMs, handling the analysis, design, and local collaboration for my area — this work fed into the overall consulting and build engagement as one part of it.",
+          },
+        ],
+      },
+      {
+        title: "Learning",
+        blocks: [
+          {
             type: "bullets",
-            intro: "Learning",
             items: [
               "Localization isn't translation — it's redesigning the structure of operations, institutions, and systems",
               "The more complex the project, the more precisely the AS-IS must be structured before a TO-BE can emerge",

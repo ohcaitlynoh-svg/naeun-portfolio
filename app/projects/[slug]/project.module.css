@@ -215,7 +215,13 @@
 /* Line/node flow diagram — same items as .processFlow, drawn instead of
    listed. A fixed min-width inside an overflow-x:auto wrapper keeps node
    labels legible at any viewport (per the wide-diagram exception), rather
-   than shrinking illegibly when the SVG is scaled to a narrow column. */
+   than shrinking illegibly when the SVG is scaled to a narrow column. That
+   min-width (640px) doesn't reliably stay contained by the scroll wrapper
+   on some ancestor layouts, so it can push the whole page wider than the
+   viewport at mobile widths — below 640px this SVG is hidden in favor of
+   .flowDiagramMobile (same items, rendered as plain text via .processFlow,
+   which is already flex-wrap-safe at any width). Desktop/tablet rendering
+   is unchanged. */
 .flowDiagramScroll {
   overflow-x: auto;
   margin: 0.5rem 0 1.5rem;
@@ -230,6 +236,20 @@
   display: block;
   width: 100%;
   height: auto;
+}
+
+.flowDiagramMobile {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  .flowDiagramScroll {
+    display: none;
+  }
+
+  .flowDiagramMobile {
+    display: flex;
+  }
 }
 
 .flowDiagramLine {

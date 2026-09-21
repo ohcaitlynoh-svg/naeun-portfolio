@@ -822,20 +822,50 @@ export const projects: Project[] = [
         ],
       },
       {
+        title: "Goal",
+        blocks: [
+          {
+            type: "p",
+            text: "한국의 통관·관세 시스템을 그대로 복제하는 것이 아니라, 양국의 법·행정·기관·업무 차이를 분석해 벨라루스 현지 환경에서 실제로 작동하는 국가 단위 시스템으로 재설계하는 것이 목표였습니다.",
+          },
+          {
+            type: "bullets",
+            intro: "Success Criteria",
+            items: [
+              "한국과 벨라루스의 제도·업무 차이 분석",
+              "기관별 AS-IS / Gap / TO-BE 정의",
+              "정부기관·에이전시·민간기업·민원 사용자까지 연결되는 업무 흐름 설계",
+              "현지 개발자가 구현 가능한 정책·프로세스·시스템 기준으로 문서화",
+              "프로젝트 전체 기간 동안 실제 구축·협업까지 연결",
+            ],
+          },
+        ],
+      },
+      {
         title: "Stakeholder Scale",
         blocks: [
           {
             type: "p",
-            text: "기관 실무자뿐 아니라 장·차관급 인사가 참석한 가운데 양국 정부기관을 대상으로 대면 인터뷰를 진행했습니다.",
+            text: "2.5년간 국가 단위로, 양국 정부기관을 대상으로 대면 인터뷰를 진행했습니다.",
+          },
+          {
+            type: "p",
+            text: "기관 실무자뿐 아니라 장·차관급 인사도 함께 참석했습니다.",
           },
           {
             type: "bullets",
-            intro: "한국 측",
+            items: ["한국 정부기관", "벨라루스 중앙정부 및 주요 국가기관", "에이전시 · 민간기업 · 민원 사용자"],
+          },
+          {
+            type: "bullets",
+            muted: true,
+            intro: "한국 측 상세",
             items: ["관세청", "외교 관련 기관", "기타 관련 정부기관"],
           },
           {
             type: "bullets",
-            intro: "벨라루스 측",
+            muted: true,
+            intro: "벨라루스 측 상세",
             items: [
               "정부 중앙기관",
               "농수산 관련 기관",
@@ -949,8 +979,6 @@ export const projects: Project[] = [
                 width: 925,
                 height: 379,
               },
-              { num: "02", caption: "System Architecture / Dashboard" },
-              { num: "03", caption: "화면설계서 / Prototype" },
             ],
           },
         ],
@@ -1004,15 +1032,36 @@ export const projects: Project[] = [
           {
             type: "bullets",
             items: [
-              "2억 원 규모 World Bank 컨설팅 프로젝트 수행",
-              "약 200억 원 규모 벨라루스 전자정부 ICT 구축 프로젝트 수행",
-              "한국형 전자정부·전자무역 시스템을 현지 환경에 맞게 설계",
-              "한국–벨라루스–우크라이나 기획·개발·디자인 협업 경험",
+              "국가 단위 통관·관세 업무의 현지화 설계",
+              "기관별 업무·정책·프로세스 기준 정리",
+              "현지 개발자가 구현 가능한 수준의 시스템 문서화",
+              "현지 개발자 교육",
+              "2년 6개월 동안 프로젝트 착수부터 종료까지 수행",
+            ],
+          },
+        ],
+      },
+      {
+        title: "Business Impact",
+        blocks: [
+          {
+            type: "bullets",
+            items: [
+              "World Bank 연계 컨설팅 사업 규모 약 2억 원",
+              "후속 ICT 구축 사업 규모 약 200억 원",
             ],
           },
           {
+            type: "p",
+            text: "5명의 PM 중 1인으로 참여해 담당 영역의 분석·설계·현지 협업을 수행했으며, 이 결과물은 전체 컨설팅 및 구축 사업의 일부로 활용되었습니다.",
+          },
+        ],
+      },
+      {
+        title: "Learning",
+        blocks: [
+          {
             type: "bullets",
-            intro: "Learning",
             items: [
               "Localization은 번역이 아니라 업무·제도·시스템 구조를 다시 설계하는 일이라는 점",
               "복잡한 프로젝트일수록 AS-IS를 정확히 구조화해야 TO-BE가 나온다는 점",
