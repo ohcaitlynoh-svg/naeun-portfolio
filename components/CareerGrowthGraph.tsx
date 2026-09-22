@@ -91,36 +91,40 @@ const Y_AXIS_W = 40;
 const PLOT_LEFT = Y_AXIS_W + 85;
 const PLOT_RIGHT = VIEW_W - 85;
 const PLOT_W = PLOT_RIGHT - PLOT_LEFT;
-// PLOT_TOP (the Y=12 gridline) leaves a compact top zone above it for the
-// freelance lane's always-visible company+domain labels (below) — just
-// enough for the label stack + a short connector, not a large detached
-// margin. Was 118 before freelance markers carried visible text at all;
-// +22 here (vs the +67 an earlier pass used) keeps Career Snapshot's
-// overall height close to that original, with the freelance content
-// packed tightly against the plot instead of floating above it.
-const PLOT_TOP = 140;
+// PLOT_TOP (the Y=12 gridline) is the whole top zone's budget: from the
+// SVG's own top edge (y=0, right where the supporting sentence lands) to
+// the plot. Measured targets (Playwright, 1440/KR/light): supporting
+// text -> first freelance label top ~40-70px, freelance label bottom ->
+// this gridline ~20-35px. A freelance label block is inherently ~35-45
+// units tall, so hitting both targets at once needs the FAR row anchored
+// near the top of that budget and the NEAR row anchored near its bottom
+// — see FREELANCE_FAR_ANCHOR/FREELANCE_ROW_STAGGER below, tuned together
+// with this value, not independently. Was 118 before freelance markers
+// carried visible text at all.
+const PLOT_TOP = 115;
 const PLOT_H = 240; // "wide, low, gentle" — the drawing area itself, not
 // counting the label margins added above/below it — unchanged, so the
 // line's slope is exactly as before.
 const PLOT_BOTTOM = PLOT_TOP + PLOT_H; // the Y=0 gridline / X-axis baseline
 const VIEW_H = PLOT_BOTTOM + 92;
 
-// Freelance lane sits just above PLOT_TOP — the dot-to-plot connector is
-// short on purpose, so each marker reads as pinned near the growth line
-// at that point in time rather than floating in its own detached strip.
-// Two staggered anchor rows (near/far) so adjacent freelance markers —
-// several sit close together in 2021 — don't have their labels collide;
-// each marker's row is picked by alternating index after sorting by x
-// (see freelancePoints).
-const FREELANCE_DOT_Y = 122;
-const FREELANCE_STEM_LEN = 18; // reaches down to PLOT_TOP — visually
-// meets the plot's top edge instead of leaving a gap.
-const FREELANCE_NEAR_ANCHOR = FREELANCE_DOT_Y - 8;
-const FREELANCE_ROW_STAGGER = 28;
-const FREELANCE_FAR_ANCHOR = FREELANCE_NEAR_ANCHOR - FREELANCE_ROW_STAGGER;
-const FREELANCE_COMPANY_TRACK_GAP = 12;
-const FREELANCE_COMPANY_DY = 12;
-const FREELANCE_TRACK_DY = 11;
+// Two staggered anchor rows so adjacent freelance markers — several sit
+// close together in 2021 — don't have their labels collide (row picked
+// by alternating index after sorting by x; see freelancePoints). FAR
+// sits near the top of PLOT_TOP's budget (label top ~15-25px below the
+// SVG's own top edge); the stagger down to NEAR is deliberately wide —
+// it's what lets NEAR's own label bottom land close to the plot, since a
+// short connector alone can't cross that whole budget (see PLOT_TOP
+// comment). The dot sits just past NEAR, with a short (not
+// budget-filling) stem down to the plot's edge.
+const FREELANCE_FAR_ANCHOR = 54;
+const FREELANCE_ROW_STAGGER = 38;
+const FREELANCE_NEAR_ANCHOR = FREELANCE_FAR_ANCHOR + FREELANCE_ROW_STAGGER;
+const FREELANCE_DOT_Y = FREELANCE_NEAR_ANCHOR + 8;
+const FREELANCE_STEM_LEN = 19;
+const FREELANCE_COMPANY_TRACK_GAP = 13;
+const FREELANCE_COMPANY_DY = 11;
+const FREELANCE_TRACK_DY = 10;
 
 function plotX(ratio: number) {
   return PLOT_LEFT + ratio * PLOT_W;
