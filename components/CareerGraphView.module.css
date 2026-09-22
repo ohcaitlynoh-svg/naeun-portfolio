@@ -89,6 +89,16 @@
   fill: var(--color-fg-muted);
 }
 
+/* Internship-level entry (Hyundai Home Shopping's "MD Intern") — a
+   visibly lower hierarchy than a regular role/domain tag, so it doesn't
+   scan as the same weight as a multi-year role. */
+.trackLabelIntern {
+  font-size: 12px;
+  font-weight: 400;
+  fill-opacity: 0.75;
+  fill: var(--color-fg-muted);
+}
+
 /* Freelance — smaller, lighter: secondary visual weight */
 .nodeFreelance .nodeCircle {
   fill: var(--color-fg-muted);
@@ -268,6 +278,27 @@
     flex-basis: 100%;
     font-size: var(--font-meta);
     color: var(--color-fg-muted);
+  }
+
+  /* Main-node role/domain line (Home's "large" size only) — its own class,
+     separate from freelance's .mobileNote, so the extra top margin below
+     (a clearer break from the company name/period row above) doesn't also
+     affect freelance's existing note spacing. */
+  .mobileTrackLabel {
+    flex-basis: 100%;
+    margin-top: 0.15rem;
+    font-size: var(--font-meta);
+    color: var(--color-fg-muted);
+  }
+
+  /* Internship-level entry — visibly lower hierarchy than a regular
+     role/domain tag. */
+  .mobileTrackLabelIntern {
+    flex-basis: 100%;
+    margin-top: 0.15rem;
+    font-size: 0.75rem;
+    color: var(--color-fg-muted);
+    opacity: 0.75;
   }
 
   .mobileActive {

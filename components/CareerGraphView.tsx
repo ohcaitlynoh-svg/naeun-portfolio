@@ -19,6 +19,11 @@ type GraphNode = {
   // longer heroRole/oneLiner, which stay reserved for the Detail Panel), so
   // it's consistently a single short tag rather than a full sentence.
   trackLabel?: string;
+  // True for an internship-level entry (role text contains "Intern") — on
+  // Home's "large" graph its trackLabel reads at a lower hierarchy than a
+  // regular role/domain tag, so a 2-month internship doesn't scan as the
+  // same weight as a multi-year role.
+  isIntern?: boolean;
   slug?: string;
   isSelected: boolean;
   isFreelance: boolean;
@@ -64,6 +69,43 @@ function wrapLabel(label: string): string[] {
     }
   }
   return [words.slice(0, bestIdx).join(" "), words.slice(bestIdx).join(" ")];
+}
+
+// Home's "large" graph only (About's default size keeps wrapLabel above,
+// unchanged). Greedy word-wrap to a shared max-chars-per-line budget, so
+// every main node's company name and every node's role/domain line target
+// the same rendered width instead of each string finding its own
+// best-balanced 2-way split — that's what makes every node's label block
+// read as a stable, consistent size rather than varying with however long
+// that one company's role/domain string happens to be.
+function wrapToWidth(label: string, maxChars: number): string[] {
+  const words = label.split(" ");
+  const lines: string[] = [];
+  let current = "";
+  for (const word of words) {
+    const candidate = current ? `${current} ${word}` : word;
+    if (candidate.length > maxChars && current) {
+      lines.push(current);
+      current = word;
+    } else {
+      current = candidate;
+    }
+  }
+  if (current) lines.push(current);
+  return lines;
+}
+
+// Tuned so a company-name line (20px) and a role/domain line (14px) land
+// on roughly the same rendered pixel width despite the smaller font
+// needing more characters to reach it.
+const LARGE_COMPANY_MAX_CHARS = 14;
+const LARGE_TRACK_MAX_CHARS = 21;
+
+function toMonthPrecision(period: string): string {
+  return period
+    .split(" – ")
+    .map((part) => (/^\d{4}\.\d{2}\.\d{2}$/.test(part) ? part.slice(0, 7) : part))
+    .join(" – ");
 }
 
 const VIEW_W = 1100;
@@ -127,12 +169,14 @@ export default function CareerGraphView({
   const mainLabelOffset = size === "large" ? { selected: 34, base: 32 } : { selected: 31, base: 29 };
   const periodLabelOffset = size === "large" ? { selected: 24, base: 22 } : { selected: 22, base: 20 };
   // Role/domain line — "large" (Home) only, sits below the company name at
-  // a fixed gap past its LAST line (1 or 2, from wrapLabel), so a 2-line
+  // a fixed gap past its LAST line (1 or 2, from wrapToWidth), so a 2-line
   // company name (only "Hyundai Home Shopping") and a 2-line track label
-  // (only Yuratech's/Cafe24's longer fallback) never have to be reasoned
-  // about together — each node's own line count independently determines
-  // where its own track label starts.
-  const trackLabelGap = 16;
+  // never have to be reasoned about together — each node's own line count
+  // independently determines where its own track label starts. The gap is
+  // deliberately wide enough to read as a clear break (not just a tighter
+  // second line of the same block) between "where" (company) and "what"
+  // (role/domain).
+  const trackLabelGap = 22;
   const trackLabelDy = 14;
   // Adjacent main nodes sit close enough (7 nodes evenly spaced) that full
   // date-range strings ("2018.08.08 – 2021.03") can be wider than the gap
@@ -157,6 +201,7 @@ export default function CareerGraphView({
           role: project ? project.heroRole ?? project.role : careerEntry?.role || undefined,
           summary: project ? project.oneLiner : careerEntry?.domain || undefined,
           trackLabel: careerEntry?.domain || careerEntry?.role || undefined,
+          isIntern: /intern/i.test(careerEntry?.role ?? ""),
           slug: project?.slug,
           isSelected: Boolean(project),
           isFreelance: false,
@@ -275,12 +320,15 @@ export default function CareerGraphView({
           {mainNodes.map((n, i) => {
             const isActive = activeId === n.id;
             const isHovered = hoveredId === n.id;
-            const lines = wrapLabel(n.label);
+            const lines =
+              size === "large" ? wrapToWidth(n.label, LARGE_COMPANY_MAX_CHARS) : wrapLabel(n.label);
             const x = mainX(n.xRatio);
             const companyOffset = n.isSelected ? mainLabelOffset.selected : mainLabelOffset.base;
-            const trackLines = size === "large" && n.trackLabel ? wrapLabel(n.trackLabel) : [];
+            const trackLines =
+              size === "large" && n.trackLabel ? wrapToWidth(n.trackLabel, LARGE_TRACK_MAX_CHARS) : [];
             const trackLabelY =
               mainLineY + companyOffset + (lines.length - 1) * mainLabelDy + trackLabelGap;
+            const displayPeriod = size === "large" ? toMonthPrecision(n.period) : n.period;
             return (
               <g
                 key={n.id}
@@ -330,7 +378,7 @@ export default function CareerGraphView({
                     x={x}
                     y={trackLabelY}
                     textAnchor="middle"
-                    className={styles.trackLabel}
+                    className={n.isIntern ? styles.trackLabelIntern : styles.trackLabel}
                   >
                     {trackLines.map((line, li) => (
                       <tspan key={li} x={x} dy={li === 0 ? 0 : trackLabelDy}>
@@ -349,7 +397,7 @@ export default function CareerGraphView({
                   textAnchor="middle"
                   className={styles.periodLabel}
                 >
-                  {n.period}
+                  {displayPeriod}
                 </text>
               </g>
             );
@@ -408,6 +456,7 @@ export default function CareerGraphView({
       <ol className={styles.mobileList}>
         {allNodes.map((n) => {
           const isActive = activeId === n.id;
+          const displayPeriod = size === "large" ? toMonthPrecision(n.period) : n.period;
           return (
             <li key={n.id}>
               <div
@@ -427,12 +476,18 @@ export default function CareerGraphView({
               >
                 <span className={styles.mobileDot} />
                 <span className={styles.mobileName}>{n.label}</span>
-                <span className={styles.mobilePeriod}>{n.period}</span>
+                <span className={styles.mobilePeriod}>{displayPeriod}</span>
                 {n.isFreelance && n.summary && (
                   <span className={styles.mobileNote}>{n.summary}</span>
                 )}
                 {!n.isFreelance && size === "large" && n.trackLabel && (
-                  <span className={styles.mobileNote}>{n.trackLabel}</span>
+                  <span
+                    className={
+                      n.isIntern ? styles.mobileTrackLabelIntern : styles.mobileTrackLabel
+                    }
+                  >
+                    {n.trackLabel}
+                  </span>
                 )}
               </div>
             </li>
