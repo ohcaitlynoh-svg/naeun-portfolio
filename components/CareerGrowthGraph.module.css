@@ -7,6 +7,16 @@
   margin: 0 auto;
 }
 
+/* 721–900px variant (TABLET_GEOMETRY in the component) — hidden by
+   default, swapped in for .desktopGraph only in that range (see the media
+   query below) so tablet gets its own, more spacious layout instead of the
+   desktop SVG simply scaled down. */
+.tabletGraph {
+  display: none;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
 .svg {
   display: block;
   width: 100%;
@@ -222,6 +232,17 @@
 /* Mobile vertical list (hidden on desktop/tablet) */
 .mobileList {
   display: none;
+}
+
+/* 721–900px: swap the desktop SVG for the tablet-tuned one. */
+@media (min-width: 721px) and (max-width: 900px) {
+  .desktopGraph {
+    display: none;
+  }
+
+  .tabletGraph {
+    display: block;
+  }
 }
 
 @media (max-width: 720px) {
