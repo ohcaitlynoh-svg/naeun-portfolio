@@ -109,15 +109,15 @@
 }
 
 .freelanceStem {
-  stroke: var(--color-border);
+  stroke: var(--color-fg-muted);
+  stroke-opacity: 0.4;
   stroke-width: 1;
   stroke-dasharray: 2 2;
 }
 
 .freelanceDot {
-  fill: var(--color-fg-muted);
-  fill-opacity: 0.15;
-  stroke: var(--color-border);
+  fill: var(--color-secondary);
+  stroke: var(--color-secondary);
   stroke-width: 1;
 }
 
@@ -146,6 +146,37 @@
 .freelanceNode:hover .freelanceCompany,
 .freelanceNode:focus-visible .freelanceCompany {
   fill: var(--color-fg);
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.25rem;
+  margin-top: 0.5rem;
+  font-size: var(--font-meta);
+  color: var(--color-fg-muted);
+}
+
+.legendItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.legendDotMain {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: var(--color-accent);
+  flex-shrink: 0;
+}
+
+.legendDotFreelance {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: var(--color-secondary);
+  flex-shrink: 0;
 }
 
 .tooltipBox {

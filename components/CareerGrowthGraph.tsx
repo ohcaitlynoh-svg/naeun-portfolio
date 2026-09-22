@@ -91,40 +91,21 @@ const Y_AXIS_W = 40;
 const PLOT_LEFT = Y_AXIS_W + 85;
 const PLOT_RIGHT = VIEW_W - 85;
 const PLOT_W = PLOT_RIGHT - PLOT_LEFT;
-// PLOT_TOP (the Y=12 gridline) is the whole top zone's budget: from the
-// SVG's own top edge (y=0, right where the supporting sentence lands) to
-// the plot. Measured targets (Playwright, 1440/KR/light): supporting
-// text -> first freelance label top ~40-70px, freelance label bottom ->
-// this gridline ~20-35px. A freelance label block is inherently ~35-45
-// units tall, so hitting both targets at once needs the FAR row anchored
-// near the top of that budget and the NEAR row anchored near its bottom
-// — see FREELANCE_FAR_ANCHOR/FREELANCE_ROW_STAGGER below, tuned together
-// with this value, not independently. Was 118 before freelance markers
-// carried visible text at all.
-const PLOT_TOP = 115;
+
+// Main career labels sit below the line now (uniform — see the points loop
+// below), so PLOT_TOP only has to clear the plot itself plus freelance
+// markers' flagpoles (they sit above the line at their own real x/y — see
+// freelancePoints and FREELANCE_OFFSET_*). Freelance experience isn't part
+// of the Y scale, so its vertical reach is independent of SCALE_MAX.
+const PLOT_TOP = 90;
 const PLOT_H = 240; // "wide, low, gentle" — the drawing area itself, not
 // counting the label margins added above/below it — unchanged, so the
 // line's slope is exactly as before.
 const PLOT_BOTTOM = PLOT_TOP + PLOT_H; // the Y=0 gridline / X-axis baseline
-const VIEW_H = PLOT_BOTTOM + 92;
-
-// Two staggered anchor rows so adjacent freelance markers — several sit
-// close together in 2021 — don't have their labels collide (row picked
-// by alternating index after sorting by x; see freelancePoints). FAR
-// sits near the top of PLOT_TOP's budget (label top ~15-25px below the
-// SVG's own top edge); the stagger down to NEAR is deliberately wide —
-// it's what lets NEAR's own label bottom land close to the plot, since a
-// short connector alone can't cross that whole budget (see PLOT_TOP
-// comment). The dot sits just past NEAR, with a short (not
-// budget-filling) stem down to the plot's edge.
-const FREELANCE_FAR_ANCHOR = 54;
-const FREELANCE_ROW_STAGGER = 38;
-const FREELANCE_NEAR_ANCHOR = FREELANCE_FAR_ANCHOR + FREELANCE_ROW_STAGGER;
-const FREELANCE_DOT_Y = FREELANCE_NEAR_ANCHOR + 8;
-const FREELANCE_STEM_LEN = 19;
-const FREELANCE_COMPANY_TRACK_GAP = 13;
-const FREELANCE_COMPANY_DY = 11;
-const FREELANCE_TRACK_DY = 10;
+// Bottom margin holds every main label's below-the-line reach, including
+// Hyundai/Yuratech's (both at Y=0, i.e. right at PLOT_BOTTOM).
+const BOTTOM_MARGIN = 108;
+const VIEW_H = PLOT_BOTTOM + BOTTOM_MARGIN;
 
 function plotX(ratio: number) {
   return PLOT_LEFT + ratio * PLOT_W;
@@ -136,7 +117,8 @@ function plotY(years: number) {
 // Reused as-is from CareerGraphView's freelance placement — a freelance
 // entry's x is interpolated between whichever two main points its date
 // falls between, then nudged apart from its neighbors so close dates never
-// collapse onto the same point.
+// collapse onto the same point. This is the real, date-driven x — never
+// adjusted for label layout; only each label's own vertical offset is.
 function interpolateXRatio(dateValue: number, main: { xRatio: number; dateValue: number }[]): number {
   if (dateValue <= main[0].dateValue) return main[0].xRatio;
   for (let i = 0; i < main.length - 1; i++) {
@@ -152,9 +134,8 @@ function interpolateXRatio(dateValue: number, main: { xRatio: number; dateValue:
   return main[main.length - 1].xRatio;
 }
 // Wider now that freelance markers carry always-visible text (not just a
-// dot) — combined with the near/far row stagger below, keeps adjacent
-// labels from touching even when several dates cluster close together
-// (2021's three freelance stints).
+// dot) — keeps adjacent labels from touching even when several dates
+// cluster close together (2021's three freelance stints).
 const MIN_FREELANCE_GAP = 0.11;
 
 type Point = {
@@ -165,6 +146,8 @@ type Point = {
   years: number;
   isIntern: boolean;
   xRatio: number;
+  x: number;
+  y: number;
   index: number;
 };
 
@@ -188,6 +171,7 @@ export default function CareerGrowthGraph({
     const period = entry?.period ?? "";
     const [, end] = entry ? splitPeriod(entry.period) : [firstStart, firstStart];
     const years = BASELINE_COMPANIES.has(company) ? 0 : yearsBetween(firstStart, end);
+    const xRatio = i / (MAIN_ORDER.length - 1);
     return {
       id: `m-${company}`,
       company,
@@ -195,10 +179,29 @@ export default function CareerGrowthGraph({
       trackLabel: entry?.domain || entry?.role || "",
       years,
       isIntern: /intern/i.test(entry?.role ?? ""),
-      xRatio: i / (MAIN_ORDER.length - 1),
+      xRatio,
+      x: plotX(xRatio),
+      y: plotY(years),
       index: i,
     };
   });
+
+  // A freelance marker's dot sits ON the main line at its own real x — the
+  // line between two adjacent main points is a straight segment (see the
+  // polyline below), so linearly interpolating Y between them by x gives
+  // the exact on-line position, not a detached "lane".
+  function lineYAt(xRatio: number): number {
+    if (xRatio <= points[0].xRatio) return points[0].y;
+    for (let i = 0; i < points.length - 1; i++) {
+      const a = points[i];
+      const b = points[i + 1];
+      if (xRatio >= a.xRatio && xRatio <= b.xRatio) {
+        const t = (xRatio - a.xRatio) / (b.xRatio - a.xRatio);
+        return a.y + t * (b.y - a.y);
+      }
+    }
+    return points[points.length - 1].y;
+  }
 
   const freelancePoints = (() => {
     const mainForInterp = points.map((p) => ({
@@ -220,24 +223,35 @@ export default function CareerGrowthGraph({
         dateValue,
       };
     });
+    // Real date-driven x, only nudged apart by the minimum needed so two
+    // close dates don't collapse onto the same point — never moved for
+    // label-layout reasons.
     const sorted = [...raw].sort((a, b) => a.xRatio - b.xRatio);
     for (let i = 1; i < sorted.length; i++) {
       sorted[i].xRatio = Math.max(sorted[i].xRatio, sorted[i - 1].xRatio + MIN_FREELANCE_GAP);
     }
     if (sorted.length > 0) {
-      // Capped well short of 1 (EXEM's own x) — a freelance marker
-      // landing close to that column crowds horizontally against EXEM's
-      // own (wider, since it's the main-point label size) company+track
-      // text, which row stagger alone — a vertical offset — doesn't fix.
-      sorted[sorted.length - 1].xRatio = Math.min(0.86, sorted[sorted.length - 1].xRatio);
+      // Capped short of 1 (EXEM's own x) so the dot doesn't land in
+      // EXEM's exact column, which would put its flagpole/label directly
+      // through EXEM's own marker.
+      sorted[sorted.length - 1].xRatio = Math.min(0.94, sorted[sorted.length - 1].xRatio);
     }
     for (let i = sorted.length - 2; i >= 0; i--) {
       sorted[i].xRatio = Math.min(sorted[i].xRatio, sorted[i + 1].xRatio - MIN_FREELANCE_GAP);
     }
-    return sorted;
+    return sorted.map((f, fi) => ({
+      ...f,
+      x: plotX(f.xRatio),
+      y: lineYAt(f.xRatio),
+      // Adjacent freelance dates can sit close together (2021's three
+      // stints) — alternating a short/tall flagpole is the "y-offset only"
+      // fix for label collision the brief asks for, since the dot's x/y
+      // itself stays exactly on the real date-driven line position.
+      raised: fi % 2 === 1,
+    }));
   })();
 
-  const linePath = points.map((p) => `${plotX(p.xRatio)},${plotY(p.years)}`).join(" ");
+  const linePath = points.map((p) => `${p.x},${p.y}`).join(" ");
 
   const tooltipTarget =
     points.find((p) => p.id === tooltipId) ??
@@ -270,92 +284,31 @@ export default function CareerGrowthGraph({
               </g>
             );
           })}
-          <text
-            x={Y_AXIS_W}
-            y={PLOT_TOP - 14}
-            textAnchor="end"
-            className={styles.axisUnit}
-          >
+          <text x={Y_AXIS_W} y={PLOT_TOP - 14} textAnchor="end" className={styles.axisUnit}>
             Years
           </text>
 
-          {freelancePoints.map((f, fi) => {
-            const x = plotX(f.xRatio);
-            const isShown = tooltipId === f.id;
-            // Alternate rows so adjacent freelance labels don't share a
-            // height band — except close to either main-line edge (x near
-            // 0 or 1), where Hyundai's/EXEM's own "above" label already
-            // reaches into this lane at that same column regardless of
-            // row; those are forced to the far row, which starts higher
-            // and clears it.
-            const nearMainEdge = f.xRatio > 0.82 || f.xRatio < 0.18;
-            const isFar = nearMainEdge || fi % 2 === 1;
-            const anchor = isFar ? FREELANCE_FAR_ANCHOR : FREELANCE_NEAR_ANCHOR;
-            const companyLines = wrapToWidth(f.company, FREELANCE_COMPANY_MAX_CHARS);
-            const trackLines = f.trackLabel ? wrapToWidth(f.trackLabel, FREELANCE_TRACK_MAX_CHARS) : [];
-            const trackAnchor = anchor - ((companyLines.length - 1) * FREELANCE_COMPANY_DY + FREELANCE_COMPANY_TRACK_GAP);
-            return (
-              <g
-                key={f.id}
-                className={styles.freelanceNode}
-                role="button"
-                tabIndex={0}
-                aria-label={[f.company, f.trackLabel, "freelance / project experience"].filter(Boolean).join(", ")}
-                aria-pressed={isShown}
-                onMouseEnter={() => setHoveredId(f.id)}
-                onMouseLeave={() => setHoveredId(null)}
-                onFocus={() => setHoveredId(f.id)}
-                onBlur={() => setHoveredId(null)}
-                onClick={() => activate(f.id)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" || e.key === " ") {
-                    e.preventDefault();
-                    activate(f.id);
-                  }
-                }}
-              >
-                <line
-                  x1={x}
-                  y1={FREELANCE_DOT_Y}
-                  x2={x}
-                  y2={FREELANCE_DOT_Y + FREELANCE_STEM_LEN}
-                  className={styles.freelanceStem}
-                />
-                <circle cx={x} cy={FREELANCE_DOT_Y} r={3.5} className={styles.freelanceDot} />
-                {/* Larger invisible hit-area — the visible dot/stem alone
-                    is too small/thin a target for hover and tap. */}
-                <circle cx={x} cy={FREELANCE_DOT_Y + 6} r={13} className={styles.hitArea} />
-                <text x={x} y={anchor} textAnchor="middle" className={styles.freelanceCompany}>
-                  {[...companyLines].reverse().map((line, li) => (
-                    <tspan key={li} x={x} dy={li === 0 ? 0 : -FREELANCE_COMPANY_DY}>
-                      {line}
-                    </tspan>
-                  ))}
-                </text>
-                {trackLines.length > 0 && (
-                  <text x={x} y={trackAnchor} textAnchor="middle" className={styles.freelanceTrack}>
-                    {[...trackLines].reverse().map((line, li) => (
-                      <tspan key={li} x={x} dy={li === 0 ? 0 : -FREELANCE_TRACK_DY}>
-                        {line}
-                      </tspan>
-                    ))}
-                  </text>
-                )}
-              </g>
-            );
-          })}
-
           <polyline points={linePath} className={styles.growthLine} />
 
-          {points.map((p) => {
-            const x = plotX(p.xRatio);
-            const y = plotY(p.years);
-            const labelAbove = p.index % 2 === 0;
+          {/* Main career — always below the line, so it never competes
+              with freelance's above-the-line labels. The two points tied
+              at Y=0 (Hyundai/Yuratech) are the one unavoidable exception:
+              Hyundai goes above instead, since a below label there would
+              sit exactly under Yuratech's own. Cafe24 (only ~0.4 years,
+              a few px, above ReadyKorea) gets a taller drop so its label
+              clears ReadyKorea's — both stay below, just at different
+              depths. */
+          points.map((p) => {
+            const isHyundai = p.company === "Hyundai Home Shopping";
+            const isCafe24 = p.company === "Cafe24";
+            const dir = isHyundai ? -1 : 1;
+            const baseOffset = p.isIntern ? 22 : 24;
+            const extraDrop = isCafe24 ? 34 : 0;
             const companyLines = wrapToWidth(p.company, COMPANY_MAX_CHARS);
             const trackLines = p.trackLabel ? wrapToWidth(p.trackLabel, TRACK_MAX_CHARS) : [];
-            const dir = labelAbove ? -1 : 1;
-            const companyY = y + dir * (p.isIntern ? 22 : 24);
-            const trackGapStart = companyY + dir * ((companyLines.length - 1) * 20 + (p.isIntern ? 16 : 20));
+            const companyY = p.y + dir * (baseOffset + extraDrop);
+            const trackGapStart =
+              companyY + dir * ((companyLines.length - 1) * 20 + (p.isIntern ? 16 : 20));
             const isShown = tooltipId === p.id;
 
             return (
@@ -379,33 +332,92 @@ export default function CareerGrowthGraph({
                 className={styles.mainNode}
               >
                 <circle
-                  cx={x}
-                  cy={y}
+                  cx={p.x}
+                  cy={p.y}
                   r={p.isIntern ? 5 : 7.5}
                   className={p.isIntern ? styles.pointIntern : styles.point}
                 />
-                <circle cx={x} cy={y} r={16} className={styles.hitArea} />
-                <text
-                  x={x}
-                  y={companyY}
-                  textAnchor="middle"
-                  className={styles.companyLabel}
-                >
-                  {(labelAbove ? [...companyLines].reverse() : companyLines).map((line, li) => (
-                    <tspan key={li} x={x} dy={li === 0 ? 0 : dir * 20}>
+                <circle cx={p.x} cy={p.y} r={16} className={styles.hitArea} />
+                <text x={p.x} y={companyY} textAnchor="middle" className={styles.companyLabel}>
+                  {(isHyundai ? [...companyLines].reverse() : companyLines).map((line, li) => (
+                    <tspan key={li} x={p.x} dy={li === 0 ? 0 : dir * 20}>
                       {line}
                     </tspan>
                   ))}
                 </text>
                 {trackLines.length > 0 && (
                   <text
-                    x={x}
+                    x={p.x}
                     y={trackGapStart}
                     textAnchor="middle"
                     className={p.isIntern ? styles.trackLabelIntern : styles.trackLabel}
                   >
-                    {(labelAbove ? [...trackLines].reverse() : trackLines).map((line, li) => (
-                      <tspan key={li} x={x} dy={li === 0 ? 0 : dir * 15}>
+                    {(isHyundai ? [...trackLines].reverse() : trackLines).map((line, li) => (
+                      <tspan key={li} x={p.x} dy={li === 0 ? 0 : dir * 15}>
+                        {line}
+                      </tspan>
+                    ))}
+                  </text>
+                )}
+              </g>
+            );
+          })}
+
+          {/* Freelance / project — secondary markers on the line at their
+              real date position, connected up to an always-visible label
+              by a short dashed flagpole. Y is independent of the Y=0..13
+              growth scale; not counted toward it. Rendered after (i.e. on
+              top of) main career points: a freelance date can land right
+              next to a main point (Sesun Electronics ~1 month after Flor
+              Momento's own start), and paint order also decides which
+              element's hit-area wins a pointer event where they overlap —
+              this keeps freelance interactive even then. */}
+          {freelancePoints.map((f) => {
+            const isShown = tooltipId === f.id;
+            const offset = f.raised ? 78 : 48;
+            const companyAnchor = f.y - offset;
+            const stemTopY = companyAnchor + 6; // small gap between the
+            // dashed line's end and the label's own bottom edge
+            const companyLines = wrapToWidth(f.company, FREELANCE_COMPANY_MAX_CHARS);
+            const trackLines = f.trackLabel ? wrapToWidth(f.trackLabel, FREELANCE_TRACK_MAX_CHARS) : [];
+            const trackAnchor =
+              companyAnchor - ((companyLines.length - 1) * 11 + 12);
+            return (
+              <g
+                key={f.id}
+                className={styles.freelanceNode}
+                role="button"
+                tabIndex={0}
+                aria-label={[f.company, f.trackLabel, "freelance / project experience"].filter(Boolean).join(", ")}
+                aria-pressed={isShown}
+                onMouseEnter={() => setHoveredId(f.id)}
+                onMouseLeave={() => setHoveredId(null)}
+                onFocus={() => setHoveredId(f.id)}
+                onBlur={() => setHoveredId(null)}
+                onClick={() => activate(f.id)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    activate(f.id);
+                  }
+                }}
+              >
+                <line x1={f.x} y1={f.y} x2={f.x} y2={stemTopY} className={styles.freelanceStem} />
+                <circle cx={f.x} cy={f.y} r={3.5} className={styles.freelanceDot} />
+                {/* Larger invisible hit-area — the visible dot/stem alone
+                    is too small/thin a target for hover and tap. */}
+                <circle cx={f.x} cy={f.y - 8} r={13} className={styles.hitArea} />
+                <text x={f.x} y={companyAnchor} textAnchor="middle" className={styles.freelanceCompany}>
+                  {[...companyLines].reverse().map((line, li) => (
+                    <tspan key={li} x={f.x} dy={li === 0 ? 0 : -11}>
+                      {line}
+                    </tspan>
+                  ))}
+                </text>
+                {trackLines.length > 0 && (
+                  <text x={f.x} y={trackAnchor} textAnchor="middle" className={styles.freelanceTrack}>
+                    {[...trackLines].reverse().map((line, li) => (
+                      <tspan key={li} x={f.x} dy={li === 0 ? 0 : -10}>
                         {line}
                       </tspan>
                     ))}
@@ -417,28 +429,24 @@ export default function CareerGrowthGraph({
 
           {tooltipTarget &&
             (() => {
-              const x = tooltipIsMain
-                ? plotX((tooltipTarget as Point).xRatio)
-                : plotX((tooltipTarget as (typeof freelancePoints)[number]).xRatio);
-              const pointY = tooltipIsMain
-                ? plotY((tooltipTarget as Point).years)
-                : FREELANCE_DOT_Y + FREELANCE_STEM_LEN;
               const mainPoint = tooltipIsMain ? (tooltipTarget as Point) : null;
-              // Opposite side from the always-visible label, so the two
-              // never compete for the same space.
-              const below = mainPoint ? mainPoint.index % 2 === 0 : true;
+              const freelancePoint = !mainPoint
+                ? (tooltipTarget as (typeof freelancePoints)[number])
+                : null;
+              const x = mainPoint ? mainPoint.x : freelancePoint!.x;
+              const pointY = mainPoint ? mainPoint.y : freelancePoint!.y;
+              // Opposite side from the always-visible label: below main
+              // labels -> tooltip above; above freelance labels -> tooltip
+              // below (toward the line), so the two never compete.
+              const below = mainPoint ? mainPoint.company === "Hyundai Home Shopping" : true;
               const period = toMonthPrecision(tooltipTarget.period);
               // Main points already show company + role/domain permanently
-              // (see companyLabel/trackLabel above) — the only genuinely
-              // new information a tooltip adds there is the date, so it
-              // stays a compact one-liner. Neighboring points can sit close
-              // together both on the X axis and, since this line rises,
-              // sometimes close in Y too (e.g. Biginsight/EXEM) — a taller
-              // multi-line box risks overlapping that neighbor's own
-              // always-visible label, which a single short line avoids.
-              // Freelance markers have no permanent label at all, so their
-              // tooltip still needs the company name to identify them.
-              const lines = mainPoint ? [period] : [tooltipTarget.company, period];
+              // — the only genuinely new information a tooltip adds there
+              // is the date, so it stays a compact one-liner. Freelance
+              // markers have no permanent date shown either, but do show
+              // company/domain already, so likewise just the date; company
+              // is still included so the tooltip is self-contained.
+              const lines = mainPoint ? [period] : [freelancePoint!.company, period];
               const boxW = mainPoint ? 108 : 150;
               const lineH = 15;
               const boxH = lines.length * lineH + 10;
@@ -462,6 +470,17 @@ export default function CareerGrowthGraph({
               );
             })()}
         </svg>
+
+        <div className={styles.legend}>
+          <span className={styles.legendItem}>
+            <span className={styles.legendDotMain} />
+            Main Career
+          </span>
+          <span className={styles.legendItem}>
+            <span className={styles.legendDotFreelance} />
+            Freelance / Project
+          </span>
+        </div>
       </div>
 
       {/* Mobile: vertical list — desktop graph doesn't read well cramped
