@@ -34,13 +34,21 @@
    Home's "How I Work" section (app/HomeView.tsx) still renders these same
    flowStrip/flowStep/flowNumber/flowLabel classes for its own "01
    Principle ... 06 Deliver" strip. No border/divider here — the strip
-   flows straight into the section's CTA below on Home; margin-bottom
-   alone (matching about.module.css's .block, --space-lg) is the only
-   gap before it. Do not remove or rename. */
+   flows straight into the section's CTA below on Home. margin-bottom is
+   deliberately smaller than .intro's (below) and smaller than the
+   shared .sectionCta's own margin-top (page.module.css, 2rem) so the two
+   collapse to that 2rem — giving this section's three gaps a clear
+   hierarchy: heading→intro (tightest, cardHeading's 1.5rem) <
+   strip→CTA (2rem, workflow reads as "connected" to its detail link) <
+   intro→strip (2.5rem, the widest break, between reading and scanning).
+   row-gap keeps wrapped rows (tablet/mobile) evenly spaced without
+   affecting the column spacing below, which .flowStep's own
+   padding-left/border-left (untouched) already handles. */
 .flowStrip {
   display: flex;
   flex-wrap: wrap;
-  margin-bottom: var(--space-lg);
+  row-gap: 0.85rem;
+  margin-bottom: 1.5rem;
 }
 
 .flowStep {
