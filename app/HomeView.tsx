@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Fragment } from "react";
 import { useLanguage } from "@/components/SiteProviders";
-import CareerGraphView from "@/components/CareerGraphView";
+import CareerGrowthGraph from "@/components/CareerGrowthGraph";
 import ProjectCard from "@/components/ProjectCard";
 import HomeSectionRail from "@/components/HomeSectionRail";
 import {
@@ -155,13 +155,7 @@ export default function HomeView() {
           <p className={howStyles.intro}>{t.careerSummary}</p>
 
           <div className={styles.visualSummary}>
-            <CareerGraphView
-              projects={projectList}
-              career={careerList}
-              freelance={freelanceList}
-              size="large"
-              showDetail={false}
-            />
+            <CareerGrowthGraph career={careerList} freelance={freelanceList} />
           </div>
 
           <p className={styles.sectionCta}>
