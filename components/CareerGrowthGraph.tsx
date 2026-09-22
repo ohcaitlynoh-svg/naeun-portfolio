@@ -91,32 +91,34 @@ const Y_AXIS_W = 40;
 const PLOT_LEFT = Y_AXIS_W + 85;
 const PLOT_RIGHT = VIEW_W - 85;
 const PLOT_W = PLOT_RIGHT - PLOT_LEFT;
-// PLOT_TOP (the Y=12 gridline) leaves a dedicated top zone above it for
-// the freelance lane's always-visible company+domain labels (below) —
-// tall enough that even the far-row label of a freelance marker sitting
-// near EXEM's own x position doesn't collide with EXEM's "above" label
-// (see the points loop further down). Was 118 before freelance markers
-// carried visible text at all.
-const PLOT_TOP = 185;
+// PLOT_TOP (the Y=12 gridline) leaves a compact top zone above it for the
+// freelance lane's always-visible company+domain labels (below) — just
+// enough for the label stack + a short connector, not a large detached
+// margin. Was 118 before freelance markers carried visible text at all;
+// +22 here (vs the +67 an earlier pass used) keeps Career Snapshot's
+// overall height close to that original, with the freelance content
+// packed tightly against the plot instead of floating above it.
+const PLOT_TOP = 140;
 const PLOT_H = 240; // "wide, low, gentle" — the drawing area itself, not
 // counting the label margins added above/below it — unchanged, so the
 // line's slope is exactly as before.
 const PLOT_BOTTOM = PLOT_TOP + PLOT_H; // the Y=0 gridline / X-axis baseline
 const VIEW_H = PLOT_BOTTOM + 92;
 
-// Freelance lane sits above PLOT_TOP, its own fixed zone independent of
-// the Y=0..13 growth scale (freelance experience isn't part of that
-// cumulative value — see freelancePoints below, which never feeds into
-// the main line's Y). Two staggered anchor rows (near/far) so adjacent
-// freelance markers — several sit close together in 2021 — don't have
-// their labels collide; each marker's row is picked by alternating index
-// after sorting by x (see freelancePoints).
-const FREELANCE_DOT_Y = 150;
-const FREELANCE_STEM_LEN = 14;
-const FREELANCE_NEAR_ANCHOR = FREELANCE_DOT_Y - 12;
-const FREELANCE_ROW_STAGGER = 40;
+// Freelance lane sits just above PLOT_TOP — the dot-to-plot connector is
+// short on purpose, so each marker reads as pinned near the growth line
+// at that point in time rather than floating in its own detached strip.
+// Two staggered anchor rows (near/far) so adjacent freelance markers —
+// several sit close together in 2021 — don't have their labels collide;
+// each marker's row is picked by alternating index after sorting by x
+// (see freelancePoints).
+const FREELANCE_DOT_Y = 122;
+const FREELANCE_STEM_LEN = 18; // reaches down to PLOT_TOP — visually
+// meets the plot's top edge instead of leaving a gap.
+const FREELANCE_NEAR_ANCHOR = FREELANCE_DOT_Y - 8;
+const FREELANCE_ROW_STAGGER = 28;
 const FREELANCE_FAR_ANCHOR = FREELANCE_NEAR_ANCHOR - FREELANCE_ROW_STAGGER;
-const FREELANCE_COMPANY_TRACK_GAP = 15;
+const FREELANCE_COMPANY_TRACK_GAP = 12;
 const FREELANCE_COMPANY_DY = 12;
 const FREELANCE_TRACK_DY = 11;
 
@@ -219,11 +221,11 @@ export default function CareerGrowthGraph({
       sorted[i].xRatio = Math.max(sorted[i].xRatio, sorted[i - 1].xRatio + MIN_FREELANCE_GAP);
     }
     if (sorted.length > 0) {
-      // Capped short of 1 (EXEM's own x) — a freelance marker landing in
-      // that exact column would sit directly under EXEM's "above" label
-      // regardless of row stagger, since stagger only adds vertical
-      // separation, not horizontal.
-      sorted[sorted.length - 1].xRatio = Math.min(0.94, sorted[sorted.length - 1].xRatio);
+      // Capped well short of 1 (EXEM's own x) — a freelance marker
+      // landing close to that column crowds horizontally against EXEM's
+      // own (wider, since it's the main-point label size) company+track
+      // text, which row stagger alone — a vertical offset — doesn't fix.
+      sorted[sorted.length - 1].xRatio = Math.min(0.86, sorted[sorted.length - 1].xRatio);
     }
     for (let i = sorted.length - 2; i >= 0; i--) {
       sorted[i].xRatio = Math.min(sorted[i].xRatio, sorted[i + 1].xRatio - MIN_FREELANCE_GAP);
@@ -282,7 +284,7 @@ export default function CareerGrowthGraph({
             // reaches into this lane at that same column regardless of
             // row; those are forced to the far row, which starts higher
             // and clears it.
-            const nearMainEdge = f.xRatio > 0.88 || f.xRatio < 0.12;
+            const nearMainEdge = f.xRatio > 0.82 || f.xRatio < 0.18;
             const isFar = nearMainEdge || fi % 2 === 1;
             const anchor = isFar ? FREELANCE_FAR_ANCHOR : FREELANCE_NEAR_ANCHOR;
             const companyLines = wrapToWidth(f.company, FREELANCE_COMPANY_MAX_CHARS);
