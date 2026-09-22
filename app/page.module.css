@@ -173,15 +173,38 @@
   max-width: var(--text-max);
 }
 
-/* Product Domains chip row on Home's compact About card — same chip style
-   as about.module.css's .domainList, just a touch more breathing room so
-   it doesn't read as footnote-sized in this wider summary context. */
+/* Product Domains chip row on Home's About section — same chip style as
+   about.module.css's .domainList, just a touch more breathing room so it
+   doesn't read as footnote-sized in this full-width context. */
 .domainListHome {
   gap: 0.75rem 1.1rem;
 }
 
 .domainListHome li {
   padding: 0.3rem 0.85rem;
+}
+
+/* Home-only rhythm tweaks for About's shared about.module.css classes
+   (.intro's 3rem / .block's --space-lg 2.5rem are tuned for the long-form
+   /about page's many stacked blocks — left untouched there). On Home,
+   About sits right after How I Work and should read with the same
+   gap hierarchy: heading→intro stays tightest (cardHeading's 1.5rem,
+   shared), intro→Product Domains is the widest internal break, and
+   Product Domains→CTA is visibly tighter than that — matching How I
+   Work's heading→intro / intro→strip / strip→CTA rhythm exactly
+   (see how-i-work.module.css's .flowStrip for the same margin-collapse
+   reasoning: .blockHome's margin-bottom is smaller than the shared
+   .sectionCta's own margin-top, page.module.css, 2rem, so the two
+   collapse to that 2rem instead of stacking). Written as
+   ".sectionInner .xHome" (two of *this* file's own classes) so
+   specificity (0,2,0) reliably beats about.module.css's single-class
+   .intro/.block rules (0,1,0) regardless of CSS-module bundle order. */
+.sectionInner .introHome {
+  margin-bottom: var(--space-lg);
+}
+
+.sectionInner .blockHome {
+  margin-bottom: 1.5rem;
 }
 
 .sectionCta {

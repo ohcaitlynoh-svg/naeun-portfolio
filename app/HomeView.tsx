@@ -200,11 +200,11 @@ export default function HomeView() {
           <h2 className={styles.cardHeading}>
             <AboutIcon className={styles.cardIcon} /> About
           </h2>
-          <p className={aboutStyles.intro}>
+          <p className={`${aboutStyles.intro} ${styles.introHome}`}>
             <Lines lines={aboutIntroLines} />
           </p>
 
-          <div className={aboutStyles.block}>
+          <div className={`${aboutStyles.block} ${styles.blockHome}`}>
             <h3 className={aboutStyles.blockTitle}>Product Domains</h3>
             <ul className={`${aboutStyles.domainList} ${styles.domainListHome}`}>
               {domains.slice(0, 6).map((domain) => (
