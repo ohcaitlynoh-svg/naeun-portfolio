@@ -20,9 +20,9 @@ import styles from "./HomeSectionRail.module.css";
 const items = [
   { id: "hero", label: "Home", Icon: HomeIcon },
   { id: "projects", label: "Projects", Icon: ProjectIcon },
-  { id: "about", label: "About", Icon: AboutIcon },
-  { id: "how-i-work", label: "How I Work", Icon: HowIWorkIcon },
   { id: "experience", label: "Career", Icon: CareerIcon },
+  { id: "how-i-work", label: "How I Work", Icon: HowIWorkIcon },
+  { id: "about", label: "About", Icon: AboutIcon },
   { id: "labs", label: "AI Labs", Icon: AiLabsIcon },
 ];
 

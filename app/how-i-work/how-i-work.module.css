@@ -21,10 +21,8 @@
   line-height: 1.7;
 }
 
-/* Also used by Home's compact "How I Work" summary card (app/page.tsx) —
-   keep this class's own rules stable even though this page's intro copy
-   changed; Home applies its own cardIntroReset on top via its higher-
-   specificity ".summaryCard .cardIntroReset" selector. */
+/* Also used by Home's full-width "How I Work" section (app/HomeView.tsx),
+   rendered as-is with no Home-side override. */
 .intro {
   max-width: var(--text-max);
   color: var(--color-fg-muted);
@@ -33,10 +31,9 @@
 
 /* Unused on this page since the Approach/Cases/Operating Model/Closing
    restructure (no more standalone 01–06 nav strip here) — kept exactly as
-   Home's compact summary card (app/page.tsx) still renders these same
-   flowStrip/flowStep/flowNumber/flowLabel classes for its own "01
-   Principle ... 06 Deliver" mini nav via howStyles.* + its own
-   page.module.css reset overrides. Do not remove or rename. */
+   Home's "How I Work" section (app/HomeView.tsx) still renders these same
+   flowStrip/flowStep/flowNumber/flowLabel classes, as-is, for its own "01
+   Principle ... 06 Deliver" strip. Do not remove or rename. */
 .flowStrip {
   display: flex;
   flex-wrap: wrap;

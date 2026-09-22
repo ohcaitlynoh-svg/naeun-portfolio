@@ -21,42 +21,13 @@
 /* Shared outer-alignment wrapper for every Home top-level section that
    doesn't already have its own --visual-max-width child (Core Projects'
    heading/CTA around .projectCardGrid, Career Snapshot's heading/CTA
-   around .visualSummary, AI Labs, Contact) — so their headings and CTAs
-   land on the exact same left/right edge as .heroInner/.summaryGrid/
-   .projectCardGrid/.visualSummary below, instead of the bare .container's
-   wider (--page-max) edge. */
+   around .visualSummary, How I Work, About, AI Labs, Contact) — so their
+   headings and CTAs land on the exact same left/right edge as
+   .heroInner/.projectCardGrid/.visualSummary below, instead of the bare
+   .container's wider (--page-max) edge. */
 .sectionInner {
   max-width: var(--visual-max);
   margin-inline: auto;
-}
-
-/* Row 1 — About + How I Work, side by side on desktop. Each card is plain
-   (no border/surface chrome — only the project cards below get that
-   treatment), just an icon+heading block like the rest of Home. Capped at
-   --visual-max — the same width every other Home top-level section now
-   shares — and centered so this row's edges line up with Hero/Core
-   Projects/Career/AI Labs/Contact instead of its own narrower one. */
-.summaryGrid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-lg);
-  max-width: var(--visual-max);
-  margin-inline: auto;
-}
-
-/* Equal-height (grid stretch, row 1) + flex column so both cards share one
-   uniform vertical rhythm (see the *Reset classes below, which zero out
-   each child's own margin so this single gap is the only spacing source)
-   and so .sectionCta can pin to the bottom via margin-top:auto, keeping
-   both CTAs on the same line even when one card's content runs shorter.
-   At the <=900px single-column breakpoint each card is back in its own
-   grid row, so stretch/auto naturally stop applying — no separate mobile
-   override needed. */
-.summaryCard {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  min-width: 0;
 }
 
 .cardHeading {
@@ -65,70 +36,6 @@
   gap: 0.7rem;
   font-size: var(--font-heading);
   margin-bottom: 1.5rem;
-}
-
-/* Home-only rhythm reset — used solely inside .summaryCard to replace
-   About's/How I Work's own (differing) margin-bottom values with this
-   card's single shared gap, without touching the shared about.module.css /
-   how-i-work.module.css rules those classes also serve on their own pages.
-   Written as ".summaryCard .xReset" (two of *this* file's own classes) so
-   specificity (0,2,0) reliably beats the shared single-class rules
-   (0,1,0) regardless of which CSS-module file the bundler places first —
-   no dependency on cross-file source order. */
-.summaryCard .cardHeadingReset {
-  margin-bottom: 0;
-}
-
-.summaryCard .cardIntroReset {
-  margin-bottom: 0;
-}
-
-.summaryCard .cardBlockReset {
-  margin-bottom: 0;
-}
-
-.summaryCard .cardFlowStripReset {
-  margin-bottom: 0;
-  padding-bottom: 0;
-  border-bottom: none;
-}
-
-/* Home-only compact sizing for the 01 Principle → 06 Deliver nav strip —
-   the card column is a fixed ~520px (half of --visual-max minus the grid
-   gap) at every desktop width, still narrower than how-i-work.module.css's
-   own roomier per-step padding/gap/font-size, which was tuned for the full
-   How I Work page's much wider column and wraps "06 Deliver" onto its own
-   line here. Tightened just enough that all 6 steps hold one line at
-   1024–1440px; .flowStrip's own flex-wrap: wrap (untouched) still lets
-   items wrap naturally at narrower/mobile widths. */
-.summaryCard .cardFlowStepReset {
-  padding-left: 0.75rem;
-  gap: 0.3rem;
-  white-space: nowrap;
-}
-
-.summaryCard .cardFlowNumberReset {
-  font-size: 0.75rem;
-}
-
-.summaryCard .cardFlowLabelReset {
-  font-size: 0.875rem;
-}
-
-/* Desktop only: force the strip onto one row instead of relying on the
-   compact sizing above happening to fit — .flowStep's own flex-shrink
-   (inherited, unset) could otherwise let long labels compress instead of
-   forcing a wrap, so each step is pinned to its natural width. Below the
-   900px single-column breakpoint this is dropped and .flowStrip's own
-   flex-wrap: wrap (untouched) takes back over. */
-@media (min-width: 901px) {
-  .summaryCard .cardFlowStripReset {
-    flex-wrap: nowrap;
-  }
-
-  .summaryCard .cardFlowStepReset {
-    flex: 0 0 auto;
-  }
 }
 
 /* ~1.5x the shared IconBase default (16px) so these read at the same
@@ -155,11 +62,6 @@
 }
 
 @media (max-width: 900px) {
-  .summaryGrid {
-    grid-template-columns: 1fr;
-    gap: var(--space-xl);
-  }
-
   .projectCardGrid {
     grid-template-columns: 1fr;
   }
@@ -284,14 +186,6 @@
 
 .sectionCta {
   margin-top: 2rem;
-}
-
-/* Pins the CTA to the bottom of the (grid-stretched, equal-height)
-   summary card, so About's and How I Work's CTAs land on the same line
-   even when one card's content runs shorter — scoped to these two cards
-   only, every other .sectionCta usage on Home is untouched. */
-.summaryCard .sectionCta {
-  margin-top: auto;
 }
 
 .contactList {

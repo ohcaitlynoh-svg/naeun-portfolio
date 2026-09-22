@@ -138,61 +138,6 @@ export default function HomeView() {
         </div>
       </section>
 
-      <section className={`container section ${styles.homeSection}`}>
-        <div className={styles.summaryGrid}>
-          <div id="about" className={`${styles.summaryCard} ${styles.anchorSection}`}>
-            <h2 className={`${styles.cardHeading} ${styles.cardHeadingReset}`}>
-              <AboutIcon className={styles.cardIcon} /> About
-            </h2>
-            <p className={`${aboutStyles.intro} ${styles.cardIntroReset}`}>
-              <Lines lines={aboutIntroLines} />
-            </p>
-
-            <div className={`${aboutStyles.block} ${styles.cardBlockReset}`}>
-              <h3 className={aboutStyles.blockTitle}>Product Domains</h3>
-              <ul className={`${aboutStyles.domainList} ${styles.domainListHome}`}>
-                {domains.slice(0, 6).map((domain) => (
-                  <li key={domain}>{domain}</li>
-                ))}
-              </ul>
-            </div>
-
-            <p className={styles.sectionCta}>
-              <Link href="/about">{isEn ? "Read Full Story →" : "Read Full Story →"}</Link>
-            </p>
-          </div>
-
-          <div id="how-i-work" className={`${styles.summaryCard} ${styles.anchorSection}`}>
-            <h2 className={`${styles.cardHeading} ${styles.cardHeadingReset}`}>
-              <HowIWorkIcon className={styles.cardIcon} /> How I Work
-            </h2>
-            <p className={`${howStyles.intro} ${styles.cardIntroReset}`}>{t.howIWorkIntro}</p>
-
-            <ol className={`${howStyles.flowStrip} ${styles.cardFlowStripReset}`}>
-              {flow.map((step) => (
-                <li
-                  key={step.label}
-                  className={`${howStyles.flowStep} ${styles.cardFlowStepReset}`}
-                >
-                  <span className={`${howStyles.flowNumber} ${styles.cardFlowNumberReset}`}>
-                    {step.num}
-                  </span>
-                  <span className={`${howStyles.flowLabel} ${styles.cardFlowLabelReset}`}>
-                    {step.label}
-                  </span>
-                </li>
-              ))}
-            </ol>
-
-            <p className={styles.sectionCta}>
-              <Link href="/how-i-work">
-                {isEn ? "View Full Operating Model →" : "View Full Operating Model →"}
-              </Link>
-            </p>
-          </div>
-        </div>
-      </section>
-
       <section
         id="experience"
         className={`container section ${styles.homeSection} ${styles.anchorSection}`}
@@ -216,6 +161,60 @@ export default function HomeView() {
             <Link href="/about#career">
               {isEn ? "View Full Career →" : "View Full Career →"}
             </Link>
+          </p>
+        </div>
+      </section>
+
+      <section
+        id="how-i-work"
+        className={`container section ${styles.homeSection} ${styles.anchorSection}`}
+      >
+        <div className={styles.sectionInner}>
+          <h2 className={styles.cardHeading}>
+            <HowIWorkIcon className={styles.cardIcon} /> How I Work
+          </h2>
+          <p className={howStyles.intro}>{t.howIWorkIntro}</p>
+
+          <ol className={howStyles.flowStrip}>
+            {flow.map((step) => (
+              <li key={step.label} className={howStyles.flowStep}>
+                <span className={howStyles.flowNumber}>{step.num}</span>
+                <span className={howStyles.flowLabel}>{step.label}</span>
+              </li>
+            ))}
+          </ol>
+
+          <p className={styles.sectionCta}>
+            <Link href="/how-i-work">
+              {isEn ? "View Full Operating Model →" : "View Full Operating Model →"}
+            </Link>
+          </p>
+        </div>
+      </section>
+
+      <section
+        id="about"
+        className={`container section ${styles.homeSection} ${styles.anchorSection}`}
+      >
+        <div className={styles.sectionInner}>
+          <h2 className={styles.cardHeading}>
+            <AboutIcon className={styles.cardIcon} /> About
+          </h2>
+          <p className={aboutStyles.intro}>
+            <Lines lines={aboutIntroLines} />
+          </p>
+
+          <div className={aboutStyles.block}>
+            <h3 className={aboutStyles.blockTitle}>Product Domains</h3>
+            <ul className={`${aboutStyles.domainList} ${styles.domainListHome}`}>
+              {domains.slice(0, 6).map((domain) => (
+                <li key={domain}>{domain}</li>
+              ))}
+            </ul>
+          </div>
+
+          <p className={styles.sectionCta}>
+            <Link href="/about">{isEn ? "Read Full Story →" : "Read Full Story →"}</Link>
           </p>
         </div>
       </section>
