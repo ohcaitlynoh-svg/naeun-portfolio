@@ -32,14 +32,15 @@
 /* Unused on this page since the Approach/Cases/Operating Model/Closing
    restructure (no more standalone 01–06 nav strip here) — kept exactly as
    Home's "How I Work" section (app/HomeView.tsx) still renders these same
-   flowStrip/flowStep/flowNumber/flowLabel classes, as-is, for its own "01
-   Principle ... 06 Deliver" strip. Do not remove or rename. */
+   flowStrip/flowStep/flowNumber/flowLabel classes for its own "01
+   Principle ... 06 Deliver" strip. No border/divider here — the strip
+   flows straight into the section's CTA below on Home; margin-bottom
+   alone (matching about.module.css's .block, --space-lg) is the only
+   gap before it. Do not remove or rename. */
 .flowStrip {
   display: flex;
   flex-wrap: wrap;
-  margin-bottom: 3rem;
-  padding-bottom: 2.5rem;
-  border-bottom: 1px solid var(--color-border);
+  margin-bottom: var(--space-lg);
 }
 
 .flowStep {
