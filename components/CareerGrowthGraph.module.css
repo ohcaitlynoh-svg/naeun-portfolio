@@ -79,16 +79,32 @@
   stroke-width: 1.8;
 }
 
+/* Every label class shares a text halo — a stroke painted in the
+   section's own background color, underneath the glyph fill (paint-order)
+   — so a glyph edge stays crisp on the rare occasion a label still sits
+   close to the line/grid, instead of a solid card/background box. Text is
+   also the last SVG layer painted (see the component), so this is a
+   second line of defense, not the primary fix. var(--color-bg) already
+   flips for dark mode via the site's global tokens, so no separate
+   dark-mode override is needed here. */
 .companyLabel {
   font-size: 20px;
   font-weight: 600;
   fill: var(--color-fg);
+  paint-order: stroke fill;
+  stroke: var(--color-bg);
+  stroke-width: 3px;
+  stroke-linejoin: round;
 }
 
 .trackLabel {
   font-size: 14px;
   font-weight: 500;
   fill: var(--color-fg-muted);
+  paint-order: stroke fill;
+  stroke: var(--color-bg);
+  stroke-width: 3px;
+  stroke-linejoin: round;
 }
 
 /* Matches .pointIntern — a visibly lower hierarchy than a regular
@@ -98,6 +114,10 @@
   font-weight: 400;
   fill-opacity: 0.75;
   fill: var(--color-fg-muted);
+  paint-order: stroke fill;
+  stroke: var(--color-bg);
+  stroke-width: 2.5px;
+  stroke-linejoin: round;
 }
 
 .freelanceNode {
@@ -134,6 +154,10 @@
   font-size: 13px;
   font-weight: 600;
   fill: var(--color-fg-muted);
+  paint-order: stroke fill;
+  stroke: var(--color-bg);
+  stroke-width: 2.5px;
+  stroke-linejoin: round;
 }
 
 .freelanceTrack {
@@ -141,11 +165,10 @@
   font-weight: 400;
   fill: var(--color-fg-muted);
   fill-opacity: 0.8;
-}
-
-.freelanceNode:hover .freelanceCompany,
-.freelanceNode:focus-visible .freelanceCompany {
-  fill: var(--color-fg);
+  paint-order: stroke fill;
+  stroke: var(--color-bg);
+  stroke-width: 2.5px;
+  stroke-linejoin: round;
 }
 
 .legend {
