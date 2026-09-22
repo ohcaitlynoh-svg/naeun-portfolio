@@ -111,6 +111,7 @@
 .freelanceStem {
   stroke: var(--color-border);
   stroke-width: 1;
+  stroke-dasharray: 2 2;
 }
 
 .freelanceDot {
@@ -123,6 +124,28 @@
 .freelanceNode:hover .freelanceDot,
 .freelanceNode:focus-visible .freelanceDot {
   stroke: var(--color-fg-muted);
+}
+
+/* Always-visible freelance labels — deliberately a step down from the
+   main .companyLabel/.trackLabel tier (smaller size, lighter weight) so
+   freelance work reads as real but secondary, never competing with the
+   main employment line. */
+.freelanceCompany {
+  font-size: 13px;
+  font-weight: 600;
+  fill: var(--color-fg-muted);
+}
+
+.freelanceTrack {
+  font-size: 10.5px;
+  font-weight: 400;
+  fill: var(--color-fg-muted);
+  fill-opacity: 0.8;
+}
+
+.freelanceNode:hover .freelanceCompany,
+.freelanceNode:focus-visible .freelanceCompany {
+  fill: var(--color-fg);
 }
 
 .tooltipBox {
@@ -229,15 +252,32 @@
   .mobileFreelanceList {
     display: flex;
     flex-direction: column;
-    gap: 0.4rem;
+    gap: 0.6rem;
   }
 
   .mobileFreelanceItem {
     display: flex;
     align-items: baseline;
-    gap: 0.6rem;
-    font-size: var(--font-meta);
-    color: var(--color-fg-muted);
+    flex-wrap: wrap;
+    gap: 0.3rem 0.6rem;
     cursor: pointer;
+  }
+
+  .mobileFreelanceText {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+
+  .mobileFreelanceName {
+    font-size: var(--font-meta);
+    font-weight: 600;
+    color: var(--color-fg-muted);
+  }
+
+  .mobileFreelanceTrack {
+    font-size: 0.75rem;
+    color: var(--color-fg-muted);
+    opacity: 0.8;
   }
 }

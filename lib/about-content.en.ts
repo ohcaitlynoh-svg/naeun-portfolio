@@ -48,13 +48,18 @@ export const careerTimelineEn = [
 ];
 
 export const freelanceExperienceEn = [
-  { company: "Storelink", period: "2023.06.12 – 2023.07.14" },
-  { company: "Aladin Communication", period: "2021.11.01 – 2022.04.30" },
-  { company: "Eastend", period: "2021.07.05 – 2021.08.10" },
-  { company: "Asiance Korea", period: "2021.04.05 – 2021.06.01" },
+  { company: "Storelink", period: "2023.06.12 – 2023.07.14", domain: "CRM · Product Planning" },
+  {
+    company: "Aladin Communication",
+    period: "2021.11.01 – 2022.04.30",
+    domain: "C2C Commerce · UX Planning",
+  },
+  { company: "Eastend", period: "2021.07.05 – 2021.08.10", domain: "Product Planning · IT Setup" },
+  { company: "Asiance Korea", period: "2021.04.05 – 2021.06.01", domain: "Data Platform · UI/UX" },
   {
     company: "Sesun Electronics",
     period: "2018.09.03 – 2019.08.30",
+    domain: "O2O · Commerce",
     note: "Concurrent with Flor Momento",
   },
 ];
