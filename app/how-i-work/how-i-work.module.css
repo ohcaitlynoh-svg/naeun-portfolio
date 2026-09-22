@@ -21,11 +21,15 @@
   line-height: 1.7;
 }
 
-/* Also used by Home's full-width "How I Work" section (app/HomeView.tsx),
-   rendered as-is with no Home-side override. */
+/* Also used by Home's full-width "How I Work" section and Career
+   Snapshot's supporting line (app/HomeView.tsx), rendered as-is with no
+   Home-side override. word-break: keep-all matches page.module.css's
+   .heroMain/.heroSupporting — avoids breaking a Korean word off from its
+   trailing particle (e.g. "범위" / "를") mid-line. */
 .intro {
   max-width: var(--text-max);
   color: var(--color-fg-muted);
+  word-break: keep-all;
   margin-bottom: 2.5rem;
 }
 
@@ -42,8 +46,9 @@
    strip→CTA (2rem, workflow reads as "connected" to its detail link) <
    intro→strip (2.5rem, the widest break, between reading and scanning).
    row-gap keeps wrapped rows (tablet/mobile) evenly spaced without
-   affecting the column spacing below, which .flowStep's own
-   padding-left/border-left (untouched) already handles. */
+   affecting the column spacing below, which .flowStep's own padding-left
+   (below, now paired with the ::before arrow instead of a border) already
+   handles. */
 .flowStrip {
   display: flex;
   flex-wrap: wrap;
@@ -51,17 +56,33 @@
   margin-bottom: 1.5rem;
 }
 
+/* Arrow connector (replaces the old divider line) so the strip reads as
+   an ordered process — Principle -> Listen -> ... -> Deliver — rather
+   than a menu. Muted accent (opacity, not a lighter color token) so it
+   stays clearly quieter than .flowNumber's full-strength accent and
+   .flowLabel's bold text; positioned absolutely against .flowStep's own
+   box so it doesn't need to be a flex sibling of number/label. */
 .flowStep {
+  position: relative;
   display: flex;
   align-items: baseline;
   gap: 0.5rem;
-  padding-left: 1.5rem;
-  border-left: 1px solid var(--color-border);
+  padding-left: 2.25rem;
 }
 
 .flowStep:first-child {
   padding-left: 0;
-  border-left: none;
+}
+
+.flowStep:not(:first-child)::before {
+  content: "→";
+  position: absolute;
+  left: 0.85rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-accent);
+  opacity: 0.45;
+  font-size: 0.85em;
 }
 
 .flowNumber {
@@ -402,13 +423,20 @@
 }
 
 @media (max-width: 640px) {
+  /* Below 640px, spacing between steps comes from this gap shorthand
+     instead of .flowStep's own padding-left — so the arrow (which is
+     positioned assuming that padding-left reserves room for it) is
+     hidden here rather than repositioned per-breakpoint. */
   .flowStrip {
     gap: 1rem 1.5rem;
   }
 
   .flowStep {
     padding-left: 0;
-    border-left: none;
+  }
+
+  .flowStep::before {
+    display: none;
   }
 
   .caseGrid {

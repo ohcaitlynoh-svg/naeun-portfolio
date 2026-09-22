@@ -78,6 +78,17 @@
   fill: var(--color-fg-muted);
 }
 
+/* Role/domain line — Home's "large" graph only (see CareerGraphView.tsx's
+   trackLabel). Sits between .mainLabel (company, most prominent) and
+   .periodLabel (date, least prominent) in the hierarchy: smaller/lighter
+   than the company name, but medium-weight rather than periodLabel's
+   plain weight, since it carries more information density than a date. */
+.trackLabel {
+  font-size: 14px;
+  font-weight: 500;
+  fill: var(--color-fg-muted);
+}
+
 /* Freelance — smaller, lighter: secondary visual weight */
 .nodeFreelance .nodeCircle {
   fill: var(--color-fg-muted);

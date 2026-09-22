@@ -14,6 +14,11 @@ type GraphNode = {
   period: string;
   role?: string;
   summary?: string;
+  // Short, always-visible "what domain/role" line for Home's "large" graph
+  // — sourced only from the career timeline entry (never a project's own
+  // longer heroRole/oneLiner, which stay reserved for the Detail Panel), so
+  // it's consistently a single short tag rather than a full sentence.
+  trackLabel?: string;
   slug?: string;
   isSelected: boolean;
   isFreelance: boolean;
@@ -112,13 +117,23 @@ export default function CareerGraphView({
   const mainRadius = size === "large" ? { base: 8, selected: 10 } : { base: 7, selected: 9 };
   const freelanceRadius = size === "large" ? 5 : 4.5;
   // "large" gets a taller viewBox (not just wider labels) so Home's graph
-  // reads as a bigger visual, not just a stretched version of About's.
-  const viewH = size === "large" ? 270 : 240;
+  // reads as a bigger visual, not just a stretched version of About's — the
+  // extra room (270->300) is for .trackLabel below, so the company name's
+  // own position doesn't have to move.
+  const viewH = size === "large" ? 300 : 240;
   const mainLineY = size === "large" ? 165 : 140;
   const freelanceLaneY = size === "large" ? 58 : 54;
   const mainLabelDy = size === "large" ? 20 : 18;
   const mainLabelOffset = size === "large" ? { selected: 34, base: 32 } : { selected: 31, base: 29 };
   const periodLabelOffset = size === "large" ? { selected: 24, base: 22 } : { selected: 22, base: 20 };
+  // Role/domain line — "large" (Home) only, sits below the company name at
+  // a fixed gap past its LAST line (1 or 2, from wrapLabel), so a 2-line
+  // company name (only "Hyundai Home Shopping") and a 2-line track label
+  // (only Yuratech's/Cafe24's longer fallback) never have to be reasoned
+  // about together — each node's own line count independently determines
+  // where its own track label starts.
+  const trackLabelGap = 16;
+  const trackLabelDy = 14;
   // Adjacent main nodes sit close enough (7 nodes evenly spaced) that full
   // date-range strings ("2018.08.08 – 2021.03") can be wider than the gap
   // between them and collide. Stagger odd-index period labels further from
@@ -141,6 +156,7 @@ export default function CareerGraphView({
           period,
           role: project ? project.heroRole ?? project.role : careerEntry?.role || undefined,
           summary: project ? project.oneLiner : careerEntry?.domain || undefined,
+          trackLabel: careerEntry?.domain || careerEntry?.role || undefined,
           slug: project?.slug,
           isSelected: Boolean(project),
           isFreelance: false,
@@ -261,6 +277,10 @@ export default function CareerGraphView({
             const isHovered = hoveredId === n.id;
             const lines = wrapLabel(n.label);
             const x = mainX(n.xRatio);
+            const companyOffset = n.isSelected ? mainLabelOffset.selected : mainLabelOffset.base;
+            const trackLines = size === "large" && n.trackLabel ? wrapLabel(n.trackLabel) : [];
+            const trackLabelY =
+              mainLineY + companyOffset + (lines.length - 1) * mainLabelDy + trackLabelGap;
             return (
               <g
                 key={n.id}
@@ -305,6 +325,20 @@ export default function CareerGraphView({
                     </tspan>
                   ))}
                 </text>
+                {trackLines.length > 0 && (
+                  <text
+                    x={x}
+                    y={trackLabelY}
+                    textAnchor="middle"
+                    className={styles.trackLabel}
+                  >
+                    {trackLines.map((line, li) => (
+                      <tspan key={li} x={x} dy={li === 0 ? 0 : trackLabelDy}>
+                        {line}
+                      </tspan>
+                    ))}
+                  </text>
+                )}
                 <text
                   x={x}
                   y={
@@ -396,6 +430,9 @@ export default function CareerGraphView({
                 <span className={styles.mobilePeriod}>{n.period}</span>
                 {n.isFreelance && n.summary && (
                   <span className={styles.mobileNote}>{n.summary}</span>
+                )}
+                {!n.isFreelance && size === "large" && n.trackLabel && (
+                  <span className={styles.mobileNote}>{n.trackLabel}</span>
                 )}
               </div>
             </li>
