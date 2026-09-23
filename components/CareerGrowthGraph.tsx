@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import styles from "./CareerGrowthGraph.module.css";
 
 type CareerEntry = { company: string; period: string; role: string; domain: string };
@@ -52,6 +52,21 @@ const FREELANCE_COMPANY_LINE_H = 12;
 const FREELANCE_TRACK_LINE_H = 10;
 const FREELANCE_LABEL_GAP = 5;
 
+// Main Career's own label layout — one single rule, used identically by
+// all 7 points, no per-company exception and no collision detection.
+// point -> (MAIN_LABEL_GAP) -> company name -> (MAIN_TRACK_GAP) ->
+// role/domain. MAIN_COMPANY_LINE_H is the wrapped-company-line advance
+// (Hyundai Home Shopping is the only name that wraps to 2 lines) — a
+// typographic necessity, not a layout offset, so it doesn't vary either.
+const MAIN_LABEL_GAP = 12;
+const MAIN_COMPANY_LINE_H = 20;
+const MAIN_TRACK_GAP = 3;
+// Baseline-to-baseline advance from the company font's own line to the
+// (smaller) role/domain line below it — typographic, not a layout offset.
+const MAIN_TRACK_BASELINE_ADVANCE = 14;
+// Per-line advance when role/domain text itself wraps to 2+ lines.
+const MAIN_TRACK_LINE_H = 15;
+
 function parseDatePart(part: string): Date {
   const [y, m, d] = part.trim().split(".").map((n) => parseInt(n, 10));
   return new Date(y, (m || 1) - 1, d || 1);
@@ -95,25 +110,23 @@ function wrapToWidth(label: string, maxChars: number): string[] {
   return lines;
 }
 
-// Reused as-is from CareerGraphView's freelance placement — a freelance
-// entry's x is interpolated between whichever two main points its date
-// falls between, then nudged apart from its neighbors so close dates never
-// collapse onto the same point. This is the real, date-driven x — never
-// adjusted for label layout; only each label's own vertical offset is.
-function interpolateXRatio(dateValue: number, main: { xRatio: number; dateValue: number }[]): number {
-  if (dateValue <= main[0].dateValue) return main[0].xRatio;
-  for (let i = 0; i < main.length - 1; i++) {
-    const a = main[i];
-    const b = main[i + 1];
-    const lo = Math.min(a.dateValue, b.dateValue);
-    const hi = Math.max(a.dateValue, b.dateValue);
-    if (dateValue >= lo && dateValue <= hi && hi > lo) {
-      const t = (dateValue - a.dateValue) / (b.dateValue - a.dateValue);
-      return a.xRatio + t * (b.xRatio - a.xRatio);
-    }
-  }
-  return main[main.length - 1].xRatio;
-}
+// Freelance / Project's X is a fixed visual placement, not a real date
+// axis — Home's Career Snapshot treats this row as secondary reference
+// info ("how it reads"), not a chronology ("when it happened"); the exact
+// date is still available in each marker's own tooltip. Each ratio was
+// picked to sit in the empty space between two Main Career points,
+// matching the requested reading rhythm (roughly: Sesun between Cafe24
+// and Flor Momento; Asiance early in the Flor Momento-Biginsight gap;
+// Eastend just right of Asiance; Aladin right of Eastend/left of
+// Biginsight; Storelink between Biginsight and EXEM) — never computed
+// from period dates.
+const FREELANCE_X_RATIO: Record<string, number> = {
+  "Sesun Electronics": 0.52,
+  "Asiance Korea": 0.655,
+  Eastend: 0.78,
+  "Aladin Communication": 0.885,
+  Storelink: 0.985,
+};
 
 // One geometry drives the whole layout — viewBox size, plot margins, wrap
 // widths, label gaps/tiers, all scaled together — so a breakpoint's variant
@@ -134,9 +147,6 @@ type Geometry = {
   trackMaxChars: number;
   freelanceCompanyMaxChars: number;
   freelanceTrackMaxChars: number;
-  mainLabelGap: number;
-  mainLabelExtraDrop: number;
-  tightYThreshold: number;
   freelanceTierBase: number;
   freelanceTierStep: number;
 };
@@ -149,18 +159,15 @@ type Geometry = {
 const DESKTOP_GEOMETRY: Geometry = {
   viewW: 1100,
   yAxisW: 40,
-  sideMargin: 85,
-  plotTop: 115,
-  plotH: 95,
-  bottomMargin: 108,
+  sideMargin: 50,
+  plotTop: 120,
+  plotH: 75,
+  bottomMargin: 60,
   fontScale: 1,
   companyMaxChars: 15,
   trackMaxChars: 22,
   freelanceCompanyMaxChars: 16,
   freelanceTrackMaxChars: 18,
-  mainLabelGap: 24,
-  mainLabelExtraDrop: 34,
-  tightYThreshold: 4,
   // Base/step are sized only to clear the (now much smaller) freelance
   // label's real rendered height — see the collision algorithm above,
   // which checks real rendered rectangles rather than a fixed "close to
@@ -168,8 +175,8 @@ const DESKTOP_GEOMETRY: Geometry = {
   // fixed short list, so a longer run of clustered dates always has a
   // next tier to fall back to instead of silently reusing an
   // already-colliding one.
-  freelanceTierBase: 18,
-  freelanceTierStep: 24,
+  freelanceTierBase: 14,
+  freelanceTierStep: 18,
 };
 
 // 721–900px — the range between the mobile list breakpoint and desktop's
@@ -183,20 +190,17 @@ const DESKTOP_GEOMETRY: Geometry = {
 const TABLET_GEOMETRY: Geometry = {
   viewW: 860,
   yAxisW: 32,
-  sideMargin: 56,
-  plotTop: 265,
-  plotH: 95,
-  bottomMargin: 190,
+  sideMargin: 68,
+  plotTop: 245,
+  plotH: 100,
+  bottomMargin: 75,
   fontScale: 1.3,
   companyMaxChars: 10,
   trackMaxChars: 10,
   freelanceCompanyMaxChars: 14,
   freelanceTrackMaxChars: 16,
-  mainLabelGap: 31,
-  mainLabelExtraDrop: 44,
-  tightYThreshold: 4,
-  freelanceTierBase: 22,
-  freelanceTierStep: 30,
+  freelanceTierBase: 18,
+  freelanceTierStep: 24,
 };
 
 type Point = {
@@ -209,7 +213,6 @@ type Point = {
   xRatio: number;
   x: number;
   y: number;
-  index: number;
 };
 
 type FreelancePoint = {
@@ -287,7 +290,6 @@ function buildGraph(geo: Geometry, career: CareerEntry[], freelance: FreelanceEn
       xRatio,
       x: plotX(xRatio),
       y: plotY(years),
-      index: i,
     };
   });
 
@@ -308,30 +310,17 @@ function buildGraph(geo: Geometry, career: CareerEntry[], freelance: FreelanceEn
     return points[points.length - 1].y;
   }
 
-  const mainForInterp = points.map((p) => ({
-    xRatio: p.xRatio,
-    dateValue: (() => {
-      const [start] = splitPeriod(mainData[p.index]?.period ?? "");
-      return yearsBetween(firstStart, start);
-    })(),
+  const raw = freelance.map((f) => ({
+    id: `f-${f.company}`,
+    company: f.company,
+    period: f.period,
+    trackLabel: f.domain ?? "",
+    xRatio: FREELANCE_X_RATIO[f.company] ?? 0.5,
   }));
-  const raw = freelance.map((f) => {
-    const [start] = splitPeriod(f.period);
-    const dateValue = yearsBetween(firstStart, start);
-    return {
-      id: `f-${f.company}`,
-      company: f.company,
-      period: f.period,
-      trackLabel: f.domain ?? "",
-      xRatio: interpolateXRatio(dateValue, mainForInterp),
-      dateValue,
-    };
-  });
-  // x is the real, date-interpolated position — never nudged apart or
-  // capped for layout reasons. Only sorted (for the label-tier pass
-  // below); the dot itself always lands exactly where its real date
-  // places it, including landing close to — or even level with — a
-  // neighboring point when that's what actually happened.
+  // x is the fixed visual placement above (FREELANCE_X_RATIO) — never
+  // computed from a real date. Only sorted here (for the label-tier pass
+  // below), so two markers placed close together still get a
+  // deterministic tier order.
   const sorted = [...raw].sort((a, b) => a.xRatio - b.xRatio);
   // Label collision avoidance: each point's label gets the LOWEST tier
   // (from geo.freelanceTiers) whose actual rendered rectangle — real
@@ -406,20 +395,20 @@ function buildGraph(geo: Geometry, career: CareerEntry[], freelance: FreelanceEn
 
   // Label geometry, precomputed once and shared by the marker layer (for
   // interaction hit-areas' aria-labels) and the text layer (see the
-  // layered render below) — every main point uses the identical
-  // point->company gap (mainLabelGap) unless its Y sits essentially on top
-  // of the previous point's (only the Hyundai/Yuratech baseline pair), in
-  // which case it drops an extra mainLabelExtraDrop so the two labels
-  // don't collide. Both stay below the line either way — this is the only
-  // "minimal offset" exception.
-  const mainLabels: MainLabel[] = points.map((p, i) => {
-    const prev = i > 0 ? points[i - 1] : null;
-    const extraDrop = prev && Math.abs(p.y - prev.y) < geo.tightYThreshold ? geo.mainLabelExtraDrop : 0;
+  // layered render below) — one single rule for all 7 points: point ->
+  // MAIN_LABEL_GAP -> company -> MAIN_TRACK_GAP -> role/domain. No
+  // per-company exception, no collision check, no tier. Equal X spacing
+  // (see xRatio above) already keeps every point's label clear of its
+  // neighbors, including the Hyundai/Yuratech pair that share the same
+  // Y=0 baseline.
+  const mainLabels: MainLabel[] = points.map((p) => {
     const companyLines = wrapToWidth(p.company, geo.companyMaxChars);
     const trackLines = p.trackLabel ? wrapToWidth(p.trackLabel, geo.trackMaxChars) : [];
-    const companyY = p.y + geo.mainLabelGap + extraDrop;
+    const companyY = p.y + MAIN_LABEL_GAP * geo.fontScale;
     const trackY =
-      companyY + (companyLines.length - 1) * 20 * geo.fontScale + (p.isIntern ? 16 : 20) * geo.fontScale;
+      companyY +
+      (companyLines.length - 1) * MAIN_COMPANY_LINE_H * geo.fontScale +
+      (MAIN_TRACK_GAP + MAIN_TRACK_BASELINE_ADVANCE) * geo.fontScale;
     return { id: p.id, x: p.x, isIntern: p.isIntern, companyLines, trackLines, companyY, trackY };
   });
 
@@ -455,9 +444,11 @@ function buildGraph(geo: Geometry, career: CareerEntry[], freelance: FreelanceEn
 export default function CareerGrowthGraph({
   career,
   freelance,
+  cta,
 }: {
   career: CareerEntry[];
   freelance: FreelanceEntry[];
+  cta: ReactNode;
 }) {
   const [activeId, setActiveId] = useState<string | null>(null);
   const [hoveredId, setHoveredId] = useState<string | null>(null);
@@ -676,7 +667,7 @@ export default function CareerGrowthGraph({
               style={companyStyle}
             >
               {label.companyLines.map((line, li) => (
-                <tspan key={li} x={label.x} dy={li === 0 ? 0 : 20 * fs}>
+                <tspan key={li} x={label.x} dy={li === 0 ? 0 : MAIN_COMPANY_LINE_H * fs}>
                   {line}
                 </tspan>
               ))}
@@ -690,7 +681,7 @@ export default function CareerGrowthGraph({
                 style={label.isIntern ? trackInternStyle : trackStyle}
               >
                 {label.trackLines.map((line, li) => (
-                  <tspan key={li} x={label.x} dy={li === 0 ? 0 : 15 * fs}>
+                  <tspan key={li} x={label.x} dy={li === 0 ? 0 : MAIN_TRACK_LINE_H * fs}>
                     {line}
                   </tspan>
                 ))}
@@ -748,11 +739,21 @@ export default function CareerGrowthGraph({
     </div>
   );
 
+  // Legend + CTA share one compact row directly under the graph, instead
+  // of the legend sitting under the graph and the CTA link in its own
+  // separate area below that — no dedicated vertical zone for either.
+  const bottomRow = (
+    <div className={styles.bottomRow}>
+      {legend}
+      <span className={styles.bottomCta}>{cta}</span>
+    </div>
+  );
+
   return (
     <div className={styles.wrap}>
       <div className={styles.desktopGraph}>
         {renderSvg(DESKTOP_GEOMETRY, desktopData)}
-        {legend}
+        {bottomRow}
       </div>
 
       {/* 721–900px: a distinct, more spacious layout (see TABLET_GEOMETRY)
@@ -761,7 +762,7 @@ export default function CareerGrowthGraph({
           shrinking along with the viewBox. */}
       <div className={styles.tabletGraph}>
         {renderSvg(TABLET_GEOMETRY, tabletData)}
-        {legend}
+        {bottomRow}
       </div>
 
       {/* Mobile: vertical list — desktop graph doesn't read well cramped
@@ -838,6 +839,7 @@ export default function CareerGrowthGraph({
           </li>
         )}
       </ol>
+      <p className={styles.mobileCta}>{cta}</p>
     </div>
   );
 }
