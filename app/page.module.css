@@ -207,14 +207,6 @@
   margin-bottom: 1.5rem;
 }
 
-/* Career Snapshot's own supporting-line gap, scoped here rather than
-   editing how-i-work.module.css's shared .intro (also used by Home's How
-   I Work section, untouched) — the low end of the graph's own 32-40px
-   heading-to-graph gap budget, part of keeping the whole section compact. */
-.sectionInner .careerIntro {
-  margin-bottom: 2rem;
-}
-
 .sectionCta {
   margin-top: 2rem;
 }

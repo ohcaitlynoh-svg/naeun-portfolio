@@ -152,7 +152,7 @@ export default function HomeView() {
           <h2 className={styles.cardHeading}>
             <CareerIcon className={styles.cardIcon} /> Career Snapshot
           </h2>
-          <p className={`${howStyles.intro} ${styles.careerIntro}`}>{t.careerSummary}</p>
+          <p className={howStyles.intro}>{t.careerSummary}</p>
 
           <div className={styles.visualSummary}>
             <CareerGrowthGraph

@@ -140,7 +140,7 @@
 
 .freelanceStem {
   stroke: var(--color-fg-muted);
-  stroke-opacity: 0.22;
+  stroke-opacity: 0.15;
   stroke-width: 1;
   stroke-dasharray: 2 2;
 }
@@ -162,7 +162,7 @@
    real but clearly secondary reference info, never competing with the
    main employment line/points for visual priority. */
 .freelanceCompany {
-  font-size: 10.5px;
+  font-size: 9px;
   font-weight: 500;
   fill: var(--color-fg-muted);
   paint-order: stroke fill;
@@ -172,7 +172,7 @@
 }
 
 .freelanceTrack {
-  font-size: 8.5px;
+  font-size: 7.5px;
   font-weight: 400;
   fill: var(--color-fg-muted);
   fill-opacity: 0.55;
@@ -191,14 +191,15 @@
 }
 
 /* Legend (left) + CTA (right) on one compact row directly under the graph
-   — no separate vertical zone for either. */
+   — no separate vertical zone for either, and a small top margin instead
+   of the old standalone CTA paragraph's larger one. */
 .bottomRow {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: 0.5rem 1.5rem;
-  margin-top: 0.75rem;
+  margin-top: 0.5rem;
 }
 
 .bottomCta {
