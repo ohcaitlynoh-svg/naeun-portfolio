@@ -140,7 +140,7 @@
 
 .freelanceStem {
   stroke: var(--color-fg-muted);
-  stroke-opacity: 0.4;
+  stroke-opacity: 0.22;
   stroke-width: 1;
   stroke-dasharray: 2 2;
 }
@@ -157,27 +157,28 @@
 }
 
 /* Always-visible freelance labels — deliberately a step down from the
-   main .companyLabel/.trackLabel tier (smaller size, lighter weight) so
-   freelance work reads as real but secondary, never competing with the
-   main employment line. */
+   main .companyLabel/.trackLabel tier at every level (smaller size,
+   lighter weight, more muted role/domain) so freelance work reads as
+   real but clearly secondary reference info, never competing with the
+   main employment line/points for visual priority. */
 .freelanceCompany {
-  font-size: 13px;
-  font-weight: 600;
+  font-size: 10.5px;
+  font-weight: 500;
   fill: var(--color-fg-muted);
   paint-order: stroke fill;
   stroke: var(--color-bg);
-  stroke-width: 2.5px;
+  stroke-width: 2px;
   stroke-linejoin: round;
 }
 
 .freelanceTrack {
-  font-size: 10.5px;
+  font-size: 8.5px;
   font-weight: 400;
   fill: var(--color-fg-muted);
-  fill-opacity: 0.8;
+  fill-opacity: 0.55;
   paint-order: stroke fill;
   stroke: var(--color-bg);
-  stroke-width: 2.5px;
+  stroke-width: 2px;
   stroke-linejoin: round;
 }
 

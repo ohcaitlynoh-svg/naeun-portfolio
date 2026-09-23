@@ -38,6 +38,20 @@ const BASELINE_COMPANIES = new Set(["Hyundai Home Shopping", "Yuratech"]);
 const SCALE_MAX = 13;
 const AXIS_TICKS = [0, 3, 6, 9, 12];
 
+// Freelance / Project's own label typography (font sizes, line-heights,
+// breathing gap), shared by the collision-box estimate in buildGraph and
+// the actual render in renderSvg so the two can never drift apart. Both a
+// visible step down from Main Career's own label tier (bigger, bolder,
+// semibold company weight) — Freelance reads as secondary reference
+// information stacked close to the line, not a peer of the main line's
+// company/role hierarchy. Multiplied by geo.fontScale like every other
+// label constant.
+const FREELANCE_COMPANY_FONT = 10.5;
+const FREELANCE_TRACK_FONT = 8.5;
+const FREELANCE_COMPANY_LINE_H = 12;
+const FREELANCE_TRACK_LINE_H = 10;
+const FREELANCE_LABEL_GAP = 5;
+
 function parseDatePart(part: string): Date {
   const [y, m, d] = part.trim().split(".").map((n) => parseInt(n, 10));
   return new Date(y, (m || 1) - 1, d || 1);
@@ -127,13 +141,17 @@ type Geometry = {
   freelanceTierStep: number;
 };
 
-// Desktop/wide-tablet — the original layout, unchanged.
+// Desktop/wide-tablet. Freelance's tier zone (base/step) is deliberately
+// tight — Freelance / Project reads as secondary reference info stacked
+// close to the line, never a peer structure competing with Main Career's
+// own rising line/points for vertical space. plotTop/plotH are sized to
+// this compact freelance zone, not the old, much taller one.
 const DESKTOP_GEOMETRY: Geometry = {
   viewW: 1100,
   yAxisW: 40,
   sideMargin: 85,
-  plotTop: 200,
-  plotH: 240,
+  plotTop: 115,
+  plotH: 95,
   bottomMargin: 108,
   fontScale: 1,
   companyMaxChars: 15,
@@ -143,15 +161,15 @@ const DESKTOP_GEOMETRY: Geometry = {
   mainLabelGap: 24,
   mainLabelExtraDrop: 34,
   tightYThreshold: 4,
-  // Step (~70) is sized to clear a full 2-line-company + 2-line-track
-  // label's real height, not just the previous tuning's smaller gap — see
-  // the collision algorithm above, which now checks real rendered
-  // rectangles rather than a fixed "close to the previous point" rule.
-  // Uncapped (base + step*n) rather than a fixed short list, so a longer
-  // run of clustered dates always has a next tier to fall back to instead
-  // of silently reusing an already-colliding one.
-  freelanceTierBase: 48,
-  freelanceTierStep: 70,
+  // Base/step are sized only to clear the (now much smaller) freelance
+  // label's real rendered height — see the collision algorithm above,
+  // which checks real rendered rectangles rather than a fixed "close to
+  // the previous point" rule. Uncapped (base + step*n) rather than a
+  // fixed short list, so a longer run of clustered dates always has a
+  // next tier to fall back to instead of silently reusing an
+  // already-colliding one.
+  freelanceTierBase: 18,
+  freelanceTierStep: 24,
 };
 
 // 721–900px — the range between the mobile list breakpoint and desktop's
@@ -166,8 +184,8 @@ const TABLET_GEOMETRY: Geometry = {
   viewW: 860,
   yAxisW: 32,
   sideMargin: 56,
-  plotTop: 460,
-  plotH: 230,
+  plotTop: 265,
+  plotH: 95,
   bottomMargin: 190,
   fontScale: 1.3,
   companyMaxChars: 10,
@@ -177,8 +195,8 @@ const TABLET_GEOMETRY: Geometry = {
   mainLabelGap: 31,
   mainLabelExtraDrop: 44,
   tightYThreshold: 4,
-  freelanceTierBase: 60,
-  freelanceTierStep: 90,
+  freelanceTierBase: 22,
+  freelanceTierStep: 30,
 };
 
 type Point = {
@@ -327,8 +345,8 @@ function buildGraph(geo: Geometry, career: CareerEntry[], freelance: FreelanceEn
   // tier even when the two aren't at the same tier. This is the "y-
   // offset/text-offset only" fix for label collision — the dot's x/y is
   // untouched either way.
-  const companyFontPx = 13 * geo.fontScale;
-  const trackFontPx = 10.5 * geo.fontScale;
+  const companyFontPx = FREELANCE_COMPANY_FONT * geo.fontScale;
+  const trackFontPx = FREELANCE_TRACK_FONT * geo.fontScale;
   const AVG_CHAR_WIDTH = 0.56; // empirical average glyph width, as a
   // fraction of font-size, for this bold/medium-weight label text
   const LABEL_PADDING = 10 * geo.fontScale;
@@ -344,8 +362,11 @@ function buildGraph(geo: Geometry, career: CareerEntry[], freelance: FreelanceEn
       LABEL_PADDING / 2;
     // Same block-height formula as the actual companyY/trackY placement
     // below — kept in sync so this estimate matches what's really drawn.
-    const companyBlockH = companyLines.length * 15 * geo.fontScale + 6 * geo.fontScale;
-    const trackBlockH = trackLines.length > 0 ? (trackLines.length - 1) * 12 * geo.fontScale + 12 * geo.fontScale : 0;
+    const companyBlockH = companyLines.length * FREELANCE_COMPANY_LINE_H * geo.fontScale + FREELANCE_LABEL_GAP * geo.fontScale;
+    const trackBlockH =
+      trackLines.length > 0
+        ? (trackLines.length - 1) * FREELANCE_TRACK_LINE_H * geo.fontScale + FREELANCE_TRACK_LINE_H * geo.fontScale
+        : 0;
     return { x, companyBlockH, trackBlockH, halfWidth };
   });
   const rectFor = (i: number, offset: number): Rect => {
@@ -404,8 +425,8 @@ function buildGraph(geo: Geometry, career: CareerEntry[], freelance: FreelanceEn
 
   const freelanceLabels: FreelanceLabel[] = freelancePoints.map((f) => {
     const companyY = f.y - f.labelOffset;
-    const stemTopY = companyY + 6 * geo.fontScale; // small gap between the
-    // dashed line's end and the label's own bottom edge
+    const stemTopY = companyY + FREELANCE_LABEL_GAP * geo.fontScale; // small gap between
+    // the dashed line's end and the label's own bottom edge
     const companyLines = wrapToWidth(f.company, geo.freelanceCompanyMaxChars);
     const trackLines = f.trackLabel ? wrapToWidth(f.trackLabel, geo.freelanceTrackMaxChars) : [];
     // Full company block height (not just "one extra line's worth") plus a
@@ -413,7 +434,7 @@ function buildGraph(geo: Geometry, career: CareerEntry[], freelance: FreelanceEn
     // freelanceCompanyMaxChars is narrow (the tablet geometry), so the old
     // "(lines-1) * small-increment" shorthand under-counted a multi-line
     // company block's real height and let it touch the track line above.
-    const trackY = companyY - (companyLines.length * 15 * geo.fontScale + 6 * geo.fontScale);
+    const trackY = companyY - (companyLines.length * FREELANCE_COMPANY_LINE_H * geo.fontScale + FREELANCE_LABEL_GAP * geo.fontScale);
     // A freelance date can fall genuinely days/weeks from a main role's own
     // start (e.g. Aladin Communication ending right before Biginsight
     // begins), so the dot itself can sit almost on top of a main point.
@@ -466,12 +487,12 @@ export default function CareerGrowthGraph({
     const companyStyle = { fontSize: 20 * fs, strokeWidth: 3 * fs };
     const trackStyle = { fontSize: 14 * fs, strokeWidth: 3 * fs };
     const trackInternStyle = { fontSize: 12 * fs, strokeWidth: 2.5 * fs };
-    const freelanceCompanyStyle = { fontSize: 13 * fs, strokeWidth: 2.5 * fs };
-    const freelanceTrackStyle = { fontSize: 10.5 * fs, strokeWidth: 2.5 * fs };
+    const freelanceCompanyStyle = { fontSize: FREELANCE_COMPANY_FONT * fs, strokeWidth: 2 * fs };
+    const freelanceTrackStyle = { fontSize: FREELANCE_TRACK_FONT * fs, strokeWidth: 2 * fs };
     const axisTickStyle = { fontSize: 12 * fs };
     const axisUnitStyle = { fontSize: 11 * fs };
     const mainDotR = { normal: 7.5 * fs, intern: 5 * fs, hit: 16 * fs };
-    const freelanceDotR = 3.5 * fs;
+    const freelanceDotR = 2.5 * fs;
     const freelanceHitHalfW = 10 * fs;
 
     return (
@@ -688,7 +709,7 @@ export default function CareerGrowthGraph({
               style={freelanceCompanyStyle}
             >
               {[...label.companyLines].reverse().map((line, li) => (
-                <tspan key={li} x={label.x} dy={li === 0 ? 0 : -15 * fs}>
+                <tspan key={li} x={label.x} dy={li === 0 ? 0 : -FREELANCE_COMPANY_LINE_H * fs}>
                   {line}
                 </tspan>
               ))}
@@ -702,7 +723,7 @@ export default function CareerGrowthGraph({
                 style={freelanceTrackStyle}
               >
                 {[...label.trackLines].reverse().map((line, li) => (
-                  <tspan key={li} x={label.x} dy={li === 0 ? 0 : -12 * fs}>
+                  <tspan key={li} x={label.x} dy={li === 0 ? 0 : -FREELANCE_TRACK_LINE_H * fs}>
                     {line}
                   </tspan>
                 ))}
