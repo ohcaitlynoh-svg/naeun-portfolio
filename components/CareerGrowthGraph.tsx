@@ -81,6 +81,26 @@ function wrapToWidth(label: string, maxChars: number): string[] {
   return lines;
 }
 
+// Reused as-is from CareerGraphView's freelance placement — a freelance
+// entry's x is interpolated between whichever two main points its date
+// falls between, then nudged apart from its neighbors so close dates never
+// collapse onto the same point. This is the real, date-driven x — never
+// adjusted for label layout; only each label's own vertical offset is.
+function interpolateXRatio(dateValue: number, main: { xRatio: number; dateValue: number }[]): number {
+  if (dateValue <= main[0].dateValue) return main[0].xRatio;
+  for (let i = 0; i < main.length - 1; i++) {
+    const a = main[i];
+    const b = main[i + 1];
+    const lo = Math.min(a.dateValue, b.dateValue);
+    const hi = Math.max(a.dateValue, b.dateValue);
+    if (dateValue >= lo && dateValue <= hi && hi > lo) {
+      const t = (dateValue - a.dateValue) / (b.dateValue - a.dateValue);
+      return a.xRatio + t * (b.xRatio - a.xRatio);
+    }
+  }
+  return main[main.length - 1].xRatio;
+}
+
 // One geometry drives the whole layout — viewBox size, plot margins, wrap
 // widths, label gaps/tiers, all scaled together — so a breakpoint's variant
 // is a single consistent config, not a pile of independent overrides.
@@ -101,7 +121,8 @@ type Geometry = {
   freelanceCompanyMaxChars: number;
   freelanceTrackMaxChars: number;
   mainLabelGap: number;
-  mainLabelTierStep: number;
+  mainLabelExtraDrop: number;
+  tightYThreshold: number;
   freelanceTierBase: number;
   freelanceTierStep: number;
 };
@@ -120,11 +141,8 @@ const DESKTOP_GEOMETRY: Geometry = {
   freelanceCompanyMaxChars: 16,
   freelanceTrackMaxChars: 18,
   mainLabelGap: 24,
-  // Every main label starts at mainLabelGap; this is only added on top for
-  // whichever point(s) a real bounding-box collision check (see below)
-  // finds still overlapping an already-placed label — most of the time
-  // it's never used at all.
-  mainLabelTierStep: 34,
+  mainLabelExtraDrop: 34,
+  tightYThreshold: 4,
   // Step (~70) is sized to clear a full 2-line-company + 2-line-track
   // label's real height, not just the previous tuning's smaller gap — see
   // the collision algorithm above, which now checks real rendered
@@ -148,7 +166,7 @@ const TABLET_GEOMETRY: Geometry = {
   viewW: 860,
   yAxisW: 32,
   sideMargin: 56,
-  plotTop: 280,
+  plotTop: 460,
   plotH: 230,
   bottomMargin: 190,
   fontScale: 1.3,
@@ -157,7 +175,8 @@ const TABLET_GEOMETRY: Geometry = {
   freelanceCompanyMaxChars: 14,
   freelanceTrackMaxChars: 16,
   mainLabelGap: 31,
-  mainLabelTierStep: 44,
+  mainLabelExtraDrop: 44,
+  tightYThreshold: 4,
   freelanceTierBase: 60,
   freelanceTierStep: 90,
 };
@@ -225,6 +244,7 @@ function buildGraph(geo: Geometry, career: CareerEntry[], freelance: FreelanceEn
   const plotRight = geo.viewW - geo.sideMargin;
   const plotW = plotRight - plotLeft;
   const plotBottom = geo.plotTop + geo.plotH;
+  const viewH = plotBottom + geo.bottomMargin;
 
   const plotX = (ratio: number) => plotLeft + ratio * plotW;
   const plotY = (years: number) => plotBottom - (Math.min(years, SCALE_MAX) / SCALE_MAX) * geo.plotH;
@@ -232,25 +252,13 @@ function buildGraph(geo: Geometry, career: CareerEntry[], freelance: FreelanceEn
   const mainData = MAIN_ORDER.map((company) => career.find((c) => c.company === company));
   const firstEntry = mainData[0];
   const [firstStart] = firstEntry ? splitPeriod(firstEntry.period) : [new Date()];
-  const lastEntry = mainData[mainData.length - 1];
-  const [lastMainStart] = lastEntry ? splitPeriod(lastEntry.period) : [firstStart];
-  // The one shared date -> x function, used for every main AND freelance
-  // point — a real, continuous calendar axis (gaps included) rather than
-  // main's previous fixed, evenly-spaced columns. Anchored so the last
-  // main point (EXEM) always lands exactly at ratio 1 (the right edge),
-  // matching where the old index-based layout put it.
-  const totalSpanYears = yearsBetween(firstStart, lastMainStart) || 1;
-  const dateToXRatio = (date: Date) => yearsBetween(firstStart, date) / totalSpanYears;
 
   const points: Point[] = MAIN_ORDER.map((company, i) => {
     const entry = mainData[i];
     const period = entry?.period ?? "";
-    const [start, end] = entry ? splitPeriod(entry.period) : [firstStart, firstStart];
+    const [, end] = entry ? splitPeriod(entry.period) : [firstStart, firstStart];
     const years = BASELINE_COMPANIES.has(company) ? 0 : yearsBetween(firstStart, end);
-    // Each main point's x uses its own start date — the same date basis
-    // the freelance interpolation already anchored to before this change,
-    // now used directly instead of just as an interpolation anchor.
-    const xRatio = dateToXRatio(start);
+    const xRatio = i / (MAIN_ORDER.length - 1);
     return {
       id: `m-${company}`,
       company,
@@ -282,22 +290,30 @@ function buildGraph(geo: Geometry, career: CareerEntry[], freelance: FreelanceEn
     return points[points.length - 1].y;
   }
 
-  // Freelance x uses the exact same dateToXRatio as main points — a
-  // freelance stint's own start date, on the same shared timeline. Never
-  // nudged apart or capped for layout reasons; only sorted (for the
-  // label-tier pass below). The dot always lands exactly where its real
-  // date places it, including landing close to — or even level with — a
-  // neighboring point when that's what actually happened.
+  const mainForInterp = points.map((p) => ({
+    xRatio: p.xRatio,
+    dateValue: (() => {
+      const [start] = splitPeriod(mainData[p.index]?.period ?? "");
+      return yearsBetween(firstStart, start);
+    })(),
+  }));
   const raw = freelance.map((f) => {
     const [start] = splitPeriod(f.period);
+    const dateValue = yearsBetween(firstStart, start);
     return {
       id: `f-${f.company}`,
       company: f.company,
       period: f.period,
       trackLabel: f.domain ?? "",
-      xRatio: dateToXRatio(start),
+      xRatio: interpolateXRatio(dateValue, mainForInterp),
+      dateValue,
     };
   });
+  // x is the real, date-interpolated position — never nudged apart or
+  // capped for layout reasons. Only sorted (for the label-tier pass
+  // below); the dot itself always lands exactly where its real date
+  // places it, including landing close to — or even level with — a
+  // neighboring point when that's what actually happened.
   const sorted = [...raw].sort((a, b) => a.xRatio - b.xRatio);
   // Label collision avoidance: each point's label gets the LOWEST tier
   // (from geo.freelanceTiers) whose actual rendered rectangle — real
@@ -369,79 +385,18 @@ function buildGraph(geo: Geometry, career: CareerEntry[], freelance: FreelanceEn
 
   // Label geometry, precomputed once and shared by the marker layer (for
   // interaction hit-areas' aria-labels) and the text layer (see the
-  // layered render below). Every main point starts from the exact same
-  // point->company gap (mainLabelGap) — no per-company exception. Real
-  // dates can still put two points' labels close enough to collide (e.g.
-  // Hyundai/Yuratech, only 9 months apart), so each point's actual
-  // rendered rectangle is checked against every already-placed label and
-  // only steps to the next shared tier (mainLabelGap + n*mainLabelTierStep)
-  // when a genuine overlap is found — the same real-rectangle approach
-  // already used for freelance labels below, generalized so it isn't tied
-  // to any specific company. Between two colliding points, the one that
-  // gets bumped is decided by a generic rule (intern roles defer to
-  // regular ones), not a company-name check.
-  const mainCompanyFontPx = 20 * geo.fontScale;
-  const MAIN_LABEL_AVG_CHAR_WIDTH = 0.56;
-  const mainShapes = points.map((p) => {
+  // layered render below) — every main point uses the identical
+  // point->company gap (mainLabelGap) unless its Y sits essentially on top
+  // of the previous point's (only the Hyundai/Yuratech baseline pair), in
+  // which case it drops an extra mainLabelExtraDrop so the two labels
+  // don't collide. Both stay below the line either way — this is the only
+  // "minimal offset" exception.
+  const mainLabels: MainLabel[] = points.map((p, i) => {
+    const prev = i > 0 ? points[i - 1] : null;
+    const extraDrop = prev && Math.abs(p.y - prev.y) < geo.tightYThreshold ? geo.mainLabelExtraDrop : 0;
     const companyLines = wrapToWidth(p.company, geo.companyMaxChars);
     const trackLines = p.trackLabel ? wrapToWidth(p.trackLabel, geo.trackMaxChars) : [];
-    const trackFontPxLocal = (p.isIntern ? 12 : 14) * geo.fontScale;
-    const companyMaxChars = Math.max(0, ...companyLines.map((l) => l.length));
-    const trackMaxChars = Math.max(0, ...trackLines.map((l) => l.length));
-    const halfWidth =
-      (Math.max(companyMaxChars * mainCompanyFontPx, trackMaxChars * trackFontPxLocal) *
-        MAIN_LABEL_AVG_CHAR_WIDTH) /
-        2 +
-      6 * geo.fontScale;
-    return { companyLines, trackLines, trackFontPxLocal, halfWidth };
-  });
-  type MainRect = { left: number; right: number; top: number; bottom: number };
-  const rectForMain = (i: number, offset: number): MainRect => {
-    const p = points[i];
-    const s = mainShapes[i];
-    const companyY = p.y + offset;
-    const trackY = companyY + (s.companyLines.length - 1) * 20 * geo.fontScale + (p.isIntern ? 16 : 20) * geo.fontScale;
-    const top = companyY - mainCompanyFontPx * 0.85;
-    const bottom =
-      s.trackLines.length > 0
-        ? trackY + (s.trackLines.length - 1) * 15 * geo.fontScale + s.trackFontPxLocal * 0.4
-        : companyY + (s.companyLines.length - 1) * 20 * geo.fontScale + mainCompanyFontPx * 0.4;
-    return { left: p.x - s.halfWidth, right: p.x + s.halfWidth, top, bottom };
-  };
-  const mainRectsOverlap = (a: MainRect, b: MainRect) =>
-    a.left < b.right && a.right > b.left && a.top < b.bottom && a.bottom > b.top;
-  // Non-intern points claim their base tier first; an intern role (only
-  // Hyundai today, but not hardcoded to it) is placed last and yields to
-  // whichever tier is actually free once real careers have already been
-  // placed. Ties otherwise keep chronological order.
-  const placementOrder = points
-    .map((_, i) => i)
-    .sort((a, b) => {
-      const pa = points[a].isIntern ? 1 : 0;
-      const pb = points[b].isIntern ? 1 : 0;
-      return pa !== pb ? pa - pb : a - b;
-    });
-  const MAX_MAIN_TIER_ATTEMPTS = 8;
-  const mainOffsets = new Array<number>(points.length);
-  const placedMainRects: MainRect[] = [];
-  for (const i of placementOrder) {
-    let chosen = geo.mainLabelGap;
-    for (let n = 0; n < MAX_MAIN_TIER_ATTEMPTS; n++) {
-      const candidate = geo.mainLabelGap + n * geo.mainLabelTierStep;
-      const rect = rectForMain(i, candidate);
-      if (!placedMainRects.some((r) => mainRectsOverlap(rect, r))) {
-        chosen = candidate;
-        break;
-      }
-      chosen = candidate;
-    }
-    mainOffsets[i] = chosen;
-    placedMainRects.push(rectForMain(i, chosen));
-  }
-
-  const mainLabels: MainLabel[] = points.map((p, i) => {
-    const { companyLines, trackLines } = mainShapes[i];
-    const companyY = p.y + mainOffsets[i];
+    const companyY = p.y + geo.mainLabelGap + extraDrop;
     const trackY =
       companyY + (companyLines.length - 1) * 20 * geo.fontScale + (p.isIntern ? 16 : 20) * geo.fontScale;
     return { id: p.id, x: p.x, isIntern: p.isIntern, companyLines, trackLines, companyY, trackY };
@@ -472,23 +427,6 @@ function buildGraph(geo: Geometry, career: CareerEntry[], freelance: FreelanceEn
     const hitBottom = Math.max(f.y, stemTopY) + 6 * geo.fontScale;
     return { id: f.id, x: f.x, y: f.y, stemTopY, hitTop, hitBottom, companyLines, trackLines, companyY, trackY };
   });
-
-  // The bottom margin has to clear whichever main label reaches furthest
-  // down — normally that's just the base mainLabelGap reach, but a
-  // collision-escalated point (see mainOffsets above) can sit well past
-  // that. Computed from each label's own real line count/offset instead
-  // of a fixed constant, so it can't fall out of sync with the actual
-  // collision outcome for whatever career data is in play.
-  const maxLabelBottom = Math.max(
-    plotBottom + geo.bottomMargin,
-    ...mainLabels.map((l) => {
-      const trackFontPxLocal = (l.isIntern ? 12 : 14) * geo.fontScale;
-      return l.trackLines.length > 0
-        ? l.trackY + (l.trackLines.length - 1) * 15 * geo.fontScale + trackFontPxLocal
-        : l.companyY + (l.companyLines.length - 1) * 20 * geo.fontScale + mainCompanyFontPx * 0.3;
-    })
-  );
-  const viewH = maxLabelBottom + 24 * geo.fontScale;
 
   return { plotLeft, plotRight, viewH, points, freelancePoints, mainLabels, freelanceLabels, linePath };
 }
@@ -536,35 +474,6 @@ export default function CareerGrowthGraph({
     const freelanceDotR = 3.5 * fs;
     const freelanceHitHalfW = 10 * fs;
 
-    // The rising line is knocked out (real gap, not a painted box) behind
-    // every main label's own bounding box, so it never visually passes
-    // through a company/role-domain text area — text z-order alone wasn't
-    // enough, since the line could still run through the whitespace next
-    // to/between glyphs even when painted behind the text itself. Applied
-    // to every label generically (not just the reported ReadyKorea/Flor
-    // Momento/Biginsight) since it's a no-op wherever the line wasn't
-    // passing through anyway. Point positions and the line's own path are
-    // untouched — this only changes what's visibly painted.
-    const MAIN_LABEL_AVG_CHAR_WIDTH = 0.56;
-    const maskId = `line-knockout-${geo.viewW}`;
-    const lineMaskRects = mainLabels.map((label) => {
-      const companyFontPxLocal = 20 * fs;
-      const trackFontPxLocal = (label.isIntern ? 12 : 14) * fs;
-      const companyMaxChars = Math.max(0, ...label.companyLines.map((l) => l.length));
-      const trackMaxChars = Math.max(0, ...label.trackLines.map((l) => l.length));
-      const halfWidth =
-        (Math.max(companyMaxChars * companyFontPxLocal, trackMaxChars * trackFontPxLocal) *
-          MAIN_LABEL_AVG_CHAR_WIDTH) /
-          2 +
-        6 * fs;
-      const top = label.companyY - companyFontPxLocal * 0.85;
-      const bottom =
-        label.trackLines.length > 0
-          ? label.trackY + (label.trackLines.length - 1) * 15 * fs + trackFontPxLocal * 0.4
-          : label.companyY + (label.companyLines.length - 1) * 20 * fs + companyFontPxLocal * 0.4;
-      return { id: label.id, x: label.x, top, bottom, halfWidth };
-    });
-
     return (
       <svg
         viewBox={`0 0 ${geo.viewW} ${viewH}`}
@@ -572,23 +481,6 @@ export default function CareerGrowthGraph({
         role="img"
         aria-label="Career growth graph: cumulative years of experience across roles, past to present"
       >
-        <defs>
-          <mask id={maskId} maskUnits="userSpaceOnUse" x={0} y={0} width={geo.viewW} height={viewH}>
-            <rect x={0} y={0} width={geo.viewW} height={viewH} fill="white" />
-            {lineMaskRects.map((r) => (
-              <rect
-                key={r.id}
-                x={r.x - r.halfWidth}
-                y={r.top}
-                width={r.halfWidth * 2}
-                height={r.bottom - r.top}
-                rx={4}
-                fill="black"
-              />
-            ))}
-          </mask>
-        </defs>
-
         {/* 6. Grid / axis */}
         {AXIS_TICKS.map((tick) => {
           const y = plotY(tick);
@@ -618,7 +510,7 @@ export default function CareerGrowthGraph({
         ))}
 
         {/* 4. Main career line */}
-        <polyline points={linePath} className={styles.growthLine} mask={`url(#${maskId})`} />
+        <polyline points={linePath} className={styles.growthLine} />
 
         {/* 3. Point markers — freelance first, main career last. A
             freelance date can fall genuinely days/weeks from a main role's
